@@ -100,7 +100,6 @@
       transition: width 420ms var(--ease-standard);
     }
 
-    /* Horizontales Wischen ohne sichtbare Scrollbar auf Smartphones */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -109,7 +108,6 @@
       scrollbar-width: none;
     }
 
-    /* Mitscrollende Tabellen-Spaltenköpfe */
     .table-sticky-wrap {
       overflow-x: clip;
     }
@@ -128,14 +126,12 @@
       border-top: 2px solid #E2E8F0;
     }
 
-    /* Smartphone Bottom-Sheet für Eingabe-Popover (< 640px) */
     @media (max-width: 639px) {
       #entryPopover {
         animation: sheetSlideUp 240ms var(--ease-decelerate) both;
       }
     }
 
-    /* Custom Range Slider */
     input[type="range"].brand-slider {
       -webkit-appearance: none;
       appearance: none;
@@ -233,7 +229,6 @@
   <!-- ======================================================================= -->
   <header id="mainHeader" class="sticky top-0 z-30 w-full max-w-full overflow-x-clip bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
     <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-3 relative">
-      <!-- Brand / Titel -->
       <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
         <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#00325b] flex items-center justify-center text-white shadow-sm shrink-0">
           <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#009ee3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -257,9 +252,7 @@
         </div>
       </div>
 
-      <!-- Rechts: Kompakter Gesprächs-Toggle & Menü-Button -->
       <div class="no-print flex items-center gap-1.5 sm:gap-2 shrink-0">
-        <!-- Smartphone: Ein-Klick-Toggle für 1. / 2. Gespräch (< md) -->
         <button id="mobileHeaderPhaseToggle" type="button" aria-label="Zwischen 1. und 2. Gespräch wechseln"
                 class="md:hidden btn-tactile inline-flex items-center gap-1 px-2 py-1.5 rounded-xl bg-[#F4F8FB] active:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-bold text-[#00325b] shrink-0 cursor-pointer">
           <span id="mobileHeaderPhaseDot" class="w-1.5 h-1.5 rounded-full bg-[#009ee3] shrink-0"></span>
@@ -267,7 +260,6 @@
           <span id="mobileHeaderCheckBadge" class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#d3d800] text-[#00325b]">0</span>
         </button>
 
-        <!-- Desktop: Kompakter Segmented-Toggle für 1. vs. 2. Gespräch (>= md) -->
         <div id="headerPhaseToggleGroup" role="group" aria-label="Gesprächsansicht umschalten"
              class="hidden md:inline-flex items-center bg-[#F4F8FB] p-0.5 rounded-xl border border-slate-200/90 shrink-0">
           <button type="button" data-phase="first"
@@ -281,7 +273,6 @@
           </button>
         </div>
 
-        <!-- Schlanker Menü-Trigger -->
         <button id="headerMenuBtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="headerMenuPanel"
                 class="btn-tactile inline-flex items-center gap-1.5 bg-white hover:bg-[#F4F8FB] active:bg-[#E8F1F8] text-[#00325b] font-bold text-xs px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-slate-200/95 shadow-2xs shrink-0 cursor-pointer">
           <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -299,16 +290,14 @@
   </header>
 
   <!-- ======================================================================= -->
-  <!-- ZENTRALES BERATUNGS-MENÜ (DROPDOWN AUF DESKTOP / BOTTOM SHEET MOBIL)    -->
+  <!-- ZENTRALES BERATUNGS-MENÜ                                                -->
   <!-- ======================================================================= -->
   <div id="headerMenuBackdrop" class="no-print fixed inset-0 z-40 hidden bg-[#00325b]/35 md:bg-[#00325b]/10 backdrop-blur-[1px]"></div>
 
   <div id="headerMenuPanel" role="dialog" aria-modal="true" aria-label="Menü"
        class="no-print fixed z-50 hidden inset-x-0 bottom-0 md:inset-x-auto md:bottom-auto md:right-6 md:top-16 w-full md:w-[390px] max-h-[88dvh] overflow-y-auto bg-white rounded-t-3xl md:rounded-2xl shadow-2xl border-t md:border border-slate-200/90 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:p-4 space-y-4 animate-panel">
-    <!-- Mobile Drag Handle -->
     <div class="md:hidden w-10 h-1 rounded-full bg-slate-300 mx-auto -mt-1"></div>
 
-    <!-- Menü-Kopf -->
     <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
       <div>
         <span class="text-[10px] font-bold uppercase tracking-wider text-[#009ee3]">Steuerung &amp; Werkzeuge</span>
@@ -317,7 +306,6 @@
       <button id="closeHeaderMenuBtn" type="button" aria-label="Menü schließen" class="w-7 h-7 rounded-lg bg-[#F4F8FB] hover:bg-slate-200/70 flex items-center justify-center text-slate-500 text-xs cursor-pointer">✕</button>
     </div>
 
-    <!-- 1. Beratungs-Phase (1. Gespräch vs. 2. Gespräch) -->
     <div id="advisorPhaseSwitcher" class="space-y-1.5">
       <span class="text-[11px] font-bold text-slate-500 block">Gesprächs-Phase wählen</span>
       <div class="grid grid-cols-2 gap-1.5 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90" role="tablist" aria-label="Beratungsgespräch wählen">
@@ -331,7 +319,6 @@
       </div>
     </div>
 
-    <!-- 2. Mandant & Kunden-Übergabe -->
     <div id="menuAdvisorClientGroup" class="space-y-1.5">
       <span class="text-[11px] font-bold text-slate-500 block">Mandant &amp; Vorbereitung</span>
       <div class="space-y-1.5">
@@ -371,7 +358,6 @@
       </div>
     </div>
 
-    <!-- 3. Auswertung & Export -->
     <div class="space-y-1.5">
       <span class="text-[11px] font-bold text-slate-500 block">Auswertung &amp; Export</span>
 
@@ -420,7 +406,6 @@
       </div>
     </div>
 
-    <!-- 4. Muster-Szenario / Vorlage -->
     <div id="advisorScenarioWrapper" class="space-y-1.5 pt-2 border-t border-slate-100">
       <label for="scenarioSelect" class="text-[11px] font-bold text-slate-500 block">Muster-Szenario / Vorlage laden</label>
       <select id="scenarioSelect" class="btn-tactile w-full bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] text-xs font-semibold rounded-xl px-3 py-2.5 border border-slate-200/90 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3] cursor-pointer">
@@ -435,7 +420,7 @@
   </div>
 
   <!-- ======================================================================= -->
-  <!-- MITSCROLLENDE STICKY-HERO-LEISTE (ERSCHEINT BEIM RUNTERSCROLLEN)        -->
+  <!-- MITSCROLLENDE STICKY-HERO-LEISTE (INKL. ROT BEI NEGATIVEM CASHFLOW)     -->
   <!-- ======================================================================= -->
   <div id="stickyHeroBar" style="top: 64px;" class="no-print fixed left-0 right-0 z-20 hidden bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-md animate-panel">
     <div class="max-w-7xl mx-auto px-3.5 sm:px-6 py-1.5 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-3 tabular-nums">
@@ -450,8 +435,8 @@
           <strong id="stickyExpenses" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0 €</strong>
         </div>
         <div class="h-5 sm:h-6 w-px bg-slate-200 shrink-0"></div>
-        <div class="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/30 shrink-0">
-          <span class="text-[9.5px] sm:text-[10px] font-semibold text-[#00325b] block">Cashflow</span>
+        <div id="stickyCashflowBox" class="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/30 shrink-0 transition-colors">
+          <span id="stickyCashflowLabel" class="text-[9.5px] sm:text-[10px] font-semibold text-[#00325b] block">Cashflow</span>
           <strong id="stickyCashflow" class="text-xs sm:text-sm font-extrabold text-[#1f8579]">0 €</strong>
         </div>
         <div class="hidden md:block h-6 w-px bg-slate-200 shrink-0"></div>
@@ -477,7 +462,7 @@
   <!-- ======================================================================= -->
   <main class="max-w-7xl mx-auto px-3.5 sm:px-6 pt-4 sm:pt-6 pb-24 md:pb-6 space-y-4 sm:space-y-6">
 
-    <!-- KUNDEN-MITNAHME-BANNER (ERSCHEINT BEI GEÖFFNETEM KUNDEN-LINK) -->
+    <!-- KUNDEN-MITNAHME-BANNER -->
     <section id="clientHomeBanner" class="no-print hidden animate-panel bg-[#00325b] text-white rounded-2xl p-4 sm:p-5 shadow-md border border-[#009ee3]/40 flex flex-wrap items-center justify-between gap-4">
       <div class="space-y-1 max-w-2xl">
         <div class="flex items-center gap-2 flex-wrap">
@@ -508,14 +493,12 @@
       </div>
     </section>
 
-    <!-- SENTINEL FÜR STICKY-HERO-LEISTE -->
     <div id="heroSentinel" class="h-0 w-full pointer-events-none !m-0" aria-hidden="true"></div>
 
     <!-- ===================================================================== -->
     <!-- 1. TOP HERO CARDS (2x2 GRID AUF SMARTPHONE, 4 SPALTEN AUF DESKTOP)     -->
     <!-- ===================================================================== -->
     <section id="heroCardsSection" class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 tabular-nums">
-      <!-- Card 1: Einnahmen -->
       <div class="animate-enter stagger-1 card-hover bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between gap-1.5">
           <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">Einnahmen / Mt.</span>
@@ -535,7 +518,6 @@
         </div>
       </div>
 
-      <!-- Card 2: Gesamtausgaben -->
       <div class="animate-enter stagger-2 card-hover bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between gap-1.5">
           <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">Ausgaben / Mt.</span>
@@ -556,7 +538,6 @@
         </div>
       </div>
 
-      <!-- Card 3: Freier Cashflow -->
       <div class="animate-enter stagger-3 card-hover bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between gap-1.5">
           <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">Freier Cashflow</span>
@@ -574,7 +555,6 @@
         </div>
       </div>
 
-      <!-- Card 4: Gesamt-Sparpotenzial -->
       <div class="animate-enter stagger-4 card-hover relative overflow-hidden bg-[#00325b] text-white rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
         <div class="pointer-events-none absolute -right-8 -top-8 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#009ee3]/15"></div>
         <div class="flex items-start justify-between gap-1.5 relative">
@@ -623,7 +603,6 @@
         </div>
       </div>
 
-      <!-- 4 Vorher/Nachher Ergebnis-Kacheln (2x2 auf Smartphone) -->
       <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 tabular-nums">
         <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90">
           <span class="text-[10.5px] sm:text-[11px] font-medium text-slate-500 block">Vorher / Mt.</span>
@@ -662,7 +641,6 @@
     <!-- 2. ANALYSE-DASHBOARD: 50/30/20 CHECK & MITTELVERWENDUNG               -->
     <!-- ===================================================================== -->
     <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
-      <!-- Links: 50/30/20 Haushalts-Benchmark & Beratungs-Insights -->
       <div class="lg:col-span-7 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between space-y-4 sm:space-y-5">
         <div>
           <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
@@ -676,7 +654,6 @@
           </div>
 
           <div class="space-y-4 tabular-nums">
-            <!-- Balken 1: Fixkosten -->
             <div>
               <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
                 <span class="font-bold text-[#00325b]">1. Fixkosten &amp; Absicherung (Ziel ≤ 50 %)</span>
@@ -690,7 +667,6 @@
               </div>
             </div>
 
-            <!-- Balken 2: Variable Ausgaben -->
             <div>
               <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
                 <span class="font-bold text-[#00325b]">2. Costs of Life, Unterhaltung &amp; Luxus (Ziel ≤ 30 %)</span>
@@ -704,7 +680,6 @@
               </div>
             </div>
 
-            <!-- Balken 3: Sparen, Vorsorge & Cashflow -->
             <div>
               <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
                 <span class="font-bold text-[#00325b]">3. Vorsorge, Sparen &amp; freier Cashflow (Ziel ≥ 20 %)</span>
@@ -720,13 +695,12 @@
           </div>
         </div>
 
-        <!-- Dynamische Beratungs-Insights -->
         <div id="insightsBox" class="p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90 space-y-2 text-xs">
           <!-- Wird dynamisch per JS befüllt -->
         </div>
       </div>
 
-      <!-- Rechts: Interaktives D3 Donut-Diagramm -->
+      <!-- Rechts: Interaktives D3 Donut-Diagramm (mit Hover-Segment-Vergrößerung & Zentrumsanzeige) -->
       <div class="lg:col-span-5 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
         <div class="flex items-center justify-between gap-2 mb-2">
           <div>
@@ -752,7 +726,6 @@
     <!-- 3. HAUSHALTS- & VERTRAGSLISTE (BEARBEITUNG & NEU VIA POPOVER)         -->
     <!-- ===================================================================== -->
     <section class="bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-6 shadow-sm space-y-3.5 sm:space-y-4">
-      <!-- Header & Primärer Popover-Trigger -->
       <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
         <div>
           <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Schritt 2 • Einnahmen, Ausgaben &amp; Verträge</span>
@@ -771,9 +744,7 @@
         </button>
       </div>
 
-      <!-- Filter-Leiste: Art-Pills (horizontal wischbar auf Smartphone), Suche & Sortierung -->
       <div class="no-print flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 sm:gap-3">
-        <!-- Typ-Filter -->
         <div id="typeFilterBar" class="flex items-center gap-1 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90 overflow-x-auto no-scrollbar">
           <button type="button" data-filter="all" class="filter-pill active btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#00325b] text-white shadow-2xs cursor-pointer">
             Alle (<span id="countAll">0</span>)
@@ -795,7 +766,6 @@
           </button>
         </div>
 
-        <!-- Suche & Sortierung -->
         <div class="flex items-center gap-2 w-full lg:w-auto">
           <div class="relative flex-1 sm:w-56">
             <svg class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -813,13 +783,11 @@
         </div>
       </div>
 
-      <!-- Aktiver Kategorie-Filter Hinweis -->
       <div id="activeCategoryBanner" class="hidden px-3.5 py-2 rounded-xl bg-[#009ee3]/10 border border-[#009ee3]/30 flex items-center justify-between text-xs">
         <span>Gefiltert nach Kategorie: <strong id="activeCategoryLabel" class="text-[#00325b]"></strong></span>
         <button id="clearCategoryBannerBtn" type="button" class="font-bold text-[#009ee3] hover:underline cursor-pointer">Alle anzeigen</button>
       </div>
 
-      <!-- Einheitliche Tabelle für 1. & 2. Gespräch (2 Spalten auf Smartphone, volle Vergleichsspalte im 2. Gespräch auf Desktop) -->
       <div class="table-sticky-wrap rounded-xl border border-slate-200/80">
         <table class="sticky-table w-full text-left border-separate border-spacing-0">
           <thead>
@@ -872,7 +840,6 @@
         </table>
       </div>
 
-      <!-- Empty State -->
       <div id="emptyTableState" class="hidden py-10 text-center space-y-3">
         <p class="text-sm font-semibold text-slate-500">Keine Positionen für die aktuelle Auswahl gefunden.</p>
         <button id="emptyAddBtn" type="button" class="btn-tactile inline-flex items-center gap-1.5 bg-[#00325b] text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer">
@@ -886,7 +853,6 @@
     <!-- ===================================================================== -->
     <section class="bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md">
       <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-stretch">
-        <!-- Links: Überschrift, Regler-Karten & Renditeprofil -->
         <div class="lg:col-span-5 flex flex-col justify-between space-y-4 sm:space-y-5 tabular-nums">
           <div>
             <span class="inline-block text-[10.5px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#009ee3]/20 text-[#009ee3] border border-[#009ee3]/30">
@@ -900,7 +866,6 @@
             </p>
           </div>
 
-          <!-- Sparrate Slider-Karte -->
           <div class="p-4 rounded-xl bg-white/[0.06] border border-white/12 space-y-2.5">
             <div class="flex items-center justify-between text-xs">
               <span class="text-white font-semibold">Monatliche Spar- &amp; Investitionsrate</span>
@@ -916,7 +881,6 @@
             </div>
           </div>
 
-          <!-- Anlagehorizont Slider-Karte -->
           <div class="p-4 rounded-xl bg-white/[0.06] border border-white/12 space-y-2.5">
             <div class="flex items-center justify-between text-xs">
               <span class="text-white font-semibold">Anlagehorizont</span>
@@ -930,7 +894,6 @@
             </div>
           </div>
 
-          <!-- Rendite-Profil -->
           <div>
             <span class="block text-xs text-slate-200 font-semibold mb-2">Erwartete Zielrendite p.a. (Investment / Altersvorsorge)</span>
             <div id="returnRateButtons" class="grid grid-cols-3 gap-2.5">
@@ -950,7 +913,6 @@
           </div>
         </div>
 
-        <!-- Rechts: Gerahmtes Chart-Panel mit 3 Endkapital-KPIs & D3 Balkendiagramm -->
         <div class="lg:col-span-7 rounded-2xl bg-white/[0.03] border border-white/10 p-3.5 sm:p-5 flex flex-col justify-between space-y-4">
           <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 tabular-nums">
             <div class="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/10">
@@ -992,7 +954,7 @@
   </main>
 
   <!-- ======================================================================= -->
-  <!-- SMARTPHONE BOTTOM ACTION BAR (3 ELEMENTE: + POSITION, TEILEN, REPORT)   -->
+  <!-- SMARTPHONE BOTTOM ACTION BAR                                            -->
   <!-- ======================================================================= -->
   <nav id="mobileBottomBar" aria-label="Schnellzugriff" class="no-print md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200/90 shadow-[0_-4px_16px_rgba(0,50,91,0.06)] px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
     <div class="max-w-lg mx-auto grid grid-cols-4 gap-2 items-center">
@@ -1032,12 +994,10 @@
     <div id="entryPopover" role="dialog" aria-modal="true" aria-labelledby="popoverTitle"
          class="relative hidden w-full sm:max-w-md max-h-[92dvh] sm:max-h-[calc(100dvh-2rem)] overflow-y-auto bg-white rounded-t-3xl sm:rounded-2xl shadow-2xl border-t sm:border border-slate-200/90 pb-[max(1rem,env(safe-area-inset-bottom))] sm:pb-0 animate-panel">
 
-      <!-- Mobile Drag Handle (< sm) -->
       <div class="sm:hidden pt-2.5 pb-1 bg-[#F4F8FB] rounded-t-3xl flex justify-center">
         <div class="w-10 h-1 rounded-full bg-slate-300"></div>
       </div>
 
-      <!-- Popover Header -->
       <div class="px-5 py-3 sm:py-3.5 bg-[#F4F8FB] sm:rounded-t-2xl border-b border-slate-200/80 flex items-center justify-between sticky top-0 z-10">
         <div class="flex items-center gap-2">
           <span id="popoverBadge" class="w-2.5 h-2.5 rounded-full bg-[#00325b]"></span>
@@ -1049,9 +1009,7 @@
         </button>
       </div>
 
-      <!-- Popover Formular -->
       <form id="popoverForm" class="p-5 space-y-4">
-        <!-- Segmented Control: Art der Position -->
         <div>
           <label class="block text-xs font-semibold text-slate-600 mb-1.5">Art der Position</label>
           <div id="popoverTypeSelector" class="grid grid-cols-4 gap-1 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200">
@@ -1070,7 +1028,6 @@
           </div>
         </div>
 
-        <!-- Bezeichnung mit durchsuchbarer Vorschlagsliste -->
         <div class="relative" id="presetSearchWrapper">
           <div class="flex items-center justify-between mb-1">
             <label for="popTitleInput" class="block text-xs font-semibold text-slate-600">Bezeichnung / Vertrag</label>
@@ -1080,7 +1037,7 @@
             <svg class="w-3.5 h-3.5 text-slate-400 absolute left-3 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
               <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
             </svg>
-            <input id="popTitleInput" type="text" autocomplete="off" required placeholder="Suchen (z. B. BU, Nebengewerbe, Strom, ETF)..."
+            <input id="popTitleInput" type="text" autocomplete="off" required placeholder="Suchen (z. B. BU, PKV, bAV, Strom, ETF)..."
                    class="w-full bg-white border border-slate-300 rounded-xl pl-8 pr-8 py-2 text-sm font-medium text-[#00325b] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
             <button id="togglePresetListBtn" type="button" tabindex="-1" aria-label="Vorschlagsliste öffnen"
                     class="absolute right-2.5 text-slate-400 hover:text-[#00325b] cursor-pointer">
@@ -1090,27 +1047,24 @@
             </button>
           </div>
 
-          <!-- Durchsuchbares Dropdown mit Vorlagen -->
           <div id="presetDropdown" class="hidden absolute z-50 left-0 right-0 mt-1 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1">
             <!-- Wird dynamisch per JS befüllt -->
           </div>
         </div>
 
-        <!-- Überkategorie -->
         <div>
           <label for="popCategorySelect" class="block text-xs font-semibold text-slate-600 mb-1">Überkategorie</label>
           <select id="popCategorySelect"
                   class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-sm font-medium text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3] cursor-pointer">
-            <!-- Optionen werden dynamisch passend zur Art gesetzt -->
           </select>
         </div>
 
-        <!-- Bidirektionaler Brutto ↔ Netto Rechner (erscheint bei Gehalt & Einkommen) -->
+        <!-- Bidirektionaler Einkommensrechner (Angestellt | Beamte | Selbstständig, Stand 11/2026) -->
         <div id="salaryCalcPanel" class="hidden rounded-2xl bg-[#F4F8FB] border border-[#009ee3]/35 p-3.5 space-y-3">
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <div class="flex items-center gap-1.5">
               <span class="w-2 h-2 rounded-full bg-[#009ee3]"></span>
-              <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#00325b]">Brutto ↔ Netto Rechner (11/2026)</span>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#00325b]">Einkommensrechner (11/2026)</span>
             </div>
             <div id="salDirectionToggle" class="inline-flex bg-white p-0.5 rounded-lg border border-slate-200 text-[10.5px] font-bold">
               <button type="button" data-sal-dir="net2gross" class="sal-dir-btn active px-2 py-0.5 rounded-md bg-[#00325b] text-white cursor-pointer">Netto → Brutto</button>
@@ -1118,10 +1072,16 @@
             </div>
           </div>
 
-          <!-- Brutto & Auszahlungs-Netto Felder -->
+          <!-- Berufsstatus: Angestellt | Beamte | Selbstständig -->
+          <div id="salStatusToggle" role="group" aria-label="Berufsstatus wählen" class="grid grid-cols-3 gap-1 bg-white p-1 rounded-xl border border-slate-200 text-[11px] font-bold">
+            <button type="button" data-sal-status="employee" class="sal-status-btn active py-1 px-2 rounded-lg bg-[#00325b] text-white shadow-2xs cursor-pointer">Angestellt</button>
+            <button type="button" data-sal-status="civil" class="sal-status-btn py-1 px-2 rounded-lg text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">Beamte</button>
+            <button type="button" data-sal-status="self" class="sal-status-btn py-1 px-2 rounded-lg text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">Selbstständig</button>
+          </div>
+
           <div class="grid grid-cols-2 gap-2.5 tabular-nums">
             <div>
-              <label for="popSalNetInput" class="block text-[11px] font-semibold text-slate-600 mb-1">Auszahlungs-Netto / Mt.</label>
+              <label id="popSalNetLabel" for="popSalNetInput" class="block text-[11px] font-semibold text-slate-600 mb-1">Auszahlungs-Netto / Mt.</label>
               <div class="relative flex items-center">
                 <input id="popSalNetInput" type="number" step="0.01" min="0" placeholder="2550,00"
                        class="w-full bg-white border border-[#009ee3]/60 rounded-xl pl-2.5 pr-6 py-1.5 text-xs sm:text-sm font-extrabold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30" />
@@ -1129,7 +1089,7 @@
               </div>
             </div>
             <div>
-              <label for="popSalGrossInput" class="block text-[11px] font-semibold text-slate-600 mb-1">Bruttogehalt / Mt.</label>
+              <label id="popSalGrossLabel" for="popSalGrossInput" class="block text-[11px] font-semibold text-slate-600 mb-1">Bruttogehalt / Mt.</label>
               <div class="relative flex items-center">
                 <input id="popSalGrossInput" type="number" step="0.01" min="0" placeholder="3920,00"
                        class="w-full bg-white border border-slate-300 rounded-xl pl-2.5 pr-6 py-1.5 text-xs sm:text-sm font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30" />
@@ -1138,7 +1098,6 @@
             </div>
           </div>
 
-          <!-- Steuerklasse, Bundesland, Kirche, Kinder -->
           <div class="grid grid-cols-2 gap-2.5 text-xs">
             <div>
               <label for="popSalTaxClass" class="block text-[11px] font-semibold text-slate-600 mb-1">Steuerklasse</label>
@@ -1154,7 +1113,6 @@
             <div>
               <label for="popSalState" class="block text-[11px] font-semibold text-slate-600 mb-1">Bundesland</label>
               <select id="popSalState" class="w-full bg-white border border-slate-300 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[#00325b] cursor-pointer">
-                <!-- Dynamisch aus GERMAN_STATES -->
               </select>
             </div>
             <div>
@@ -1164,7 +1122,7 @@
                 <option value="0">Nein (ausgetreten)</option>
               </select>
             </div>
-            <div>
+            <div id="salChildrenWrap">
               <label for="popSalChildren" class="block text-[11px] font-semibold text-slate-600 mb-1">Kinder (Pflegevers.)</label>
               <select id="popSalChildren" class="w-full bg-white border border-slate-300 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[#00325b] cursor-pointer">
                 <option value="0">Kinderlos (ab 23 J.)</option>
@@ -1176,7 +1134,7 @@
             </div>
           </div>
 
-          <!-- Durchsuchbare Krankenkassen-Auswahl (11/2026) -->
+          <!-- Durchsuchbare Krankenkassen-Auswahl (für Angestellte) -->
           <div class="relative" id="popGkvSearchWrapper">
             <div class="flex items-center justify-between mb-1">
               <label for="popGkvSearchInput" class="block text-[11px] font-semibold text-slate-600">Gesetzliche Krankenkasse (Stand 11/2026)</label>
@@ -1198,15 +1156,20 @@
             <div id="popGkvDropdown" class="hidden absolute z-50 left-0 right-0 mt-1 max-h-52 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1"></div>
           </div>
 
-          <!-- Aufschlüsselung der optimierbaren Gehaltsbestandteile -->
+          <div id="salStatusHintBox" class="hidden px-3 py-2 rounded-xl bg-[#009ee3]/10 border border-[#009ee3]/25 text-[11px] text-[#00325b] leading-relaxed"></div>
+
           <div class="p-2.5 rounded-xl bg-white border border-slate-200/90 space-y-1 text-[11px] tabular-nums">
             <div class="flex items-center justify-between text-slate-600">
               <span>Basis-Nettoeinkommen (Einnahme):</span>
               <strong id="salBreakBasisNet" class="text-[#00325b]">0,00 €</strong>
             </div>
-            <div class="flex items-center justify-between text-slate-500">
+            <div id="salBreakGkvRow" class="flex items-center justify-between text-slate-500">
               <span id="salBreakGkvLabel">− GKV-Zusatz (★ Check):</span>
               <span id="salBreakGkvAmt" class="font-semibold text-[#009ee3]">0,00 €</span>
+            </div>
+            <div id="salBreakTaxEstRow" class="hidden flex items-center justify-between text-slate-500">
+              <span>− Einkommensteuer &amp; Soli (2026):</span>
+              <span id="salBreakTaxEstAmt" class="font-semibold text-slate-600">0,00 €</span>
             </div>
             <div class="flex items-center justify-between text-slate-500">
               <span id="salBreakChurchLabel">− Kirchensteuer (★ Check):</span>
@@ -1219,7 +1182,112 @@
           </div>
         </div>
 
-        <!-- Standard Betrag & Zahlungsrhythmus (für alle Nicht-Gehalts-Positionen) -->
+        <!-- Betriebliche Altersvorsorge (bAV) Brutto → Nettoaufwand Rechner (2026) -->
+        <div id="bavCalcPanel" class="hidden rounded-2xl bg-[#F4F8FB] border border-[#269b8d]/40 p-3.5 space-y-3">
+          <div class="flex items-center justify-between gap-2 flex-wrap">
+            <div class="flex items-center gap-1.5">
+              <span class="w-2 h-2 rounded-full bg-[#269b8d]"></span>
+              <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#00325b]">bAV Brutto → Nettoaufwand (2026)</span>
+            </div>
+            <div id="bavModeToggle" class="inline-flex bg-white p-0.5 rounded-lg border border-slate-200 text-[10px] font-bold">
+              <button type="button" data-bav-mode="total_gross" class="bav-mode-btn active px-2 py-0.5 rounded-md bg-[#00325b] text-white cursor-pointer">Gesamt-Brutto</button>
+              <button type="button" data-bav-mode="own_gross" class="bav-mode-btn px-2 py-0.5 rounded-md text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">Eigene Umwandlung</button>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 tabular-nums">
+            <div>
+              <label id="popBavGrossLabel" for="popBavGrossInput" class="block text-[11px] font-semibold text-slate-600 mb-1">Gesamt-Bruttobeitrag / Mt.</label>
+              <div class="relative flex items-center">
+                <input id="popBavGrossInput" type="number" step="0.01" min="0" placeholder="200,00"
+                       class="w-full bg-white border border-[#269b8d]/60 rounded-xl pl-2.5 pr-6 py-1.5 text-xs sm:text-sm font-extrabold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#269b8d]/30" />
+                <span class="absolute right-2.5 text-[11px] font-semibold text-slate-400 pointer-events-none">€</span>
+              </div>
+            </div>
+            <div>
+              <label for="popBavAgPctInput" class="block text-[11px] font-semibold text-slate-600 mb-1">AG-Zuschuss (%)</label>
+              <div class="relative flex items-center">
+                <input id="popBavAgPctInput" type="number" step="1" min="0" max="500" value="15"
+                       class="w-full bg-white border border-slate-300 rounded-xl pl-2.5 pr-6 py-1.5 text-xs sm:text-sm font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#269b8d]/30" />
+                <span class="absolute right-2.5 text-[11px] font-semibold text-slate-400 pointer-events-none">%</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-xl bg-white border border-slate-200/90 space-y-1 text-[11px] tabular-nums">
+            <div class="flex items-center justify-between text-slate-600">
+              <span>Gesamt-Sparbeitrag im Vertrag:</span>
+              <strong id="bavOutTotalGross" class="text-[#00325b]">0,00 €</strong>
+            </div>
+            <div class="flex items-center justify-between text-slate-500">
+              <span id="bavOutAgLabel">− Arbeitgeber-Zuschuss (15 %):</span>
+              <span id="bavOutAgEur" class="font-semibold text-[#1f8579]">-0,00 €</span>
+            </div>
+            <div class="flex items-center justify-between text-slate-500">
+              <span>= Eigene Brutto-Entgeltumwandlung:</span>
+              <span id="bavOutOwnGross" class="font-semibold text-slate-700">0,00 €</span>
+            </div>
+            <div class="flex items-center justify-between text-slate-500">
+              <span>− Steuer- &amp; SV-Ersparnis (§ 3 Nr. 63):</span>
+              <span id="bavOutTaxSvEur" class="font-semibold text-[#009ee3]">-0,00 €</span>
+            </div>
+            <div class="pt-1 border-t border-slate-100 flex items-center justify-between font-bold text-[#00325b]">
+              <span>= Echter Nettoaufwand (in Liste):</span>
+              <strong id="bavOutNetCost" class="text-sm font-extrabold text-[#1f8579]">0,00 € / Mt.</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Private Krankenversicherung (PKV) Zuschuss- & Beihilfe-Rechner (2026) -->
+        <div id="pkvCalcPanel" class="hidden rounded-2xl bg-[#F4F8FB] border border-[#009ee3]/35 p-3.5 space-y-3">
+          <div class="flex items-center gap-1.5">
+            <span class="w-2 h-2 rounded-full bg-[#009ee3]"></span>
+            <span class="text-[11px] font-extrabold uppercase tracking-wider text-[#00325b]">PKV Zuschuss &amp; Beihilfe (2026)</span>
+          </div>
+
+          <div id="pkvModeToggle" role="group" aria-label="PKV Zuschussart wählen" class="grid grid-cols-3 gap-1 bg-white p-1 rounded-xl border border-slate-200 text-[10.5px] font-bold">
+            <button type="button" data-pkv-mode="employee_ag" class="pkv-mode-btn active py-1 px-1.5 rounded-lg bg-[#00325b] text-white shadow-2xs cursor-pointer">AG-Zuschuss</button>
+            <button type="button" data-pkv-mode="civil_beihilfe" class="pkv-mode-btn py-1 px-1.5 rounded-lg text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">Beamte / Beihilfe</button>
+            <button type="button" data-pkv-mode="full_self" class="pkv-mode-btn py-1 px-1.5 rounded-lg text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">Ohne Zuschuss</button>
+          </div>
+
+          <div class="grid grid-cols-2 gap-2.5 tabular-nums">
+            <div id="pkvGrossWrap" class="col-span-2">
+              <label id="popPkvGrossLabel" for="popPkvGrossInput" class="block text-[11px] font-semibold text-slate-600 mb-1">PKV-Gesamtbeitrag (KV + PV) / Mt.</label>
+              <div class="relative flex items-center">
+                <input id="popPkvGrossInput" type="number" step="0.01" min="0" placeholder="680,00"
+                       class="w-full bg-white border border-[#009ee3]/60 rounded-xl pl-2.5 pr-6 py-1.5 text-xs sm:text-sm font-extrabold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30" />
+                <span class="absolute right-2.5 text-[11px] font-semibold text-slate-400 pointer-events-none">€</span>
+              </div>
+            </div>
+            <div id="pkvBeihilfePctWrap" class="hidden">
+              <label for="popPkvBeihilfePct" class="block text-[11px] font-semibold text-slate-600 mb-1">Beihilfe-Abzug (%)</label>
+              <select id="popPkvBeihilfePct" class="w-full bg-white border border-slate-300 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[#00325b] cursor-pointer">
+                <option value="0">0 % (Restkostentarif eingegeben)</option>
+                <option value="50">50 % (Beihilfe / pauschale B.)</option>
+                <option value="70">70 % (Beihilfe ab 2 Kindern / Pension)</option>
+                <option value="80">80 % (Beihilfe Kinder)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="p-2.5 rounded-xl bg-white border border-slate-200/90 space-y-1 text-[11px] tabular-nums">
+            <div class="flex items-center justify-between text-slate-600">
+              <span>Tarifbeitrag / Mt.:</span>
+              <strong id="pkvOutGross" class="text-[#00325b]">0,00 €</strong>
+            </div>
+            <div class="flex items-center justify-between text-slate-500">
+              <span id="pkvOutSubsidyLabel">− AG-Zuschuss (50 %, max. 613,22 €):</span>
+              <span id="pkvOutSubsidyEur" class="font-semibold text-[#1f8579]">-0,00 €</span>
+            </div>
+            <div class="pt-1 border-t border-slate-100 flex items-center justify-between font-bold text-[#00325b]">
+              <span>= Dein Eigenanteil (in Liste):</span>
+              <strong id="pkvOutNet" class="text-sm font-extrabold text-[#00325b]">0,00 € / Mt.</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- Standard Betrag & Zahlungsrhythmus -->
         <div id="standardAmountRow" class="space-y-3">
           <div class="grid grid-cols-2 gap-3 tabular-nums">
             <div>
@@ -1255,14 +1323,12 @@
             <span>Für Konditions-Check / Optimierung vormerken (<span class="font-bold text-[#00325b]">★</span>)</span>
           </label>
 
-          <!-- Kontext-Steuerung für Check-Positionen (besonders praktisch auf Smartphones beim Antippen einer Zeile) -->
           <div id="popCheckSettingsBox" class="hidden rounded-2xl bg-[#F4F8FB] border border-[#009ee3]/35 p-3.5 space-y-2.5">
             <div class="flex items-center justify-between gap-2">
               <span class="text-[10.5px] font-extrabold uppercase tracking-wider text-[#009ee3]">Konditions-Check (Vorher / Nachher)</span>
               <span id="popCheckSavingsBadge" class="text-[11px] font-extrabold text-[#1f8579] tabular-nums">Ersparnis: 0,00 € / Mt.</span>
             </div>
 
-            <!-- Variante A: Ziel-Krankenkasse suchen (11/2026) -->
             <div id="popCheckGkvWrap" class="hidden relative">
               <label for="popCheckGkvInput" class="block text-[11px] font-semibold text-slate-600 mb-1">Ziel-Krankenkasse auswählen (Stand 11/2026)</label>
               <div class="relative flex items-center">
@@ -1285,7 +1351,6 @@
               </div>
             </div>
 
-            <!-- Variante B: Kirchenaustritt Ja / Nein -->
             <div id="popCheckChurchWrap" class="hidden flex items-center justify-between gap-3">
               <div>
                 <span class="text-xs font-bold text-[#00325b] block">Kirchenaustritt simulieren</span>
@@ -1301,7 +1366,6 @@
               </div>
             </div>
 
-            <!-- Variante C: Individueller Nachher-Monatswert -->
             <div id="popCheckCustomWrap" class="grid grid-cols-2 gap-2.5 items-end tabular-nums">
               <div>
                 <label for="popCheckAfterInput" class="block text-[11px] font-semibold text-slate-600 mb-1">Nachher / Mt. (Optimiert)</label>
@@ -1319,7 +1383,6 @@
           </div>
         </div>
 
-        <!-- Footer Buttons -->
         <div class="pt-3 border-t border-slate-100 flex items-center justify-between gap-2">
           <button id="popDeleteBtn" type="button" class="hidden btn-tactile px-3 py-2 rounded-xl text-xs font-bold text-red-600 hover:bg-red-50 transition-colors cursor-pointer">
             Löschen
@@ -1369,7 +1432,6 @@
           </div>
         </div>
 
-        <!-- Übertragungs-Link -->
         <div class="p-4 rounded-xl bg-[#F4F8FB] border border-[#009ee3]/40 space-y-3">
           <div class="flex items-center justify-between gap-2 flex-wrap">
             <span class="font-extrabold text-[#00325b]">Persönlicher Analyse-Link</span>
@@ -1400,7 +1462,7 @@
   </div>
 
   <!-- ======================================================================= -->
-  <!-- KUNDENAKTEN MODAL (ZWISCHEN ERST- UND ZWEITGESPRÄCH SPEICHERN/LADEN)    -->
+  <!-- KUNDENAKTEN MODAL                                                       -->
   <!-- ======================================================================= -->
   <div id="clientRecordsModal" class="fixed inset-0 z-50 hidden bg-[#00325b]/45 backdrop-blur-xs flex items-center justify-center p-4">
     <div class="bg-white rounded-2xl max-w-xl w-full max-h-[88vh] overflow-y-auto shadow-2xl border border-slate-200 animate-panel">
@@ -1435,7 +1497,6 @@
             <span class="font-bold text-[#00325b]">Gespeicherte Kundenakten (<span id="savedRecordsCount">0</span>)</span>
           </div>
           <div id="savedClientRecordsList" class="space-y-2 max-h-60 overflow-y-auto">
-            <!-- Dynamische Liste -->
           </div>
         </div>
       </div>
@@ -1447,7 +1508,6 @@
   <!-- ======================================================================= -->
   <div id="reportModal" class="fixed inset-0 z-50 hidden bg-[#00325b]/50 backdrop-blur-xs flex items-center justify-center p-3 sm:p-5">
     <div id="reportModalCard" class="bg-[#F4F8FB] rounded-2xl max-w-4xl w-full max-h-[92vh] overflow-y-auto shadow-2xl border border-slate-200 animate-panel">
-      <!-- Report Top-Bar -->
       <div class="px-4 sm:px-6 py-4 bg-white border-b border-slate-200/90 flex items-center justify-between gap-3 sticky top-0 z-20">
         <div class="flex items-center gap-3 min-w-0">
           <div class="w-9 h-9 rounded-xl bg-[#00325b] flex items-center justify-center text-white shadow-xs shrink-0">
@@ -1483,14 +1543,12 @@
         </div>
       </div>
 
-      <!-- Report Inhalt -->
       <div id="reportBody" class="p-4 sm:p-6 space-y-5 text-xs sm:text-sm">
-        <!-- Dynamisch befüllt -->
       </div>
     </div>
   </div>
 
-  <!-- Toast Notification (oberhalb der Bottom Bar auf Smartphones) -->
+  <!-- Toast Notification -->
   <div id="toastBanner" class="no-print fixed bottom-20 md:bottom-5 left-4 right-4 sm:left-auto sm:right-5 z-50 hidden bg-[#00325b] text-white text-xs font-semibold px-4 py-3 rounded-xl shadow-lg border border-white/15 text-center sm:text-left animate-panel"></div>
 
   <!-- ======================================================================= -->
@@ -1556,7 +1614,7 @@
       const STATE_MAP = new Map(GERMAN_STATES.map((s) => [s.code, s]));
 
       // =========================================================================
-      // 2. GESETZLICHE KRANKENKASSEN (STAND 11/2026, SORTIERT NACH ZUSATZBEITRAG)
+      // 2. GESETZLICHE KRANKENKASSEN (STAND 11/2026) & FINANZMATHEMATIK 2026
       // =========================================================================
       const GKV_CATALOG_2026 = [
         { id: 'bkk_firmus', name: 'BKK firmus', zusatz: 2.18, scope: 'Bundesweit geöffnet' },
@@ -1600,7 +1658,7 @@
         return GKV_MAP.get(id) || GKV_CATALOG_2026[0];
       }
 
-      // Einkommensteuer-Tarif 2026 (§ 32a EStG)
+      // Einkommensteuer-Tarif 2026 (§ 32a Abs. 1 EStG)
       function calcAnnualIncomeTax2026(zve) {
         const x0 = Math.max(0, Math.floor(zve));
         if (x0 <= 12348) return 0;
@@ -1618,6 +1676,7 @@
         return Math.floor(0.45 * x0 - 19470.38);
       }
 
+      // Angestellte: Lohnsteuer-, Sozialversicherungs- & Netto-Berechnung 2026 (PAP 2026 / § 39b EStG & § 20 Abs. 2 SGB IV)
       function calcGermanPayroll2026(grossMonthly, opts = {}) {
         const gross = Math.max(0, Number(grossMonthly) || 0);
         const taxClass = Number(opts.taxClass) || 1;
@@ -1628,8 +1687,15 @@
 
         const bbgKvPv = 5812.50;
         const bbgRvAv = 8450.00;
-        const basisKvPv = Math.min(gross, bbgKvPv);
-        const basisRvAv = Math.min(gross, bbgRvAv);
+
+        // Übergangsbereich (Midijob 2026: 603,01 € bis 2.000,00 € nach § 20 Abs. 2 SGB IV)
+        let svBasisAn = gross;
+        if (gross > 603 && gross < 2000) {
+          svBasisAn = Math.max(0, (2000 / (2000 - 603)) * (gross - 603));
+        }
+
+        const basisKvPv = Math.min(svBasisAn, bbgKvPv);
+        const basisRvAv = Math.min(svBasisAn, bbgRvAv);
 
         const rvAn = basisRvAv * 0.093;
         const avAn = basisRvAv * 0.013;
@@ -1641,6 +1707,7 @@
           kvZusatzAn = basisKvPv * ((gkv.zusatz / 100) / 2);
         }
 
+        // Pflegeversicherung 2026
         let pvRate = stObj.saxonyPflege ? 0.023 : 0.018;
         if (children === 0) {
           pvRate += 0.006;
@@ -1649,15 +1716,27 @@
         }
         const pvAn = basisKvPv * Math.max(0.008, pvRate);
 
+        // Lohnsteuer nach PAP 2026 (§ 39b EStG)
         const annualGross = gross * 12;
         const wk = taxClass === 6 ? 0 : 1230;
         const sa = taxClass === 6 ? 0 : 36;
         const entlastung2 = taxClass === 2 ? 4260 + Math.max(0, children - 1) * 240 : 0;
 
-        const vorsorgeRv = rvAn * 12;
-        const vorsorgeKvPv = (kvBaseAn + kvZusatzAn + pvAn) * 12;
-        const mindestVorsorge = Math.min(taxClass === 3 ? 3000 : 1900, annualGross * 0.12);
-        const vorsorgePauschale = vorsorgeRv + Math.max(vorsorgeKvPv, mindestVorsorge);
+        const annualBasisKvPv = Math.min(annualGross, 69750);
+        const annualBasisRvAv = Math.min(annualGross, 101400);
+        const vsp1Rv = annualBasisRvAv * 0.093;
+
+        let vorsorgePauschale = vsp1Rv;
+        if (gkv.id !== 'pkv_none') {
+          const papPvRate = stObj.saxonyPflege ? Math.min(0.015, Math.max(0.005, pvRate - 0.008)) : Math.max(0.008, pvRate);
+          const vsp2KvPv = annualBasisKvPv * (0.07 + (gkv.zusatz / 100) / 2 + papPvRate);
+          const vsp3Av = taxClass === 6 ? 0 : annualBasisRvAv * 0.013;
+          const vspHb = taxClass === 6 ? 0 : Math.min(1900, vsp2KvPv + vsp3Av);
+          vorsorgePauschale = Math.ceil(vsp1Rv + Math.max(vsp2KvPv, vspHb));
+        } else {
+          // Wegfall der pauschalen Mindestvorsorgepauschale für PKV ab 01.01.2026
+          vorsorgePauschale = Math.ceil(vsp1Rv);
+        }
 
         let annualTax = 0;
         if (taxClass === 3) {
@@ -1665,9 +1744,11 @@
           annualTax = calcAnnualIncomeTax2026(zve / 2) * 2;
         } else if (taxClass === 5 || taxClass === 6) {
           const zve = Math.max(0, annualGross - wk - sa - vorsorgePauschale);
-          const t1 = calcAnnualIncomeTax2026(zve + 12348);
-          const t2 = calcAnnualIncomeTax2026(12348);
-          annualTax = Math.max(0, t1 - t2);
+          if (zve <= 57530) {
+            annualTax = calcAnnualIncomeTax2026(zve + 12348);
+          } else {
+            annualTax = calcAnnualIncomeTax2026(69878) + Math.floor(0.42 * (zve - 57530));
+          }
         } else {
           const zve = Math.max(0, annualGross - wk - sa - entlastung2 - vorsorgePauschale);
           annualTax = calcAnnualIncomeTax2026(zve);
@@ -1687,35 +1768,232 @@
         const netPayout = Math.max(0, gross - totalSocial - totalTax);
 
         return {
+          status: 'employee',
           gross: Math.round(gross * 100) / 100,
           netPayout: Math.round(netPayout * 100) / 100,
           basisNetBeforeOpt: Math.round((netPayout + kvZusatzAn + kirchensteuer) * 100) / 100,
           kvZusatzAn: Math.round(kvZusatzAn * 100) / 100,
+          incomeTaxEst: Math.round((lohnsteuer + soli) * 100) / 100,
           kirchensteuer: Math.round(kirchensteuer * 100) / 100,
           churchRatePct: Math.round(stObj.churchRate * 100),
           gkv
         };
       }
 
-      function solveGrossFromNet2026(targetNet, opts = {}) {
-        const target = Math.max(0, Number(targetNet) || 0);
-        if (target <= 0) return calcGermanPayroll2026(0, opts);
+      // Beamten-Besoldung 2026 (ohne RV/AV/GKV-Abzug)
+      function calcCivilServantPayroll2026(grossMonthly, opts = {}) {
+        const gross = Math.max(0, Number(grossMonthly) || 0);
+        const taxClass = Number(opts.taxClass) || 1;
+        const stObj = STATE_MAP.get(opts.stateCode) || GERMAN_STATES[0];
+        const church = Boolean(opts.church);
+        const children = Math.max(0, Number(opts.children) || 0);
 
+        const annualGross = gross * 12;
+        const wk = taxClass === 6 ? 0 : 1230;
+        const sa = taxClass === 6 ? 0 : 36;
+        const entlastung2 = taxClass === 2 ? 4260 + Math.max(0, children - 1) * 240 : 0;
+
+        let annualTax = 0;
+        if (taxClass === 3) {
+          const zve = Math.max(0, annualGross - wk - sa);
+          annualTax = calcAnnualIncomeTax2026(zve / 2) * 2;
+        } else if (taxClass === 5 || taxClass === 6) {
+          const zve = Math.max(0, annualGross - wk - sa);
+          if (zve <= 57530) {
+            annualTax = calcAnnualIncomeTax2026(zve + 12348);
+          } else {
+            annualTax = calcAnnualIncomeTax2026(69878) + Math.floor(0.42 * (zve - 57530));
+          }
+        } else {
+          const zve = Math.max(0, annualGross - wk - sa - entlastung2);
+          annualTax = calcAnnualIncomeTax2026(zve);
+        }
+
+        const lohnsteuer = annualTax / 12;
+        const soliLimit = taxClass === 3 ? 40700 : 20350;
+        let annualSoli = 0;
+        if (annualTax > soliLimit) {
+          annualSoli = Math.min(annualTax * 0.055, (annualTax - soliLimit) * 0.119);
+        }
+        const soli = annualSoli / 12;
+        const kirchensteuer = church ? lohnsteuer * stObj.churchRate : 0;
+        const netPayout = Math.max(0, gross - lohnsteuer - soli - kirchensteuer);
+
+        return {
+          status: 'civil',
+          gross: Math.round(gross * 100) / 100,
+          netPayout: Math.round(netPayout * 100) / 100,
+          basisNetBeforeOpt: Math.round((netPayout + kirchensteuer) * 100) / 100,
+          kvZusatzAn: 0,
+          incomeTaxEst: Math.round((lohnsteuer + soli) * 100) / 100,
+          kirchensteuer: Math.round(kirchensteuer * 100) / 100,
+          churchRatePct: Math.round(stObj.churchRate * 100),
+          gkv: getGkvById('pkv_none')
+        };
+      }
+
+      // Selbstständige / Freiberufler 2026 (Einkommensteuer § 32a EStG + Soli + Kirchensteuer)
+      function calcSelfEmployedIncome2026(monthlyProfit, opts = {}) {
+        const profit = Math.max(0, Number(monthlyProfit) || 0);
+        const taxClass = Number(opts.taxClass) || 1;
+        const stObj = STATE_MAP.get(opts.stateCode) || GERMAN_STATES[0];
+        const church = Boolean(opts.church);
+        const isSplitting = taxClass === 3;
+
+        const annualProfit = profit * 12;
+        const zve = Math.max(0, annualProfit - 36);
+        const annualTax = isSplitting
+          ? calcAnnualIncomeTax2026(zve / 2) * 2
+          : calcAnnualIncomeTax2026(zve);
+
+        const estMonthly = annualTax / 12;
+        const soliLimit = isSplitting ? 40700 : 20350;
+        let annualSoli = 0;
+        if (annualTax > soliLimit) {
+          annualSoli = Math.min(annualTax * 0.055, (annualTax - soliLimit) * 0.119);
+        }
+        const soliMonthly = annualSoli / 12;
+        const kirchensteuer = church ? estMonthly * stObj.churchRate : 0;
+        const netPayout = Math.max(0, profit - estMonthly - soliMonthly - kirchensteuer);
+
+        return {
+          status: 'self',
+          gross: Math.round(profit * 100) / 100,
+          netPayout: Math.round(netPayout * 100) / 100,
+          basisNetBeforeOpt: Math.round((netPayout + kirchensteuer) * 100) / 100,
+          kvZusatzAn: 0,
+          incomeTaxEst: Math.round((estMonthly + soliMonthly) * 100) / 100,
+          kirchensteuer: Math.round(kirchensteuer * 100) / 100,
+          churchRatePct: Math.round(stObj.churchRate * 100),
+          gkv: getGkvById('pkv_none')
+        };
+      }
+
+      function computeIncomeByStatus2026(dir, netVal, grossVal, opts = {}) {
+        const status = opts.status || 'employee';
+        const forwardCalc = (g) => {
+          if (status === 'civil') return calcCivilServantPayroll2026(g, opts);
+          if (status === 'self') return calcSelfEmployedIncome2026(g, opts);
+          return calcGermanPayroll2026(g, opts);
+        };
+
+        if (dir === 'gross2net') {
+          return forwardCalc(grossVal);
+        }
+        const target = Math.max(0, Number(netVal) || 0);
+        if (target <= 0) return forwardCalc(0);
         let low = target;
         let high = Math.max(2000, target * 2.5 + 2500);
-        while (calcGermanPayroll2026(high, opts).netPayout < target && high < 250000) {
+        while (forwardCalc(high).netPayout < target && high < 250000) {
           high *= 1.6;
         }
         for (let i = 0; i < 44; i++) {
           const mid = (low + high) / 2;
-          const res = calcGermanPayroll2026(mid, opts);
-          if (res.netPayout < target) {
-            low = mid;
+          if (forwardCalc(mid).netPayout < target) low = mid;
+          else high = mid;
+        }
+        return forwardCalc((low + high) / 2);
+      }
+
+      function calcGkvEmployeeExtraMonthly(grossMonthly, gkvId) {
+        const gkv = getGkvById(gkvId || 'bkk_firmus');
+        if (gkv.id === 'pkv_none') return 0;
+        const gross = Math.max(0, Number(grossMonthly) || 0);
+        let svBasis = gross > 0 ? gross : 5812.50;
+        if (gross > 603 && gross < 2000) {
+          svBasis = Math.max(0, (2000 / (2000 - 603)) * (gross - 603));
+        }
+        return Math.round(Math.min(svBasis, 5812.50) * ((gkv.zusatz / 100) / 2) * 100) / 100;
+      }
+
+      // bAV Brutto → Nettoaufwand (Stand 2026: 338 € steuer- & SV-frei; 676 € steuerfrei)
+      function calcBavNetCost2026(inputAmount, agPct, mode = 'total_gross') {
+        const val = Math.max(0, Number(inputAmount) || 0);
+        const pct = Math.max(0, Number(agPct) || 0);
+        const factor = 1 + pct / 100;
+
+        let totalGross = val;
+        let ownGross = val;
+        if (mode === 'own_gross') {
+          ownGross = val;
+          totalGross = Math.round(val * factor * 100) / 100;
+        } else {
+          totalGross = val;
+          ownGross = factor > 0 ? Math.round((val / factor) * 100) / 100 : val;
+        }
+        const agEur = Math.max(0, Math.round((totalGross - ownGross) * 100) / 100);
+
+        const empEntry = (typeof state !== 'undefined' && Array.isArray(state.entries))
+          ? state.entries.find((e) => e.salaryMeta && (e.salaryMeta.status || 'employee') === 'employee')
+          : null;
+
+        let taxSvSavings = 0;
+        if (ownGross > 0) {
+          if (empEntry && empEntry.salaryMeta && empEntry.salaryMeta.grossMonthly > ownGross) {
+            const sm = empEntry.salaryMeta;
+            const before = calcGermanPayroll2026(sm.grossMonthly, sm);
+            const taxFreeConv = Math.min(ownGross, 676);
+            const svFreeConv = Math.min(ownGross, 338);
+            const afterTax = calcGermanPayroll2026(sm.grossMonthly - taxFreeConv, sm);
+            const beforeTotalDed = before.gross - before.netPayout;
+            const taxDelta = Math.max(0, beforeTotalDed - (afterTax.gross - afterTax.netPayout));
+            const marginalRate = beforeTotalDed > 0 ? Math.min(0.55, taxDelta / Math.max(1, taxFreeConv)) : 0.42;
+            const svPart = Math.min(svFreeConv, ownGross) * 0.205;
+            const taxPart = Math.min(taxFreeConv, ownGross) * Math.max(0.14, marginalRate - 0.18);
+            taxSvSavings = Math.min(ownGross * 0.62, svPart + taxPart);
           } else {
-            high = mid;
+            const svFree = Math.min(ownGross, 338);
+            const taxFree = Math.min(ownGross, 676);
+            taxSvSavings = svFree * 0.205 + taxFree * 0.29;
           }
         }
-        return calcGermanPayroll2026((low + high) / 2, opts);
+
+        taxSvSavings = Math.round(taxSvSavings * 100) / 100;
+        const netCost = Math.max(0, Math.round((ownGross - taxSvSavings) * 100) / 100);
+
+        return {
+          mode,
+          totalGross: Math.round(totalGross * 100) / 100,
+          ownGross,
+          agPct: pct,
+          agEur,
+          taxSvSavings,
+          netCost
+        };
+      }
+
+      // PKV Eigenanteil & Zuschuss / Beihilfe (Stand 2026: AG-Höchstzuschuss 613,22 € bzw. 584,15 € in Sachsen)
+      function calcPkvNetCost2026(grossPkv, mode = 'employee_ag', subsidyPct = 50, stateCode = 'NI') {
+        const gross = Math.max(0, Number(grossPkv) || 0);
+        let subsidyEur = 0;
+        let label = '';
+
+        if (mode === 'employee_ag') {
+          const maxAg = stateCode === 'SN' ? 584.15 : 613.22;
+          subsidyEur = Math.min(gross * 0.5, maxAg);
+          label = `− AG-Zuschuss (50 %, max. ${formatEuro(maxAg)}):`;
+        } else if (mode === 'civil_beihilfe') {
+          const pct = Math.min(100, Math.max(0, Number(subsidyPct) || 0));
+          subsidyEur = gross * (pct / 100);
+          label = pct > 0
+            ? `− Beihilfe-Abzug (${pct} %):`
+            : '− Beihilfe (bereits im Restkostentarif):';
+        } else {
+          subsidyEur = 0;
+          label = '− Zuschuss (Selbstzahler 0 %):';
+        }
+
+        subsidyEur = Math.round(subsidyEur * 100) / 100;
+        const netPkv = Math.max(0, Math.round((gross - subsidyEur) * 100) / 100);
+
+        return {
+          mode,
+          grossPkv: Math.round(gross * 100) / 100,
+          subsidyPct: Number(subsidyPct) || 0,
+          subsidyEur,
+          subsidyLabel: label,
+          netPkv
+        };
       }
 
       // =========================================================================
@@ -1725,9 +2003,11 @@
         // Einnahmen
         { title: 'Nettogehalt (Haupteinkommen)', type: 'income', categoryId: 'income_salary', amount: 2550, freq: 1, optimize: false, tags: 'lohn gehalt einkommen arbeitgeber' },
         { title: 'Zweiteinkommen / Partnergehalt', type: 'income', categoryId: 'income_salary', amount: 2150, freq: 1, optimize: false, tags: 'partner gehalt zweitgehalt' },
-        { title: 'Kindergeld', type: 'income', categoryId: 'income_other', amount: 255, freq: 1, optimize: false, tags: 'kinder familie staat' },
+        { title: 'Besoldung (Beamte)', type: 'income', categoryId: 'income_salary', amount: 3450, freq: 1, optimize: false, tags: 'beamte besoldung land bund' },
+        { title: 'Gewinn / Einkommen (Selbstständig)', type: 'income', categoryId: 'income_salary', amount: 3800, freq: 1, optimize: false, tags: 'selbstständig freiberufler gewinn' },
+        { title: 'Kindergeld', type: 'income', categoryId: 'income_other', amount: 259, freq: 1, optimize: false, tags: 'kinder familie staat' },
         { title: 'Vermögenswirksame Leistungen (VL)', type: 'income', categoryId: 'income_other', amount: 40, freq: 1, optimize: false, tags: 'vl arbeitgeber zuschuss' },
-        { title: 'Nebengewerbe / Minijob', type: 'income', categoryId: 'income_other', amount: 538, freq: 1, optimize: false, tags: 'minijob nebenjob freiberuf' },
+        { title: 'Nebengewerbe / Minijob', type: 'income', categoryId: 'income_other', amount: 603, freq: 1, optimize: false, tags: 'minijob nebenjob freiberuf' },
 
         // Wohnen
         { title: 'Kaltmiete / Immobilienrate', type: 'fixed', categoryId: 'fixed_housing', amount: 640, freq: 1, optimize: false, tags: 'miete kredit darlehen wohnung haus' },
@@ -1760,6 +2040,7 @@
         { title: 'Sterbegeldversicherung', type: 'fixed', categoryId: 'fixed_income_ins', amount: 22, freq: 1, optimize: true, tags: 'sterbegeld vorsorge bestattung' },
 
         // Gesundheitsvorsorge & Krankenzusatz
+        { title: 'Private Krankenversicherung (PKV)', type: 'fixed', categoryId: 'fixed_health_ins', amount: 340, freq: 1, optimize: true, tags: 'pkv privat krankenversicherung beihilfe beamte vollversicherung' },
         { title: 'Zahnzusatzversicherung', type: 'fixed', categoryId: 'fixed_health_ins', amount: 21.90, freq: 1, optimize: true, tags: 'zahn kranken zusatz' },
         { title: 'Krankentagegeld / Ambulant', type: 'fixed', categoryId: 'fixed_health_ins', amount: 17, freq: 1, optimize: true, tags: 'krankentagegeld gesundheit' },
         { title: 'Stationäre Zusatzversicherung (Krankenhaus)', type: 'fixed', categoryId: 'fixed_health_ins', amount: 24, freq: 1, optimize: true, tags: 'krankenhaus chefarzt zweibett einbett stationaer' },
@@ -1804,22 +2085,22 @@
 
         // Altersvorsorge & Vermögensaufbau
         { title: 'Private Fondsgebundene Rentenversicherung (pAV)', type: 'savings', categoryId: 'sav_retirement', amount: 125, freq: 1, optimize: false, tags: 'rente altersvorsorge fonds' },
-        { title: 'Betriebliche Altersvorsorge (bAV)', type: 'savings', categoryId: 'sav_retirement', amount: 90, freq: 1, optimize: false, tags: 'bav direktversicherung arbeitgeber' },
+        { title: 'Betriebliche Altersvorsorge (bAV)', type: 'savings', categoryId: 'sav_retirement', amount: 98, freq: 1, optimize: false, tags: 'bav direktversicherung arbeitgeber zuschuss' },
         { title: 'Basisrente (Rürup) / Riester', type: 'savings', categoryId: 'sav_retirement', amount: 100, freq: 1, optimize: false, tags: 'ruerup riester steuer' },
         { title: 'ETF- & Investment-Sparplan', type: 'savings', categoryId: 'sav_wealth', amount: 150, freq: 1, optimize: false, tags: 'etf depot aktien sparplan' },
         { title: 'Tagesgeld / Notgroschen-Rücklage', type: 'savings', categoryId: 'sav_wealth', amount: 80, freq: 1, optimize: false, tags: 'tagesgeld liquiditaet notgroschen' },
         { title: 'Bausparvertrag / Eigenkapital-Ziel', type: 'savings', categoryId: 'sav_wealth', amount: 75, freq: 1, optimize: false, tags: 'bausparen immobilie eigenkapital' }
       ];
 
-      function calcGkvEmployeeExtraMonthly(grossMonthly, gkvId) {
-        const gkv = getGkvById(gkvId || 'bkk_firmus');
-        if (gkv.id === 'pkv_none') return 0;
-        const basisKv = Math.min(Number(grossMonthly) > 0 ? Number(grossMonthly) : 5812.50, 5812.50);
-        return Math.round(basisKv * ((gkv.zusatz / 100) / 2) * 100) / 100;
-      }
-
       function createSalaryScenarioEntries(id, title, netPayout, taxClass, stateCode, church, children, gkvId) {
-        const calc = solveGrossFromNet2026(netPayout, { taxClass, stateCode, church, children, gkvId });
+        const calc = computeIncomeByStatus2026('net2gross', netPayout, 0, {
+          status: 'employee',
+          taxClass,
+          stateCode,
+          church,
+          children,
+          gkvId
+        });
         const stObj = STATE_MAP.get(stateCode) || GERMAN_STATES[0];
         const gkv = calc.gkv;
         const list = [
@@ -1832,6 +2113,7 @@
             freq: 1,
             optimize: false,
             salaryMeta: {
+              status: 'employee',
               dir: 'net2gross',
               netPayout: calc.netPayout,
               grossMonthly: calc.gross,
@@ -1940,7 +2222,7 @@
         family: [
           ...createSalaryScenarioEntries('fam-sal-1', 'Nettogehalt Haupteinkommen', 3150, 3, 'NI', true, 2, 'aok_niedersachsen'),
           { id: 'fam-sal-2', title: 'Nettogehalt Teilzeit', type: 'income', categoryId: 'income_salary', amount: 1250, freq: 1, optimize: false },
-          { id: 'fam-inc-3', title: 'Kindergeld (2 Kinder)', type: 'income', categoryId: 'income_other', amount: 510, freq: 1, optimize: false },
+          { id: 'fam-inc-3', title: 'Kindergeld (2 Kinder)', type: 'income', categoryId: 'income_other', amount: 518, freq: 1, optimize: false },
           { id: 'fam-hou-1', title: 'Immobilienfinanzierung (Zins & Tilgung)', type: 'fixed', categoryId: 'fixed_housing', amount: 1180, freq: 1, optimize: false },
           { id: 'fam-hou-2', title: 'Haus-Nebenkosten, Strom & Gas', type: 'fixed', categoryId: 'fixed_housing', amount: 310, freq: 1, optimize: true, optimizedMonthly: 255 },
           { id: 'fam-ins-1', title: 'Wohngebäude-, Hausrat- & Haftpflicht', type: 'fixed', categoryId: 'fixed_property_ins', amount: 690, freq: 12, optimize: true, optimizedMonthly: 46 },
@@ -1974,9 +2256,14 @@
         popoverMode: 'add',
         popoverType: 'fixed',
         editingId: null,
+        salStatus: 'employee',
         salDir: 'net2gross',
         salGkvId: 'aok_niedersachsen',
         salLastCalc: null,
+        bavMode: 'total_gross',
+        bavLastCalc: null,
+        pkvMode: 'employee_ag',
+        pkvLastCalc: null,
         popCheckTargetGkvId: 'bkk_firmus',
         popCheckChurchExit: true,
         clientMode: false,
@@ -2124,22 +2411,23 @@
 
       function syncLinkedSalaryEntries(salaryEntry) {
         if (!salaryEntry) return;
+        const prevGkv = state.entries.find((e) => e.linkedSalaryId === salaryEntry.id && e.linkedKind === 'gkv');
+        const prevChurch = state.entries.find((e) => e.linkedSalaryId === salaryEntry.id && e.linkedKind === 'church');
         state.entries = state.entries.filter((e) => e.linkedSalaryId !== salaryEntry.id);
         if (salaryEntry.type !== 'income' || salaryEntry.categoryId !== 'income_salary' || !salaryEntry.salaryMeta) {
           return;
         }
         const meta = salaryEntry.salaryMeta;
-        const calc = meta.dir === 'gross2net'
-          ? calcGermanPayroll2026(meta.grossMonthly, meta)
-          : solveGrossFromNet2026(meta.netPayout, meta);
+        const calc = computeIncomeByStatus2026(meta.dir, meta.netPayout, meta.grossMonthly, meta);
         const stObj = STATE_MAP.get(meta.stateCode) || GERMAN_STATES[0];
         const gkv = calc.gkv;
 
         const insertIdx = state.entries.findIndex((e) => e.id === salaryEntry.id);
         const linkedItems = [];
 
-        if (gkv.id !== 'pkv_none' && calc.kvZusatzAn > 0.01) {
-          const targetGkv = getGkvById('bkk_firmus');
+        if ((meta.status || 'employee') === 'employee' && gkv.id !== 'pkv_none' && calc.kvZusatzAn > 0.01) {
+          const targetGkv = getGkvById(prevGkv?.targetGkvId || 'bkk_firmus');
+          const keepOpt = prevGkv ? Boolean(prevGkv.optimize) : (gkv.zusatz > GKV_CATALOG_2026[0].zusatz);
           linkedItems.push({
             id: `${salaryEntry.id}-gkv`,
             title: `GKV-Zusatzbeitrag (${gkv.name}, ${gkv.zusatz.toFixed(2).replace('.', ',')} %)`,
@@ -2147,7 +2435,7 @@
             categoryId: 'fixed_tax_social',
             amount: calc.kvZusatzAn,
             freq: 1,
-            optimize: gkv.zusatz > GKV_CATALOG_2026[0].zusatz,
+            optimize: keepOpt,
             optimizedMonthly: calcGkvEmployeeExtraMonthly(calc.gross, targetGkv.id),
             linkedSalaryId: salaryEntry.id,
             linkedKind: 'gkv',
@@ -2158,6 +2446,8 @@
         }
 
         if (meta.church && calc.kirchensteuer > 0.01) {
+          const wasChurchOptOut = prevChurch ? prevChurch.optimizedMonthly <= 0.005 : true;
+          const keepChurchOpt = prevChurch ? Boolean(prevChurch.optimize) : true;
           linkedItems.push({
             id: `${salaryEntry.id}-church`,
             title: `Kirchensteuer (${Math.round(stObj.churchRate * 100)} %)`,
@@ -2165,8 +2455,8 @@
             categoryId: 'fixed_tax_social',
             amount: calc.kirchensteuer,
             freq: 1,
-            optimize: true,
-            optimizedMonthly: 0,
+            optimize: keepChurchOpt,
+            optimizedMonthly: wasChurchOptOut ? 0 : calc.kirchensteuer,
             linkedSalaryId: salaryEntry.id,
             linkedKind: 'church'
           });
@@ -2182,7 +2472,7 @@
       }
 
       // =========================================================================
-      // 4B. KOMPAKTE BINÄRE URL-KODIERUNG (?d=b...) OHNE SERVER
+      // 4B. KOMPAKTE BINÄRE URL-KODIERUNG (?d=b...) OHNE SERVER (V7)
       // =========================================================================
       const TYPE_TO_CODE = { income: 0, fixed: 1, variable: 2, savings: 3 };
       const CODE_TO_TYPE = ['income', 'fixed', 'variable', 'savings'];
@@ -2265,9 +2555,9 @@
         return bytes;
       }
 
-      function encodeBinaryV6(payload) {
+      function encodeBinaryV7(payload) {
         const textEnc = new TextEncoder();
-        const buf = [0x06];
+        const buf = [0x07];
 
         const clientName = String(payload.clientName || '').trim();
         const clientNote = payload.clientNote !== undefined ? String(payload.clientNote) : '';
@@ -2332,8 +2622,9 @@
             Math.abs(e.optimizedMonthly - getDefaultSuggestedAfterMonthly(e)) > 0.005
           );
           const hasSalMeta = Boolean(e.salaryMeta);
-          const freqVal = Math.min(63, Math.max(1, Math.round(Number(e.freq) || 1)));
-          buf.push((hasCustomOptM ? 0x80 : 0) | (hasSalMeta ? 0x40 : 0) | freqVal);
+          const hasSpecialMeta = Boolean(e.bavMeta || e.pkvMeta);
+          const freqVal = Math.min(31, Math.max(1, Math.round(Number(e.freq) || 1)));
+          buf.push((hasCustomOptM ? 0x80 : 0) | (hasSalMeta ? 0x40 : 0) | (hasSpecialMeta ? 0x20 : 0) | freqVal);
 
           if (isKnown) {
             buf.push(knownIdx);
@@ -2364,13 +2655,26 @@
             const children = Math.min(7, Math.max(0, Number(sm.children) || 0));
             const dirBit = sm.dir === 'gross2net' ? 1 : 0;
             const churchOptOutBit = linkedChurch ? (linkedChurch.optimizedMonthly <= 0.005 ? 1 : 0) : 1;
+            const statusCode = sm.status === 'civil' ? 1 : sm.status === 'self' ? 2 : 0;
 
             buf.push(gkvIdx & 0xff);
             buf.push(targetGkvIdx & 0xff);
             buf.push(((stIdx & 0x0f) << 4) | ((taxClass & 0x07) << 1) | churchBit);
-            buf.push(((children & 0x07) << 2) | (dirBit << 1) | churchOptOutBit);
+            buf.push(((statusCode & 0x03) << 5) | ((children & 0x07) << 2) | (dirBit << 1) | churchOptOutBit);
             writeCompactCents(sm.netPayout);
             writeCompactCents(sm.grossMonthly);
+          } else if (e.bavMeta) {
+            const bm = e.bavMeta;
+            const modeBit = bm.mode === 'own_gross' ? 1 : 0;
+            buf.push(0x10 | modeBit);
+            writeVarint(buf, Math.round(Number(bm.agPct) || 0));
+            writeCompactCents(bm.mode === 'own_gross' ? bm.ownGross : bm.totalGross);
+          } else if (e.pkvMeta) {
+            const pm = e.pkvMeta;
+            const pkvCode = pm.mode === 'civil_beihilfe' ? 1 : pm.mode === 'full_self' ? 2 : 0;
+            buf.push(0x20 | pkvCode);
+            buf.push(Math.min(100, Math.max(0, Math.round(Number(pm.subsidyPct) || 0))));
+            writeCompactCents(pm.grossPkv);
           }
         }
 
@@ -2380,7 +2684,7 @@
       function decodeBinaryPayload(bytes) {
         if (!bytes || bytes.length < 3) return null;
         const ver = bytes[0];
-        if (ver < 0x04 || ver > 0x06) return null;
+        if (ver < 0x04 || ver > 0x07) return null;
 
         const textDec = new TextDecoder();
         const cursor = { pos: 1 };
@@ -2438,7 +2742,9 @@
 
           const hasOptM = Boolean(freqByte & 0x80);
           const hasSalMeta = ver >= 0x05 && Boolean(freqByte & 0x40);
-          const freq = (ver >= 0x05 ? (freqByte & 0x3f) : (freqByte & 0x7f)) || 1;
+          const hasSpecialMeta = ver >= 0x07 && Boolean(freqByte & 0x20);
+          const freqMask = ver >= 0x07 ? 0x1f : ver >= 0x05 ? 0x3f : 0x7f;
+          const freq = (freqByte & freqMask) || 1;
 
           let title = '';
           if (isKnown) {
@@ -2491,11 +2797,14 @@
             const stObj = GERMAN_STATES[(b2 >> 4) & 0x0f] || GERMAN_STATES[0];
             const taxClass = (b2 >> 1) & 0x07 || 1;
             const church = Boolean(b2 & 0x01);
+            const statusCode = ver >= 0x07 ? ((b3 >> 5) & 0x03) : 0;
+            const status = statusCode === 1 ? 'civil' : statusCode === 2 ? 'self' : 'employee';
             const children = (b3 >> 2) & 0x07;
             const dir = (b3 & 0x02) ? 'gross2net' : 'net2gross';
             const churchOptOut = Boolean(b3 & 0x01);
 
             item.salaryMeta = {
+              status,
               dir,
               netPayout: netCents / 100,
               grossMonthly: grossCents / 100,
@@ -2507,6 +2816,25 @@
             };
             item._decodedTargetGkvId = targetGkvObj.id;
             item._decodedChurchOptOut = churchOptOut;
+          } else if (hasSpecialMeta) {
+            if (cursor.pos >= bytes.length) return null;
+            const spByte = bytes[cursor.pos++];
+            const kind = (spByte >> 4) & 0x0f;
+            if (kind === 1) {
+              const mode = (spByte & 0x01) ? 'own_gross' : 'total_gross';
+              const agPct = readVarint(bytes, cursor);
+              const inCents = readCompactCents();
+              if (agPct === null || inCents === null) return null;
+              item.bavMeta = calcBavNetCost2026(inCents / 100, agPct, mode);
+            } else if (kind === 2) {
+              if (cursor.pos >= bytes.length) return null;
+              const subPct = bytes[cursor.pos++];
+              const pkvCents = readCompactCents();
+              if (pkvCents === null) return null;
+              const pkvCode = spByte & 0x03;
+              const pkvMode = pkvCode === 1 ? 'civil_beihilfe' : pkvCode === 2 ? 'full_self' : 'employee_ag';
+              item.pkvMeta = calcPkvNetCost2026(pkvCents / 100, pkvMode, subPct, 'NI');
+            }
           }
 
           entries.push(item);
@@ -2521,13 +2849,11 @@
             const meta = item.salaryMeta;
             const gkv = getGkvById(meta.gkvId);
             const stObj = STATE_MAP.get(meta.stateCode) || GERMAN_STATES[0];
-            const calc = meta.dir === 'gross2net'
-              ? calcGermanPayroll2026(meta.grossMonthly, meta)
-              : solveGrossFromNet2026(meta.netPayout, meta);
+            const calc = computeIncomeByStatus2026(meta.dir, meta.netPayout, meta.grossMonthly, meta);
 
             item.amount = calc.basisNetBeforeOpt;
 
-            if (gkv.id !== 'pkv_none' && calc.kvZusatzAn > 0.01) {
+            if ((meta.status || 'employee') === 'employee' && gkv.id !== 'pkv_none' && calc.kvZusatzAn > 0.01) {
               const targetGkv = getGkvById(item._decodedTargetGkvId || 'bkk_firmus');
               expandedEntries.push({
                 id: `${item.id}-gkv`,
@@ -2578,7 +2904,7 @@
       }
 
       function encodePayloadBase64(obj) {
-        const bin = encodeBinaryV6(obj);
+        const bin = encodeBinaryV7(obj);
         return `b${bytesToBase64Url(bin)}`;
       }
 
@@ -2605,7 +2931,7 @@
 
       function buildTransferPayload(clientNameOverride, noteOverride, opts = {}) {
         return {
-          v: 6,
+          v: 7,
           clientName: (clientNameOverride !== undefined ? clientNameOverride : state.currentClientName) || '',
           clientNote: noteOverride !== undefined ? noteOverride : state.clientNote,
           savedAt: new Date().toISOString(),
@@ -2697,6 +3023,8 @@
             ? { optimizedMonthly: Math.max(0, e.optimizedMonthly) }
             : {}),
           ...(e.salaryMeta ? { salaryMeta: e.salaryMeta } : {}),
+          ...(e.bavMeta ? { bavMeta: e.bavMeta } : {}),
+          ...(e.pkvMeta ? { pkvMeta: e.pkvMeta } : {}),
           ...(e.linkedSalaryId ? { linkedSalaryId: e.linkedSalaryId } : {}),
           ...(e.linkedKind ? { linkedKind: e.linkedKind } : {}),
           ...(e.gkvId ? { gkvId: e.gkvId } : {}),
@@ -3000,12 +3328,22 @@
           rateBadge.className = 'text-[9.5px] sm:text-[10.5px] font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-white/10 text-sky-100 border border-white/10 shrink-0 leading-tight';
         }
 
-        // Sticky Hero Bar
+        // Sticky Hero Bar (inkl. roter Einfärbung bei negativem Cashflow)
         document.getElementById('stickyIncome').textContent = formatEuroCompact(m.incomeMonthly);
         document.getElementById('stickyExpenses').textContent = formatEuroCompact(m.consumptionExpensesMonthly);
         const stickyCf = document.getElementById('stickyCashflow');
+        const stickyCfBox = document.getElementById('stickyCashflowBox');
+        const stickyCfLbl = document.getElementById('stickyCashflowLabel');
         stickyCf.textContent = `${cfPrefix}${formatEuroCompact(m.cashflowMonthly)}`;
-        stickyCf.className = `text-xs sm:text-sm font-extrabold ${m.cashflowMonthly >= 0 ? 'text-[#1f8579]' : 'text-red-600'}`;
+        if (m.cashflowMonthly >= 0) {
+          stickyCf.className = 'text-xs sm:text-sm font-extrabold text-[#1f8579]';
+          if (stickyCfBox) stickyCfBox.className = 'px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/30 shrink-0 transition-colors';
+          if (stickyCfLbl) stickyCfLbl.className = 'text-[9.5px] sm:text-[10px] font-semibold text-[#00325b] block';
+        } else {
+          stickyCf.className = 'text-xs sm:text-sm font-extrabold text-red-600';
+          if (stickyCfBox) stickyCfBox.className = 'px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-red-50 border border-red-300 shrink-0 transition-colors';
+          if (stickyCfLbl) stickyCfLbl.className = 'text-[9.5px] sm:text-[10px] font-semibold text-red-700 block';
+        }
         document.getElementById('stickyPotential').textContent = `${formatEuroCompact(m.totalWealthPotential)} / Mt.`;
 
         // 50/30/20 Benchmark
@@ -3049,7 +3387,7 @@
       }
 
       // =========================================================================
-      // 8. D3 DONUT-CHART & ZINSESZINS-SIMULATOR
+      // 8. D3 DONUT-CHART (MIT HOVER-INTERAKTION) & ZINSESZINS-SIMULATOR
       // =========================================================================
       function renderDonutChart(m) {
         const container = document.getElementById('donutChartContainer');
@@ -3084,7 +3422,7 @@
 
         const width = container.clientWidth || 280;
         const height = 220;
-        const radius = Math.min(width, height) / 2 - 8;
+        const radius = Math.min(width, height) / 2 - 12;
 
         const svg = d3.select(container)
           .append('svg')
@@ -3097,37 +3435,71 @@
 
         const pie = d3.pie().value((d) => d.value).sort(null).padAngle(0.02);
         const arc = d3.arc().innerRadius(radius * 0.62).outerRadius(radius).cornerRadius(4);
+        const arcHover = d3.arc().innerRadius(radius * 0.62).outerRadius(radius + 6).cornerRadius(5);
 
-        g.selectAll('path')
+        const centerTop = g.append('text')
+          .attr('text-anchor', 'middle')
+          .attr('dy', '-0.95em')
+          .attr('fill', '#64748b')
+          .style('font-size', '9.5px')
+          .style('font-weight', '700')
+          .text('VERTEILUNG / MT.');
+
+        const centerMain = g.append('text')
+          .attr('text-anchor', 'middle')
+          .attr('dy', '0.35em')
+          .attr('fill', '#00325b')
+          .style('font-size', '15px')
+          .style('font-weight', '800')
+          .text(formatEuroCompact(totalSum));
+
+        const centerSub = g.append('text')
+          .attr('text-anchor', 'middle')
+          .attr('dy', '1.75em')
+          .attr('fill', '#009ee3')
+          .style('font-size', '10px')
+          .style('font-weight', '700')
+          .text('100 % Budget');
+
+        function setHoveredSlice(sliceData) {
+          g.selectAll('path.donut-slice')
+            .transition()
+            .duration(160)
+            .attr('d', (d) => (sliceData && d.data.id === sliceData.id ? arcHover(d) : arc(d)))
+            .attr('opacity', (d) => {
+              if (sliceData) return d.data.id === sliceData.id ? 1 : 0.45;
+              return state.filterCategoryId && d.data.id !== state.filterCategoryId ? 0.35 : 1;
+            });
+
+          if (sliceData) {
+            const pct = ((sliceData.value / totalSum) * 100).toFixed(1).replace('.', ',');
+            centerTop.text(sliceData.label.toUpperCase());
+            centerMain.text(formatEuro(sliceData.value));
+            centerSub.text(`${pct} % Anteil`);
+          } else {
+            centerTop.text('VERTEILUNG / MT.');
+            centerMain.text(formatEuroCompact(totalSum));
+            centerSub.text('100 % Budget');
+          }
+        }
+
+        g.selectAll('path.donut-slice')
           .data(pie(slices))
           .enter()
           .append('path')
+          .attr('class', 'donut-slice')
           .attr('d', arc)
           .attr('fill', (d) => d.data.color)
           .attr('opacity', (d) => (state.filterCategoryId && d.data.id !== state.filterCategoryId ? 0.35 : 1))
           .style('cursor', (d) => (d.data.id === '__cashflow__' ? 'default' : 'pointer'))
+          .on('mouseenter', (event, d) => setHoveredSlice(d.data))
+          .on('mouseleave', () => setHoveredSlice(null))
           .on('click', (event, d) => {
             if (d.data.id === '__cashflow__') return;
             state.filterCategoryId = state.filterCategoryId === d.data.id ? null : d.data.id;
             renderDashboard();
             renderTable();
           });
-
-        g.append('text')
-          .attr('text-anchor', 'middle')
-          .attr('dy', '-0.35em')
-          .attr('fill', '#64748b')
-          .style('font-size', '10px')
-          .style('font-weight', '700')
-          .text('VERTEILUNG / MT.');
-
-        g.append('text')
-          .attr('text-anchor', 'middle')
-          .attr('dy', '1.05em')
-          .attr('fill', '#00325b')
-          .style('font-size', '15px')
-          .style('font-weight', '800')
-          .text(formatEuroCompact(totalSum));
 
         legendEl.innerHTML = slices.slice(0, 8).map((s) => {
           const pct = Math.round((s.value / totalSum) * 100);
@@ -3143,6 +3515,14 @@
             </button>
           `;
         }).join('');
+
+        legendEl.querySelectorAll('[data-legend-cat]').forEach((btn) => {
+          const catId = btn.dataset.legendCat;
+          const sliceObj = slices.find((s) => s.id === catId);
+          if (!sliceObj) return;
+          btn.addEventListener('mouseenter', () => setHoveredSlice(sliceObj));
+          btn.addEventListener('mouseleave', () => setHoveredSlice(null));
+        });
       }
 
       function renderWealthSimulator() {
@@ -3183,19 +3563,16 @@
           .nice()
           .range([innerH, 0]);
 
-        // Horizontale Hilfslinien
         g.append('g')
           .call(d3.axisLeft(y).ticks(4).tickSize(-innerW).tickFormat(''))
           .call((ax) => ax.select('.domain').remove())
           .call((ax) => ax.selectAll('line').attr('stroke', 'rgba(255,255,255,0.09)'));
 
-        // Y-Achse
         g.append('g')
           .call(d3.axisLeft(y).ticks(4).tickFormat((d) => `${Math.round(d / 1000)}k €`))
           .call((ax) => ax.select('.domain').remove())
           .call((ax) => ax.selectAll('text').attr('fill', '#94a3b8').style('font-size', '10px'));
 
-        // X-Achse (alle 5 Jahre)
         const tickYears = series.filter((d) => d.year === 1 || d.year % 5 === 0 || d.year === state.simYears).map((d) => d.year);
         g.append('g')
           .attr('transform', `translate(0, ${innerH})`)
@@ -3204,7 +3581,6 @@
           .call((ax) => ax.selectAll('line').remove())
           .call((ax) => ax.selectAll('text').attr('fill', '#cbd5e1').style('font-size', '10px'));
 
-        // Balken: Eigene Einzahlungen
         g.selectAll('.bar-invested')
           .data(series)
           .enter()
@@ -3216,7 +3592,6 @@
           .attr('fill', '#009ee3')
           .attr('rx', 2);
 
-        // Gestapelte Balken: Zinseszins-Ertrag
         g.selectAll('.bar-gain')
           .data(series)
           .enter()
@@ -3336,10 +3711,21 @@
         const afterCheckM = getOptimizedTargetMonthly(entry);
         const checkDiffM = rawMonthly - afterCheckM;
 
+        let specialSubText = '';
+        if (entry.salaryMeta) {
+          const st = entry.salaryMeta.status || 'employee';
+          const statusLbl = st === 'civil' ? 'Beamte' : st === 'self' ? 'Selbstständig' : 'Brutto';
+          specialSubText = `${statusLbl} ${formatEuroCompact(entry.salaryMeta.grossMonthly)} • Auszahlung ${formatEuro(entry.salaryMeta.netPayout)}`;
+        } else if (entry.bavMeta) {
+          specialSubText = `Brutto-Sparbeitrag ${formatEuro(entry.bavMeta.totalGross)} (inkl. ${entry.bavMeta.agPct} % AG) • Nettoaufwand`;
+        } else if (entry.pkvMeta && entry.pkvMeta.subsidyEur > 0.01) {
+          specialSubText = `Tarif ${formatEuro(entry.pkvMeta.grossPkv)} − Zuschuss ${formatEuro(entry.pkvMeta.subsidyEur)}`;
+        }
+
         const freqInfo = entry.freq > 1
           ? `<span class="block text-[10.5px] text-slate-400">${formatEuro(entry.amount)} alle ${entry.freq} Mt.</span>`
-          : (entry.salaryMeta
-              ? `<span class="block text-[10.5px] text-slate-400">Brutto ${formatEuroCompact(entry.salaryMeta.grossMonthly)} • Auszahlung ${formatEuro(entry.salaryMeta.netPayout)}</span>`
+          : (specialSubText
+              ? `<span class="block text-[10.5px] text-slate-400">${specialSubText}</span>`
               : '');
 
         const desktopFlatCatHtml = !isGroupedChild
@@ -3356,8 +3742,8 @@
           mobileSubParts.push(`<span class="font-bold text-[#1f8579]">Nachher: ${formatEuro(afterCheckM)}${diffTxt}</span>`);
         } else if (entry.freq > 1) {
           mobileSubParts.push(`${FREQUENCY_LABELS[entry.freq]} (${formatEuroCompact(entry.amount)})`);
-        } else if (entry.salaryMeta) {
-          mobileSubParts.push(`Brutto ${formatEuroCompact(entry.salaryMeta.grossMonthly)} • Auszahlung ${formatEuro(entry.salaryMeta.netPayout)}`);
+        } else if (specialSubText) {
+          mobileSubParts.push(specialSubText);
         }
         const mobileSubHtml = mobileSubParts.length > 0
           ? `<span class="sm:hidden block text-[10.5px] text-slate-400 mt-0.5">${mobileSubParts.join(' • ')}</span>`
@@ -3421,7 +3807,6 @@
           thMonthly.textContent = isSecondPhase ? 'Vorher / Mt.' : 'Monatswert';
         }
 
-        // Filter-Zähler aktualisieren
         const checkItems = state.entries.filter((e) => e.optimize);
         document.getElementById('countAll').textContent = state.entries.length;
         document.getElementById('countCheck').textContent = checkItems.length;
@@ -3430,7 +3815,6 @@
         document.getElementById('countVariable').textContent = state.entries.filter((e) => e.type === 'variable').length;
         document.getElementById('countSavings').textContent = state.entries.filter((e) => e.type === 'savings').length;
 
-        // Kategorie-Banner
         const catBanner = document.getElementById('activeCategoryBanner');
         if (state.filterCategoryId) {
           const catMeta = getCategoryMeta('fixed', state.filterCategoryId);
@@ -3574,7 +3958,7 @@
       }
 
       // =========================================================================
-      // 10. POPOVER / SMARTPHONE BOTTOM SHEET & GEHALTSRECHNER
+      // 10. POPOVER / SMARTPHONE BOTTOM SHEET & RECHNER (GEHALT, bAV, PKV)
       // =========================================================================
       const popover = document.getElementById('entryPopover');
       const backdrop = document.getElementById('popoverBackdrop');
@@ -3710,7 +4094,59 @@
         popGkvDropdown.classList.remove('hidden');
       }
 
+      function syncSalStatusUi() {
+        const st = state.salStatus || 'employee';
+        document.querySelectorAll('.sal-status-btn').forEach((btn) => {
+          const active = btn.dataset.salStatus === st;
+          btn.className = active
+            ? 'sal-status-btn active py-1 px-2 rounded-lg bg-[#00325b] text-white shadow-2xs cursor-pointer'
+            : 'sal-status-btn py-1 px-2 rounded-lg text-[#00325b]/70 hover:text-[#00325b] cursor-pointer';
+        });
+
+        const gkvWrap = document.getElementById('popGkvSearchWrapper');
+        const childrenWrap = document.getElementById('salChildrenWrap');
+        const hintBox = document.getElementById('salStatusHintBox');
+        const netLbl = document.getElementById('popSalNetLabel');
+        const grossLbl = document.getElementById('popSalGrossLabel');
+        const gkvRow = document.getElementById('salBreakGkvRow');
+        const taxEstRow = document.getElementById('salBreakTaxEstRow');
+
+        if (st === 'employee') {
+          gkvWrap?.classList.remove('hidden');
+          childrenWrap?.classList.remove('hidden');
+          hintBox?.classList.add('hidden');
+          gkvRow?.classList.remove('hidden');
+          taxEstRow?.classList.add('hidden');
+          if (netLbl) netLbl.textContent = 'Auszahlungs-Netto / Mt.';
+          if (grossLbl) grossLbl.textContent = 'Bruttogehalt / Mt.';
+        } else if (st === 'civil') {
+          gkvWrap?.classList.add('hidden');
+          childrenWrap?.classList.remove('hidden');
+          gkvRow?.classList.add('hidden');
+          taxEstRow?.classList.remove('hidden');
+          if (netLbl) netLbl.textContent = 'Netto-Besoldung / Mt.';
+          if (grossLbl) grossLbl.textContent = 'Brutto-Besoldung / Mt.';
+          if (hintBox) {
+            hintBox.innerHTML = '<strong>Beamte (2026):</strong> Keine Renten-, Arbeitslosen- und GKV-Abzüge vom Brutto. Erfasse deine PKV-Restkostenversicherung unter <em>Gesundheitsvorsorge</em>.';
+            hintBox.classList.remove('hidden');
+          }
+        } else {
+          gkvWrap?.classList.add('hidden');
+          childrenWrap?.classList.add('hidden');
+          gkvRow?.classList.add('hidden');
+          taxEstRow?.classList.remove('hidden');
+          if (netLbl) netLbl.textContent = 'Netto nach ESt / Mt.';
+          if (grossLbl) grossLbl.textContent = 'Gewinn vor Steuern / Mt.';
+          if (hintBox) {
+            hintBox.innerHTML = '<strong>Selbstständige (2026):</strong> Einkommensteuer nach § 32a EStG (Steuerklasse III = Splittingtarif). Kranken- und Altersvorsorge separat als Ausgabe erfassen.';
+            hintBox.classList.remove('hidden');
+          }
+        }
+      }
+
       function updateSalaryCalculatorUi(sourceField) {
+        syncSalStatusUi();
+        const status = state.salStatus || 'employee';
         const netInp = document.getElementById('popSalNetInput');
         const grossInp = document.getElementById('popSalGrossInput');
         const taxClass = parseInt(document.getElementById('popSalTaxClass').value, 10) || 1;
@@ -3724,19 +4160,20 @@
           badge.textContent = gkv.id === 'pkv_none' ? 'PKV / Beihilfe' : `${gkv.zusatz.toFixed(2).replace('.', ',')} % Zusatz`;
         }
 
-        let calc;
-        if (state.salDir === 'gross2net' || sourceField === 'gross') {
-          const grossVal = Math.max(0, parseFloat(grossInp.value) || 0);
-          calc = calcGermanPayroll2026(grossVal, { taxClass, stateCode, church, children, gkvId: gkv.id });
-          if (sourceField !== 'net') {
-            netInp.value = calc.netPayout.toFixed(2);
-          }
+        const dir = (state.salDir === 'gross2net' || sourceField === 'gross') ? 'gross2net' : 'net2gross';
+        const calc = computeIncomeByStatus2026(dir, netInp.value, grossInp.value, {
+          status,
+          taxClass,
+          stateCode,
+          church,
+          children,
+          gkvId: gkv.id
+        });
+
+        if (dir === 'gross2net') {
+          if (sourceField !== 'net') netInp.value = calc.netPayout.toFixed(2);
         } else {
-          const netVal = Math.max(0, parseFloat(netInp.value) || 0);
-          calc = solveGrossFromNet2026(netVal, { taxClass, stateCode, church, children, gkvId: gkv.id });
-          if (sourceField !== 'gross') {
-            grossInp.value = calc.gross.toFixed(2);
-          }
+          if (sourceField !== 'gross') grossInp.value = calc.gross.toFixed(2);
         }
 
         state.salLastCalc = calc;
@@ -3745,6 +4182,7 @@
           ? '− GKV-Zusatz (entfällt bei PKV):'
           : `− GKV-Zusatz (${gkv.name}, ★ Check):`;
         document.getElementById('salBreakGkvAmt').textContent = formatEuro(calc.kvZusatzAn);
+        document.getElementById('salBreakTaxEstAmt').textContent = `-${formatEuro(calc.incomeTaxEst || 0)}`;
         document.getElementById('salBreakChurchLabel').textContent = church
           ? `− Kirchensteuer (${calc.churchRatePct} %, ★ Check):`
           : '− Kirchensteuer (ausgetreten):';
@@ -3752,14 +4190,100 @@
         document.getElementById('salBreakNetOut').textContent = formatEuro(calc.netPayout);
       }
 
+      function updateBavCalculatorUi() {
+        const mode = state.bavMode || 'total_gross';
+        document.querySelectorAll('.bav-mode-btn').forEach((btn) => {
+          const active = btn.dataset.bavMode === mode;
+          btn.className = active
+            ? 'bav-mode-btn active px-2 py-0.5 rounded-md bg-[#00325b] text-white cursor-pointer'
+            : 'bav-mode-btn px-2 py-0.5 rounded-md text-[#00325b]/70 hover:text-[#00325b] cursor-pointer';
+        });
+        const lbl = document.getElementById('popBavGrossLabel');
+        if (lbl) {
+          lbl.textContent = mode === 'own_gross' ? 'Eigene Brutto-Umwandlung / Mt.' : 'Gesamt-Bruttobeitrag / Mt.';
+        }
+
+        const grossVal = parseFloat(document.getElementById('popBavGrossInput').value) || 0;
+        const agPct = parseFloat(document.getElementById('popBavAgPctInput').value);
+        const res = calcBavNetCost2026(grossVal, Number.isNaN(agPct) ? 15 : agPct, mode);
+        state.bavLastCalc = res;
+
+        document.getElementById('bavOutTotalGross').textContent = formatEuro(res.totalGross);
+        document.getElementById('bavOutAgLabel').textContent = `− Arbeitgeber-Zuschuss (${res.agPct} %):`;
+        document.getElementById('bavOutAgEur').textContent = `-${formatEuro(res.agEur)}`;
+        document.getElementById('bavOutOwnGross').textContent = formatEuro(res.ownGross);
+        document.getElementById('bavOutTaxSvEur').textContent = `-${formatEuro(res.taxSvSavings)}`;
+        document.getElementById('bavOutNetCost').textContent = `${formatEuro(res.netCost)} / Mt.`;
+
+        document.getElementById('popAmountInput').value = res.netCost.toFixed(2);
+        document.getElementById('popFrequencySelect').value = '1';
+        updatePopoverMonthlyPreview();
+      }
+
+      function updatePkvCalculatorUi() {
+        const mode = state.pkvMode || 'employee_ag';
+        document.querySelectorAll('.pkv-mode-btn').forEach((btn) => {
+          const active = btn.dataset.pkvMode === mode;
+          btn.className = active
+            ? 'pkv-mode-btn active py-1 px-1.5 rounded-lg bg-[#00325b] text-white shadow-2xs cursor-pointer'
+            : 'pkv-mode-btn py-1 px-1.5 rounded-lg text-[#00325b]/70 hover:text-[#00325b] cursor-pointer';
+        });
+
+        const grossWrap = document.getElementById('pkvGrossWrap');
+        const beihilfeWrap = document.getElementById('pkvBeihilfePctWrap');
+        const grossLbl = document.getElementById('popPkvGrossLabel');
+
+        if (mode === 'civil_beihilfe') {
+          grossWrap?.classList.remove('col-span-2');
+          beihilfeWrap?.classList.remove('hidden');
+          if (grossLbl) grossLbl.textContent = 'PKV-Beitrag / Mt.';
+        } else {
+          grossWrap?.classList.add('col-span-2');
+          beihilfeWrap?.classList.add('hidden');
+          if (grossLbl) grossLbl.textContent = 'PKV-Gesamtbeitrag (KV + PV) / Mt.';
+        }
+
+        const empEntry = state.entries.find((e) => e.salaryMeta);
+        const stCode = empEntry?.salaryMeta?.stateCode || 'NI';
+        const grossVal = parseFloat(document.getElementById('popPkvGrossInput').value) || 0;
+        const subPct = parseFloat(document.getElementById('popPkvBeihilfePct').value) || 0;
+        const res = calcPkvNetCost2026(grossVal, mode, subPct, stCode);
+        state.pkvLastCalc = res;
+
+        document.getElementById('pkvOutGross').textContent = formatEuro(res.grossPkv);
+        document.getElementById('pkvOutSubsidyLabel').textContent = res.subsidyLabel;
+        document.getElementById('pkvOutSubsidyEur').textContent = `-${formatEuro(res.subsidyEur)}`;
+        document.getElementById('pkvOutNet').textContent = `${formatEuro(res.netPkv)} / Mt.`;
+
+        document.getElementById('popAmountInput').value = res.netPkv.toFixed(2);
+        document.getElementById('popFrequencySelect').value = '1';
+        updatePopoverMonthlyPreview();
+      }
+
       function toggleSalaryPanelVisibility() {
+        const titleLower = (popTitleInput.value || '').trim().toLowerCase();
         const isSalary = state.popoverType === 'income' && popCategorySelect.value === 'income_salary';
+        const isBav = !isSalary && state.popoverType === 'savings' && popCategorySelect.value === 'sav_retirement' &&
+          (titleLower.includes('betriebliche altersvorsorge') || titleLower.includes('bav') || titleLower.includes('direktversicherung'));
+        const isPkv = !isSalary && !isBav && state.popoverType === 'fixed' && popCategorySelect.value === 'fixed_health_ins' &&
+          (titleLower.includes('private krankenversicherung') || titleLower.includes('pkv'));
+
         const salPanel = document.getElementById('salaryCalcPanel');
+        const bavPanel = document.getElementById('bavCalcPanel');
+        const pkvPanel = document.getElementById('pkvCalcPanel');
         const stdRow = document.getElementById('standardAmountRow');
+
         if (salPanel) salPanel.classList.toggle('hidden', !isSalary);
-        if (stdRow) stdRow.classList.toggle('hidden', isSalary);
+        if (bavPanel) bavPanel.classList.toggle('hidden', !isBav);
+        if (pkvPanel) pkvPanel.classList.toggle('hidden', !isPkv);
+        if (stdRow) stdRow.classList.toggle('hidden', isSalary || isBav || isPkv);
+
         if (isSalary) {
           updateSalaryCalculatorUi();
+        } else if (isBav) {
+          updateBavCalculatorUi();
+        } else if (isPkv) {
+          updatePkvCalculatorUi();
         }
       }
 
@@ -3910,6 +4434,7 @@
 
           if (entry.salaryMeta) {
             const sm = entry.salaryMeta;
+            state.salStatus = sm.status || 'employee';
             state.salDir = sm.dir || 'net2gross';
             state.salGkvId = sm.gkvId || 'aok_niedersachsen';
             document.getElementById('popSalNetInput').value = Number(sm.netPayout || 0).toFixed(2);
@@ -3925,6 +4450,32 @@
                 ? 'sal-dir-btn active px-2 py-0.5 rounded-md bg-[#00325b] text-white cursor-pointer'
                 : 'sal-dir-btn px-2 py-0.5 rounded-md text-[#00325b]/70 hover:text-[#00325b] cursor-pointer';
             });
+          } else {
+            state.salStatus = 'employee';
+          }
+
+          if (entry.bavMeta) {
+            state.bavMode = entry.bavMeta.mode || 'total_gross';
+            document.getElementById('popBavGrossInput').value = Number(
+              state.bavMode === 'own_gross' ? entry.bavMeta.ownGross : entry.bavMeta.totalGross
+            ).toFixed(2);
+            document.getElementById('popBavAgPctInput').value = String(entry.bavMeta.agPct ?? 15);
+          } else {
+            state.bavMode = 'total_gross';
+            document.getElementById('popBavGrossInput').value = '200.00';
+            document.getElementById('popBavAgPctInput').value = '15';
+          }
+
+          if (entry.pkvMeta) {
+            state.pkvMode = entry.pkvMeta.mode || 'employee_ag';
+            document.getElementById('popPkvGrossInput').value = Number(entry.pkvMeta.grossPkv).toFixed(2);
+            document.getElementById('popPkvBeihilfePct').value = String(entry.pkvMeta.subsidyPct ?? 0);
+          } else {
+            const hasCivilSalary = state.entries.some((x) => x.salaryMeta?.status === 'civil');
+            const hasSelfSalary = state.entries.some((x) => x.salaryMeta?.status === 'self');
+            state.pkvMode = hasCivilSalary ? 'civil_beihilfe' : hasSelfSalary ? 'full_self' : 'employee_ag';
+            document.getElementById('popPkvGrossInput').value = Number(entry.amount || 340).toFixed(2);
+            document.getElementById('popPkvBeihilfePct').value = '0';
           }
 
           deleteBtn.classList.remove('hidden');
@@ -3944,7 +4495,7 @@
           if (checkGkvInput) checkGkvInput.value = getGkvById('bkk_firmus').name;
           state.popCheckChurchExit = true;
 
-          // Gehaltsrechner-Defaults (Ostfriesland / Niedersachsen 2026)
+          state.salStatus = 'employee';
           state.salDir = 'net2gross';
           state.salGkvId = 'aok_niedersachsen';
           document.getElementById('popSalNetInput').value = '2550.00';
@@ -3954,6 +4505,16 @@
           document.getElementById('popSalChurch').value = '1';
           document.getElementById('popSalChildren').value = '0';
           document.getElementById('popGkvSearchInput').value = getGkvById('aok_niedersachsen').name;
+
+          state.bavMode = 'total_gross';
+          document.getElementById('popBavGrossInput').value = '200.00';
+          document.getElementById('popBavAgPctInput').value = '15';
+
+          const hasCivilSalary = state.entries.some((x) => x.salaryMeta?.status === 'civil');
+          const hasSelfSalary = state.entries.some((x) => x.salaryMeta?.status === 'self');
+          state.pkvMode = hasCivilSalary ? 'civil_beihilfe' : hasSelfSalary ? 'full_self' : 'employee_ag';
+          document.getElementById('popPkvGrossInput').value = hasCivilSalary ? '310.00' : '680.00';
+          document.getElementById('popPkvBeihilfePct').value = '0';
 
           deleteBtn.classList.add('hidden');
         }
@@ -3965,7 +4526,6 @@
         backdrop.classList.remove('hidden');
         popover.classList.remove('hidden');
 
-        // Weder beim Bearbeiten noch beim Hinzufügen automatisch in ein Eingabefeld springen
         closePresetDropdown();
         popGkvDropdown?.classList.add('hidden');
         document.getElementById('popCheckGkvDropdown')?.classList.add('hidden');
@@ -4063,7 +4623,6 @@
       function init() {
         initAppIcons();
 
-        // Bundesländer-Dropdown im Gehaltsrechner befüllen
         const salStateSelect = document.getElementById('popSalState');
         if (salStateSelect) {
           salStateSelect.innerHTML = GERMAN_STATES.map((s) => `
@@ -4071,7 +4630,6 @@
           `).join('');
         }
 
-        // URL-Parameter prüfen (?d=b...)
         applyUrlStateFromLocation(true);
 
         window.addEventListener('hashchange', () => {
@@ -4085,7 +4643,6 @@
           }
         });
 
-        // Sticky-Hero-Leiste & dynamischer Offset für mitscrollende Tabellen-Spaltenköpfe
         const mainHeaderEl = document.getElementById('mainHeader');
         const stickyHeroBarEl = document.getElementById('stickyHeroBar');
         const heroSentinelEl = document.getElementById('heroSentinel');
@@ -4121,7 +4678,6 @@
           openPopover({ mode: 'add' });
         });
 
-        // Gesprächs-Phase umschalten (1. Gespräch vs. 2. Gespräch)
         function setConversationPhase(phase) {
           if (state.conversationPhase === phase) return;
           state.conversationPhase = phase;
@@ -4133,7 +4689,6 @@
             state.filterType = state.prevFilterType || 'all';
           }
 
-          // Filter-Pills visuell synchronisieren
           document.querySelectorAll('.filter-pill').forEach((p) => {
             const active = p.dataset.filter === state.filterType;
             p.className = active
@@ -4141,7 +4696,6 @@
               : 'filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer';
           });
 
-          // Desktop Header-Toggle synchronisieren
           document.querySelectorAll('.header-phase-toggle-btn').forEach((btn) => {
             const active = btn.dataset.phase === phase;
             btn.className = active
@@ -4149,7 +4703,6 @@
               : 'header-phase-toggle-btn btn-tactile inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
           });
 
-          // Menü-Phase-Buttons synchronisieren
           document.querySelectorAll('.phase-btn').forEach((btn) => {
             const active = btn.dataset.phase === phase;
             btn.className = active
@@ -4157,7 +4710,6 @@
               : 'phase-btn btn-tactile inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
           });
 
-          // Smartphone Header-Toggle synchronisieren
           const mobLabel = document.getElementById('mobileHeaderPhaseLabel');
           const mobDot = document.getElementById('mobileHeaderPhaseDot');
           if (mobLabel) mobLabel.textContent = phase === 'second' ? '2. Gespräch' : '1. Gespräch';
@@ -4177,7 +4729,6 @@
           setConversationPhase(state.conversationPhase === 'first' ? 'second' : 'first');
         });
 
-        // Header-Menü öffnen / schließen
         const headerMenuPanel = document.getElementById('headerMenuPanel');
         const headerMenuBackdrop = document.getElementById('headerMenuBackdrop');
         const headerMenuBtn = document.getElementById('headerMenuBtn');
@@ -4206,7 +4757,6 @@
         document.getElementById('closeHeaderMenuBtn')?.addEventListener('click', closeHeaderMenu);
         headerMenuBackdrop?.addEventListener('click', closeHeaderMenu);
 
-        // Smartphone Bottom Bar
         document.getElementById('mobileBarAddBtn')?.addEventListener('click', () => {
           openPopover({ mode: 'add' });
         });
@@ -4253,7 +4803,6 @@
         document.getElementById('menuSwitchToAdvisorBtn')?.addEventListener('click', switchBackToAdvisorView);
         document.getElementById('bannerSwitchToAdvisorBtn')?.addEventListener('click', switchBackToAdvisorView);
 
-        // Kundenakten Modal (Sitzungsliste)
         const clientModal = document.getElementById('clientRecordsModal');
         function renderClientRecordsList() {
           const listEl = document.getElementById('savedClientRecordsList');
@@ -4347,7 +4896,6 @@
           }
         });
 
-        // Kunden-Freigabe Modal ("Für Kunden freigeben")
         const takeHomeModal = document.getElementById('clientTakeHomeModal');
 
         function updateTakeHomeShareLink() {
@@ -4421,7 +4969,6 @@
           );
         });
 
-        // Zweitgespräch Check-Steuerung
         document.getElementById('applyOptimizedToggle')?.addEventListener('change', (e) => {
           state.applyOptimizedToBalance = Boolean(e.target.checked);
           renderAll();
@@ -4437,9 +4984,14 @@
           showToast('Richtwerte für Check-Positionen geladen.');
         });
 
+        // Keine Doppelzählung beim Übergeben in den Zinseszins-Simulator
         document.getElementById('sendSavingsToSimBtn')?.addEventListener('click', () => {
           const m = calculateMetrics();
-          const targetMonthly = Math.min(3000, Math.max(25, Math.round((m.totalWealthPotential + m.totalCheckSavingsMonthly) / 25) * 25));
+          const postCheckCashflow = state.applyOptimizedToBalance
+            ? m.cashflowMonthly
+            : (m.cashflowMonthly + m.totalCheckSavingsMonthly);
+          const postCheckPotential = m.savingsMonthly + Math.max(0, postCheckCashflow);
+          const targetMonthly = Math.min(3000, Math.max(25, Math.round(postCheckPotential / 25) * 25));
           state.simMonthly = targetMonthly;
           document.getElementById('simMonthlySlider').value = targetMonthly;
           syncStateToUrlHash();
@@ -4448,7 +5000,6 @@
           showToast(`Sparrate auf ${formatEuroCompact(targetMonthly)}/Mt. (inkl. Check-Ersparnis) gesetzt.`);
         });
 
-        // Filter-, Such- und Sortier-Steuerung der Tabelle
         document.getElementById('typeFilterBar')?.addEventListener('click', (e) => {
           const pill = e.target.closest('.filter-pill');
           if (!pill) return;
@@ -4510,7 +5061,6 @@
           showToast('Vorlage geladen.');
         });
 
-        // Durchsuchbare Ziel-Krankenkassenliste in der einheitlichen Tabelle
         function renderBaGkvDropdown(pickerEl, entry, queryText) {
           if (!pickerEl || !entry) return;
           const dropdown = pickerEl.querySelector('.ba-gkv-dropdown');
@@ -4593,7 +5143,6 @@
         });
 
         tableBodyEl?.addEventListener('click', (e) => {
-          // 1. Ziel-Krankenkasse im Inline-Dropdown ausgewählt
           const pickGkvBtn = e.target.closest('[data-ba-gkv-pick]');
           if (pickGkvBtn) {
             e.stopPropagation();
@@ -4608,7 +5157,6 @@
             return;
           }
 
-          // 2. Inline GKV-Dropdown umschalten
           const toggleGkvBtn = e.target.closest('[data-ba-gkv-toggle]');
           if (toggleGkvBtn) {
             e.stopPropagation();
@@ -4628,7 +5176,6 @@
             return;
           }
 
-          // 3. Kirchenaustritt Ja / Nein im 2. Gespräch
           const churchBtn = e.target.closest('[data-ba-church-toggle]');
           if (churchBtn) {
             e.stopPropagation();
@@ -4641,13 +5188,11 @@
             return;
           }
 
-          // Nicht auslösen, wenn direkt in ein Inline-Input geklickt wurde
           if (e.target.closest('.ba-after-input, .ba-gkv-search-input')) {
             e.stopPropagation();
             return;
           }
 
-          // 4. Schnell-Hinzufügen (+) in einer Überkategorie
           const quickAddBtn = e.target.closest('[data-quick-add-cat]');
           if (quickAddBtn) {
             e.stopPropagation();
@@ -4659,7 +5204,6 @@
             return;
           }
 
-          // 5. Überkategorie auf-/zuklappen
           const groupRow = e.target.closest('[data-group-toggle]');
           if (groupRow) {
             const key = groupRow.dataset.groupToggle;
@@ -4668,7 +5212,6 @@
             return;
           }
 
-          // 6. Position bearbeiten (Desktop-Icon)
           const editBtn = e.target.closest('[data-edit-id]');
           if (editBtn) {
             e.stopPropagation();
@@ -4677,7 +5220,6 @@
             return;
           }
 
-          // 7. Position löschen (Desktop-Icon)
           const delBtn = e.target.closest('[data-delete-id]');
           if (delBtn) {
             e.stopPropagation();
@@ -4689,7 +5231,6 @@
             return;
           }
 
-          // 8. Antippen einer Zeile öffnet Bearbeiten-Sheet
           const row = e.target.closest('[data-row-edit-id]');
           if (row) {
             const entry = state.entries.find((x) => x.id === row.dataset.rowEditId);
@@ -4697,7 +5238,6 @@
           }
         });
 
-        // Popover / Bottom-Sheet Trigger & Formular-Logik
         document.getElementById('openAddPopoverBtn')?.addEventListener('click', () => openPopover({ mode: 'add' }));
         document.getElementById('emptyAddBtn')?.addEventListener('click', () => openPopover({ mode: 'add' }));
         document.getElementById('closePopoverBtn')?.addEventListener('click', closePopover);
@@ -4718,6 +5258,7 @@
 
         popTitleInput?.addEventListener('input', () => {
           renderPresetDropdown(popTitleInput.value);
+          toggleSalaryPanelVisibility();
         });
         popTitleInput?.addEventListener('focus', () => {
           renderPresetDropdown(popTitleInput.value);
@@ -4743,6 +5284,9 @@
           document.getElementById('popFrequencySelect').value = String(preset.freq || 1);
           document.getElementById('popOptimizeCheckbox').checked = Boolean(preset.optimize);
           if (preset.type === 'income' && preset.categoryId === 'income_salary') {
+            if (preset.title.toLowerCase().includes('beamte')) state.salStatus = 'civil';
+            else if (preset.title.toLowerCase().includes('selbstständig')) state.salStatus = 'self';
+            else state.salStatus = 'employee';
             document.getElementById('popSalNetInput').value = Number(preset.amount).toFixed(2);
           }
           toggleSalaryPanelVisibility();
@@ -4750,7 +5294,14 @@
           closePresetDropdown();
         });
 
-        // Gehaltsrechner-Interaktionen im Popover
+        // Berufsstatus & Einkommensrechner-Interaktionen im Popover
+        document.querySelectorAll('.sal-status-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.salStatus = btn.dataset.salStatus;
+            updateSalaryCalculatorUi();
+          });
+        });
+
         document.querySelectorAll('.sal-dir-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             state.salDir = btn.dataset.salDir;
@@ -4814,7 +5365,25 @@
           updateSalaryCalculatorUi();
         });
 
-        // Standard-Betrag & Check-Steuerung im Popover
+        // bAV & PKV Rechner-Interaktionen im Popover
+        document.querySelectorAll('.bav-mode-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.bavMode = btn.dataset.bavMode;
+            updateBavCalculatorUi();
+          });
+        });
+        document.getElementById('popBavGrossInput')?.addEventListener('input', updateBavCalculatorUi);
+        document.getElementById('popBavAgPctInput')?.addEventListener('input', updateBavCalculatorUi);
+
+        document.querySelectorAll('.pkv-mode-btn').forEach((btn) => {
+          btn.addEventListener('click', () => {
+            state.pkvMode = btn.dataset.pkvMode;
+            updatePkvCalculatorUi();
+          });
+        });
+        document.getElementById('popPkvGrossInput')?.addEventListener('input', updatePkvCalculatorUi);
+        document.getElementById('popPkvBeihilfePct')?.addEventListener('change', updatePkvCalculatorUi);
+
         document.getElementById('popAmountInput')?.addEventListener('input', updatePopoverMonthlyPreview);
         document.getElementById('popFrequencySelect')?.addEventListener('change', updatePopoverMonthlyPreview);
         document.getElementById('popOptimizeCheckbox')?.addEventListener('change', () => {
@@ -4828,7 +5397,6 @@
         });
         document.getElementById('popCheckAfterInput')?.addEventListener('input', () => updatePopCheckSettingsUi());
 
-        // Ziel-Krankenkasse im Popover / Bottom-Sheet
         const popCheckGkvInput = document.getElementById('popCheckGkvInput');
         const popCheckGkvDropdown = document.getElementById('popCheckGkvDropdown');
         popCheckGkvInput?.addEventListener('input', () => renderPopCheckGkvDropdown(popCheckGkvInput.value));
@@ -4860,7 +5428,6 @@
           });
         });
 
-        // Löschen im Popover / Bottom Sheet
         document.getElementById('popDeleteBtn')?.addEventListener('click', () => {
           if (!state.editingId) return;
           const id = state.editingId;
@@ -4871,27 +5438,35 @@
           showToast('Position gelöscht.');
         });
 
-        // Speichern im Popover / Bottom Sheet
         document.getElementById('popoverForm')?.addEventListener('submit', (e) => {
           e.preventDefault();
           const title = popTitleInput.value.trim();
           if (!title) return;
 
+          const titleLower = title.toLowerCase();
           const type = state.popoverType;
           const categoryId = popCategorySelect.value;
           const isSalary = type === 'income' && categoryId === 'income_salary';
+          const isBav = !isSalary && type === 'savings' && categoryId === 'sav_retirement' &&
+            (titleLower.includes('betriebliche altersvorsorge') || titleLower.includes('bav') || titleLower.includes('direktversicherung'));
+          const isPkv = !isSalary && !isBav && type === 'fixed' && categoryId === 'fixed_health_ins' &&
+            (titleLower.includes('private krankenversicherung') || titleLower.includes('pkv'));
           const optimize = Boolean(document.getElementById('popOptimizeCheckbox').checked);
 
           let amount = 0;
           let freq = 1;
           let salaryMeta = null;
+          let bavMeta = null;
+          let pkvMeta = null;
 
           if (isSalary) {
             updateSalaryCalculatorUi();
-            const calc = state.salLastCalc || solveGrossFromNet2026(2550, { taxClass: 1, stateCode: 'NI', church: true, children: 0, gkvId: 'aok_niedersachsen' });
+            const status = state.salStatus || 'employee';
+            const calc = state.salLastCalc || computeIncomeByStatus2026('net2gross', 2550, 3920, { status, taxClass: 1, stateCode: 'NI', church: true, children: 0, gkvId: 'aok_niedersachsen' });
             amount = calc.basisNetBeforeOpt;
             freq = 1;
             salaryMeta = {
+              status,
               dir: state.salDir,
               netPayout: calc.netPayout,
               grossMonthly: calc.gross,
@@ -4899,8 +5474,20 @@
               stateCode: document.getElementById('popSalState').value || 'NI',
               church: document.getElementById('popSalChurch').value === '1',
               children: parseInt(document.getElementById('popSalChildren').value, 10) || 0,
-              gkvId: state.salGkvId
+              gkvId: status === 'employee' ? state.salGkvId : 'pkv_none'
             };
+          } else if (isBav) {
+            updateBavCalculatorUi();
+            const bavCalc = state.bavLastCalc || calcBavNetCost2026(200, 15, 'total_gross');
+            amount = bavCalc.netCost;
+            freq = 1;
+            bavMeta = bavCalc;
+          } else if (isPkv) {
+            updatePkvCalculatorUi();
+            const pkvCalc = state.pkvLastCalc || calcPkvNetCost2026(340, 'employee_ag', 50, 'NI');
+            amount = pkvCalc.netPkv;
+            freq = 1;
+            pkvMeta = pkvCalc;
           } else {
             amount = Math.max(0, parseFloat(document.getElementById('popAmountInput').value) || 0);
             freq = parseInt(document.getElementById('popFrequencySelect').value, 10) || 1;
@@ -4940,11 +5527,9 @@
                 ...(optimize ? { optimizedMonthly: nextOptimizedMonthly } : {}),
                 ...(nextTargetGkvId ? { targetGkvId: nextTargetGkvId } : {})
               };
-              if (salaryMeta) {
-                updated.salaryMeta = salaryMeta;
-              } else {
-                delete updated.salaryMeta;
-              }
+              if (salaryMeta) updated.salaryMeta = salaryMeta; else delete updated.salaryMeta;
+              if (bavMeta) updated.bavMeta = bavMeta; else delete updated.bavMeta;
+              if (pkvMeta) updated.pkvMeta = pkvMeta; else delete updated.pkvMeta;
 
               state.entries[idx] = updated;
               if (isSalary) {
@@ -4966,7 +5551,9 @@
               freq,
               optimize,
               ...(optMonthly !== undefined ? { optimizedMonthly: optMonthly } : {}),
-              ...(salaryMeta ? { salaryMeta } : {})
+              ...(salaryMeta ? { salaryMeta } : {}),
+              ...(bavMeta ? { bavMeta } : {}),
+              ...(pkvMeta ? { pkvMeta } : {})
             };
             state.entries.push(newEntry);
             if (isSalary) {
@@ -4981,7 +5568,6 @@
           showToast('Position gespeichert.');
         });
 
-        // Globale Klick- und Escape-Handler
         document.addEventListener('mousedown', (e) => {
           const gkvWrap = document.getElementById('popGkvSearchWrapper');
           if (gkvWrap && !gkvWrap.contains(e.target) && popGkvDropdown) {
@@ -5000,7 +5586,6 @@
           }
         });
 
-        // Zinseszins-Simulator Controls
         document.getElementById('simMonthlySlider')?.addEventListener('input', (e) => {
           state.simMonthly = parseInt(e.target.value, 10) || 25;
           syncStateToUrlHash();
@@ -5029,7 +5614,6 @@
           });
         });
 
-        // Report Modal & CSV Export
         const reportModal = document.getElementById('reportModal');
 
         function renderReportModal() {
@@ -5158,12 +5742,14 @@
 
         document.getElementById('exportCsvBtn')?.addEventListener('click', () => {
           closeHeaderMenu();
-          const headers = ['Bezeichnung', 'Überkategorie', 'Rhythmus', 'Originalbetrag_EUR', 'Monatswert_Ist_EUR', 'Monatswert_Nachher_EUR', 'Check_Vorgemerkt'];
+          const typeLabels = { income: 'Einnahme', fixed: 'Fixkosten', variable: 'Variabel', savings: 'Vorsorge & Sparen' };
+          const headers = ['Art', 'Bezeichnung', 'Überkategorie', 'Rhythmus', 'Originalbetrag_EUR', 'Monatswert_Ist_EUR', 'Monatswert_Nachher_EUR', 'Check_Vorgemerkt'];
           const rows = state.entries.map((entry) => {
             const meta = getCategoryMeta(entry.type, entry.categoryId);
             const rawM = getMonthlyAmount(entry);
             const optM = getOptimizedTargetMonthly(entry);
             return [
+              `"${typeLabels[entry.type] || entry.type}"`,
               `"${entry.title.replace(/"/g, '""')}"`,
               `"${meta.label.replace(/"/g, '""')}"`,
               `"${FREQUENCY_LABELS[entry.freq] || 'Monatlich'}"`,
