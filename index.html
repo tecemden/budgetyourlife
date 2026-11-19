@@ -5,6 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Persönliche Haushalts- &amp; Cashflow-Analyse</title>
 
+  <!-- App- & Browser-Icons (Browser-Tab & iPhone/Android Home-Bildschirm) -->
+  <meta name="theme-color" content="#00325b" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-title" content="Haushalts-Analyse" />
+  <link id="appFavicon" rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%2300325b'/%3E%3Cpath d='M32 52s16-8 16-20V16l-16-6-16 6v16c0 12 16 20 16 20z' fill='none' stroke='%23009ee3' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='m25 32 5 5 10-10' fill='none' stroke='%23d3d800' stroke-width='4.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+  <link id="appleTouchIcon" rel="apple-touch-icon" sizes="180x180" href="" />
+
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
 
@@ -3999,7 +4006,63 @@
       // =========================================================================
       // 11. EVENT-LISTENER & INTERAKTIONEN
       // =========================================================================
+      function initAppIcons() {
+        try {
+          const canvas = document.createElement('canvas');
+          canvas.width = 180;
+          canvas.height = 180;
+          const ctx = canvas.getContext('2d');
+          if (!ctx) return;
+
+          ctx.fillStyle = '#00325b';
+          ctx.fillRect(0, 0, 180, 180);
+
+          ctx.fillStyle = 'rgba(0, 158, 227, 0.14)';
+          ctx.beginPath();
+          ctx.arc(150, 30, 58, 0, Math.PI * 2);
+          ctx.fill();
+
+          ctx.save();
+          ctx.translate(90, 90);
+          ctx.scale(4.6, 4.6);
+          ctx.translate(-12, -12);
+
+          ctx.strokeStyle = '#009ee3';
+          ctx.lineWidth = 2.2;
+          ctx.lineCap = 'round';
+          ctx.lineJoin = 'round';
+          ctx.beginPath();
+          ctx.moveTo(12, 22);
+          ctx.bezierCurveTo(12, 22, 20, 18, 20, 12);
+          ctx.lineTo(20, 5);
+          ctx.lineTo(12, 2);
+          ctx.lineTo(4, 5);
+          ctx.lineTo(4, 12);
+          ctx.bezierCurveTo(4, 18, 12, 22, 12, 22);
+          ctx.closePath();
+          ctx.stroke();
+
+          ctx.strokeStyle = '#d3d800';
+          ctx.lineWidth = 2.4;
+          ctx.beginPath();
+          ctx.moveTo(9, 12);
+          ctx.lineTo(11, 14);
+          ctx.lineTo(15, 10);
+          ctx.stroke();
+          ctx.restore();
+
+          const appleLink = document.getElementById('appleTouchIcon');
+          if (appleLink) {
+            appleLink.href = canvas.toDataURL('image/png');
+          }
+        } catch (err) {
+          // Ignorieren falls Canvas nicht verfügbar
+        }
+      }
+
       function init() {
+        initAppIcons();
+
         // Bundesländer-Dropdown im Gehaltsrechner befüllen
         const salStateSelect = document.getElementById('popSalState');
         if (salStateSelect) {
