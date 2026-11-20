@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Persönliche Haushalts- &amp; Cashflow-Analyse</title>
+  <title>Persönliche Haushalts- &amp; Cashflow-Analyse (Widescreen)</title>
 
   <!-- App- & Browser-Icons (Browser-Tab & iPhone/Android Home-Bildschirm) -->
   <meta name="theme-color" content="#00325b" />
@@ -36,6 +36,48 @@
       color: #00325b;
       color-scheme: light;
       overflow-x: hidden;
+    }
+
+    /* Optionaler 3–4 m Großbild-Modus (standardmäßig deaktiviert) */
+    @media (min-width: 768px) {
+      html.tv-scale-mode {
+        font-size: 18.5px;
+      }
+      html.tv-scale-mode .tv-hero-num {
+        font-size: 2.35rem !important;
+        line-height: 1.15 !important;
+      }
+    }
+
+    /* Sofortige Hover-Tooltips für eingeklappte Seitenleisten-Icons */
+    #desktopSidebar[data-collapsed="true"] .side-item {
+      position: relative;
+    }
+    #desktopSidebar[data-collapsed="true"] .side-item::after {
+      content: attr(data-tooltip);
+      position: absolute;
+      left: calc(100% + 12px);
+      top: 50%;
+      transform: translateY(-50%) translateX(-4px);
+      background-color: #00325b;
+      color: #ffffff;
+      font-size: 12px;
+      font-weight: 700;
+      line-height: 1.25;
+      padding: 6px 11px;
+      border-radius: 9px;
+      white-space: nowrap;
+      box-shadow: 0 10px 24px -4px rgba(0, 50, 91, 0.36);
+      border: 1px solid rgba(255, 255, 255, 0.14);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 140ms var(--ease-micro), transform 140ms var(--ease-micro);
+      z-index: 60;
+    }
+    #desktopSidebar[data-collapsed="true"] .side-item:hover::after,
+    #desktopSidebar[data-collapsed="true"] .side-item:focus-visible::after {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
     }
 
     .tabular-nums {
@@ -176,6 +218,8 @@
         -webkit-print-color-adjust: exact !important;
         print-color-adjust: exact !important;
       }
+      body.printing-report #desktopSidebar,
+      body.printing-report #sidebarOverlayBackdrop,
       body.printing-report #mainHeader,
       body.printing-report #stickyHeroBar,
       body.printing-report #mobileBottomBar,
@@ -224,737 +268,860 @@
 </head>
 <body class="bg-[#F4F8FB] text-[#00325b] antialiased selection:bg-[#009ee3] selection:text-white">
 
-  <!-- ======================================================================= -->
-  <!-- STICKY HEADER (MIT DIREKTEM GESPRÄCHS-TOGGLE & SCHLANKEM MENÜ-BUTTON)  -->
-  <!-- ======================================================================= -->
-  <header id="mainHeader" class="sticky top-0 z-30 w-full max-w-full overflow-x-clip bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
-    <div class="max-w-7xl mx-auto px-3 sm:px-6 py-2.5 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-3 relative">
-      <div class="flex items-center gap-2 sm:gap-3 min-w-0 flex-1">
-        <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#00325b] flex items-center justify-center text-white shadow-sm shrink-0">
-          <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#009ee3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
-            <path d="m9 12 2 2 4-4" />
-          </svg>
-        </div>
-        <div class="min-w-0 flex-1">
-          <div class="flex items-center gap-2 min-w-0">
-            <h1 class="text-[13px] sm:text-lg font-bold tracking-tight text-[#00325b] truncate">
-              <span class="sm:hidden">Haushalts-Analyse</span>
-              <span class="hidden sm:inline">Persönliche Haushalts- &amp; Cashflow-Analyse</span>
-            </h1>
-            <span class="hidden xl:inline-block text-[10.5px] font-semibold px-2 py-0.5 rounded-full bg-[#009ee3]/15 text-[#00325b] shrink-0">
-              Beratungs-Edition
-            </span>
-          </div>
-          <p class="hidden sm:block text-[11px] text-slate-500 truncate">
-            Einnahmen, Ausgaben &amp; Liquiditätspotenzial im Überblick
-          </p>
-        </div>
-      </div>
-
-      <div class="no-print flex items-center gap-1.5 sm:gap-2 shrink-0">
-        <button id="mobileHeaderPhaseToggle" type="button" aria-label="Zwischen 1. und 2. Gespräch wechseln"
-                class="md:hidden btn-tactile inline-flex items-center gap-1 px-2 py-1.5 rounded-xl bg-[#F4F8FB] active:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-bold text-[#00325b] shrink-0 cursor-pointer">
-          <span id="mobileHeaderPhaseDot" class="w-1.5 h-1.5 rounded-full bg-[#009ee3] shrink-0"></span>
-          <span id="mobileHeaderPhaseLabel">1. Gespräch</span>
-          <span id="mobileHeaderCheckBadge" class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#d3d800] text-[#00325b]">0</span>
-        </button>
-
-        <div id="headerPhaseToggleGroup" role="group" aria-label="Gesprächsansicht umschalten"
-             class="hidden md:inline-flex items-center bg-[#F4F8FB] p-0.5 rounded-xl border border-slate-200/90 shrink-0">
-          <button type="button" data-phase="first"
-                  class="header-phase-toggle-btn active btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer">
-            1. Gespräch
-          </button>
-          <button type="button" data-phase="second"
-                  class="header-phase-toggle-btn btn-tactile inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer">
-            <span>2. Gespräch</span>
-            <span id="headerToggleCheckBadge" class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#d3d800] text-[#00325b]">0</span>
-          </button>
-        </div>
-
-        <button id="headerMenuBtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="headerMenuPanel"
-                class="btn-tactile inline-flex items-center gap-1.5 bg-white hover:bg-[#F4F8FB] active:bg-[#E8F1F8] text-[#00325b] font-bold text-xs px-2.5 sm:px-3 py-1.5 sm:py-2 rounded-xl border border-slate-200/95 shadow-2xs shrink-0 cursor-pointer">
-          <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="4" y1="7" x2="20" y2="7" />
-            <line x1="4" y1="12" x2="20" y2="12" />
-            <line x1="4" y1="17" x2="20" y2="17" />
-          </svg>
-          <span>Menü</span>
-          <svg id="headerMenuChevron" class="hidden sm:block w-3.5 h-3.5 text-slate-400 transition-transform duration-200" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="6 9 12 15 18 9" />
-          </svg>
-        </button>
-      </div>
-    </div>
-  </header>
+  <!-- Backdrop für ausgeklappte Overlay-Seitenleiste -->
+  <div id="sidebarOverlayBackdrop" class="no-print fixed inset-0 z-40 hidden bg-[#00325b]/25 backdrop-blur-[1px]"></div>
 
   <!-- ======================================================================= -->
-  <!-- ZENTRALES BERATUNGS-MENÜ                                                -->
+  <!-- SCHLANKE ICON-SEITENLEISTE LINKS (KLAPPT ALS OVERLAY ÜBER DEN INHALT)   -->
   <!-- ======================================================================= -->
-  <div id="headerMenuBackdrop" class="no-print fixed inset-0 z-40 hidden bg-[#00325b]/35 md:bg-[#00325b]/10 backdrop-blur-[1px]"></div>
+  <aside id="desktopSidebar" data-collapsed="true" aria-label="Beratungs-Seitenleiste"
+         class="no-print hidden md:flex flex-col fixed left-0 top-0 bottom-0 w-16 bg-white border-r border-slate-200/90 shadow-sm z-50 transition-[width,box-shadow] duration-200 select-none">
 
-  <div id="headerMenuPanel" role="dialog" aria-modal="true" aria-label="Menü"
-       class="no-print fixed z-50 hidden inset-x-0 bottom-0 md:inset-x-auto md:bottom-auto md:right-6 md:top-16 w-full md:w-[390px] max-h-[88dvh] overflow-y-auto bg-white rounded-t-3xl md:rounded-2xl shadow-2xl border-t md:border border-slate-200/90 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] md:p-4 space-y-4 animate-panel">
-    <div class="md:hidden w-10 h-1 rounded-full bg-slate-300 mx-auto -mt-1"></div>
+    <!-- Top: Moderner Doppelpfeil zum Ausklappen / Einklappen -->
+    <div id="sidebarHeaderRow" class="h-16 border-b border-slate-100 flex items-center justify-center shrink-0">
+      <button id="expandSidebarBtn" type="button" data-tooltip="Menüband ausklappen" aria-label="Menüband ausklappen"
+              class="side-item btn-tactile w-10 h-10 mx-auto rounded-xl bg-[#F4F8FB] hover:bg-[#00325b] text-[#00325b] hover:text-white border border-slate-200/90 flex items-center justify-center cursor-pointer">
+        <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="13 17 18 12 13 7" />
+          <polyline points="6 17 11 12 6 7" />
+        </svg>
+      </button>
 
-    <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
-      <div>
-        <span class="text-[10px] font-bold uppercase tracking-wider text-[#009ee3]">Steuerung &amp; Werkzeuge</span>
-        <h3 class="text-sm font-extrabold text-[#00325b]">Beratungs-Menü</h3>
-      </div>
-      <button id="closeHeaderMenuBtn" type="button" aria-label="Menü schließen" class="w-7 h-7 rounded-lg bg-[#F4F8FB] hover:bg-slate-200/70 flex items-center justify-center text-slate-500 text-xs cursor-pointer">✕</button>
-    </div>
-
-    <div id="advisorPhaseSwitcher" class="space-y-1.5">
-      <span class="text-[11px] font-bold text-slate-500 block">Gesprächs-Phase wählen</span>
-      <div class="grid grid-cols-2 gap-1.5 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90" role="tablist" aria-label="Beratungsgespräch wählen">
-        <button type="button" data-phase="first" class="phase-btn active btn-tactile py-2 px-2.5 rounded-lg text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer">
-          1. Gespräch (Ist)
-        </button>
-        <button type="button" data-phase="second" class="phase-btn btn-tactile inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer">
-          <span>2. Gespräch</span>
-          <span id="headerCheckCountBadge" class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#d3d800] text-[#00325b]">0</span>
-        </button>
-      </div>
-    </div>
-
-    <div id="menuAdvisorClientGroup" class="space-y-1.5">
-      <span class="text-[11px] font-bold text-slate-500 block">Mandant &amp; Vorbereitung</span>
-      <div class="space-y-1.5">
-        <button id="openClientRecordsBtn" type="button" class="btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
-              </svg>
-            </span>
-            <div class="min-w-0">
-              <span id="headerClientNameLabel" class="text-xs font-bold text-[#00325b] block truncate">Kundenakte speichern &amp; laden</span>
-              <span class="text-[10.5px] text-slate-500 block truncate">Stand für das 2. Gespräch sichern</span>
-            </div>
-          </div>
-          <span class="text-xs font-bold text-[#009ee3] shrink-0">→</span>
-        </button>
-
-        <button id="openTakeHomeModalBtn" type="button" class="btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#009ee3]/10 hover:bg-[#009ee3]/18 border border-[#009ee3]/30 text-left cursor-pointer">
-          <div class="flex items-center gap-2.5 min-w-0">
-            <span class="w-8 h-8 rounded-lg bg-white border border-[#009ee3]/30 text-[#009ee3] flex items-center justify-center shrink-0">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="18" cy="5" r="3" />
-                <circle cx="6" cy="12" r="3" />
-                <circle cx="18" cy="19" r="3" />
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
-              </svg>
-            </span>
-            <div class="min-w-0">
-              <span class="text-xs font-bold text-[#00325b] block truncate">Für Kunden freigeben</span>
-              <span class="text-[10.5px] text-slate-600 block truncate">Persönlichen Link teilen oder kopieren</span>
-            </div>
-          </div>
-          <span class="text-xs font-bold text-[#00325b] shrink-0">→</span>
-        </button>
-      </div>
-    </div>
-
-    <div class="space-y-1.5">
-      <span class="text-[11px] font-bold text-slate-500 block">Auswertung &amp; Export</span>
-
-      <button id="menuClientReturnBtn" type="button" class="hidden btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#00325b] text-white text-left cursor-pointer">
+      <div id="expandedSidebarHeader" class="hidden w-full px-3.5 flex items-center justify-between gap-2">
         <div class="min-w-0">
-          <span class="text-xs font-bold text-[#d3d800] block truncate">Aktualisierten Link an Berater senden</span>
-          <span class="text-[10.5px] text-slate-300 block truncate">Änderungen per Link teilen oder kopieren</span>
+          <span class="text-xs font-extrabold text-[#00325b] block truncate">Beratungs-Menü</span>
+          <span class="text-[10px] font-semibold text-[#009ee3] block truncate">Steuerung &amp; Werkzeuge</span>
         </div>
-        <span class="text-xs font-bold text-[#d3d800] shrink-0">↗</span>
-      </button>
-
-      <button id="menuSwitchToAdvisorBtn" type="button" class="hidden btn-tactile w-full flex items-center justify-between gap-3 p-2 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
-        <span class="text-[11px] font-semibold text-[#00325b] truncate">In Berater-Ansicht wechseln</span>
-        <span class="text-[11px] font-bold text-[#009ee3] shrink-0">→</span>
-      </button>
-
-      <div class="grid grid-cols-2 gap-2">
-        <button id="openReportBtn" type="button" class="btn-tactile flex items-center gap-2.5 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
-          <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-              <polyline points="14 2 14 8 20 8" />
-              <line x1="16" y1="13" x2="8" y2="13" />
-              <line x1="16" y1="17" x2="8" y2="17" />
-            </svg>
-          </span>
-          <div class="min-w-0">
-            <span class="text-xs font-bold text-[#00325b] block">Report / PDF</span>
-            <span class="text-[10px] text-slate-500 block truncate">Druckansicht</span>
-          </div>
-        </button>
-
-        <button id="exportCsvBtn" type="button" class="btn-tactile flex items-center gap-2.5 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
-          <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
-            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-              <polyline points="7 10 12 15 17 10" />
-              <line x1="12" y1="15" x2="12" y2="3" />
-            </svg>
-          </span>
-          <div class="min-w-0">
-            <span class="text-xs font-bold text-[#00325b] block">CSV-Export</span>
-            <span class="text-[10px] text-slate-500 block truncate">Excel-Tabelle</span>
-          </div>
-        </button>
-      </div>
-    </div>
-
-    <div id="advisorScenarioWrapper" class="space-y-1.5 pt-2 border-t border-slate-100">
-      <label for="scenarioSelect" class="text-[11px] font-bold text-slate-500 block">Muster-Szenario / Vorlage laden</label>
-      <select id="scenarioSelect" class="btn-tactile w-full bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] text-xs font-semibold rounded-xl px-3 py-2.5 border border-slate-200/90 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3] cursor-pointer">
-        <option value="standard" selected>Standard-Haushalt (Komplett)</option>
-        <option value="starter">Szenario: Berufseinsteiger (Single)</option>
-        <option value="couple">Szenario: Doppelverdiener &amp; Aufbau</option>
-        <option value="family">Szenario: Familie &amp; Eigenheim</option>
-        <option value="custom" hidden>Individuell angepasst</option>
-        <option value="empty">Neues Blatt (Alle löschen)</option>
-      </select>
-    </div>
-  </div>
-
-  <!-- ======================================================================= -->
-  <!-- MITSCROLLENDE STICKY-HERO-LEISTE (INKL. ROT BEI NEGATIVEM CASHFLOW)     -->
-  <!-- ======================================================================= -->
-  <div id="stickyHeroBar" style="top: 64px;" class="no-print fixed left-0 right-0 z-20 hidden bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-md animate-panel">
-    <div class="max-w-7xl mx-auto px-3.5 sm:px-6 py-1.5 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-3 tabular-nums">
-      <div class="flex items-center gap-2.5 sm:gap-5 text-xs overflow-x-auto no-scrollbar">
-        <div class="shrink-0">
-          <span class="text-[9.5px] sm:text-[10px] font-medium text-slate-500 block">Einnahmen</span>
-          <strong id="stickyIncome" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0 €</strong>
-        </div>
-        <div class="h-5 sm:h-6 w-px bg-slate-200 shrink-0"></div>
-        <div class="shrink-0">
-          <span class="text-[9.5px] sm:text-[10px] font-medium text-slate-500 block">Ausgaben</span>
-          <strong id="stickyExpenses" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0 €</strong>
-        </div>
-        <div class="h-5 sm:h-6 w-px bg-slate-200 shrink-0"></div>
-        <div id="stickyCashflowBox" class="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/30 shrink-0 transition-colors">
-          <span id="stickyCashflowLabel" class="text-[9.5px] sm:text-[10px] font-semibold text-[#00325b] block">Cashflow</span>
-          <strong id="stickyCashflow" class="text-xs sm:text-sm font-extrabold text-[#1f8579]">0 €</strong>
-        </div>
-        <div class="hidden md:block h-6 w-px bg-slate-200 shrink-0"></div>
-        <div class="hidden md:block px-2.5 py-1 rounded-xl bg-[#00325b] text-white shrink-0">
-          <span class="text-[10px] font-medium text-[#d3d800] block">Gesamt-Sparpotenzial</span>
-          <strong id="stickyPotential" class="text-sm font-extrabold text-white">0 €</strong>
-        </div>
-      </div>
-
-      <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
-        <button id="stickyAddBtn" type="button" class="hidden sm:inline-flex btn-tactile items-center gap-1 bg-[#00325b] hover:bg-[#009ee3] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xs cursor-pointer">
-          <span>+ Position</span>
-        </button>
-        <button id="scrollTopBtn" type="button" title="Nach oben scrollen" class="btn-tactile px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200 text-[11px] sm:text-xs font-semibold text-[#00325b] cursor-pointer">
-          ↑<span class="hidden sm:inline"> Oben</span>
-        </button>
-      </div>
-    </div>
-  </div>
-
-  <!-- ======================================================================= -->
-  <!-- HAUPTBEREICH                                                            -->
-  <!-- ======================================================================= -->
-  <main class="max-w-7xl mx-auto px-3.5 sm:px-6 pt-4 sm:pt-6 pb-24 md:pb-6 space-y-4 sm:space-y-6">
-
-    <!-- KUNDEN-MITNAHME-BANNER -->
-    <section id="clientHomeBanner" class="no-print hidden animate-panel bg-[#00325b] text-white rounded-2xl p-4 sm:p-5 shadow-md border border-[#009ee3]/40 flex flex-wrap items-center justify-between gap-4">
-      <div class="space-y-1 max-w-2xl">
-        <div class="flex items-center gap-2 flex-wrap">
-          <span class="text-[10.5px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#d3d800] text-[#00325b]">
-            Persönliche Kunden-Ansicht
-          </span>
-          <span id="clientBannerGreeting" class="text-xs font-bold text-[#009ee3]">Persönliche Haushaltsübersicht</span>
-        </div>
-        <p id="clientBannerNote" class="text-xs text-slate-200 leading-relaxed">
-          Du kannst zuhause in Ruhe nach einem Blick aufs Konto weitere Positionen ergänzen oder Beträge anpassen. Deine Änderungen bleiben auch beim Neuladen direkt im Link gespeichert.
-        </p>
-      </div>
-
-      <div class="flex flex-wrap items-center gap-2 shrink-0">
-        <button id="bannerSwitchToAdvisorBtn" type="button" class="hidden btn-tactile inline-flex items-center gap-1.5 bg-white hover:bg-[#F4F8FB] text-[#00325b] font-extrabold text-xs px-3.5 py-2.5 rounded-xl shadow-sm cursor-pointer">
-          <span>In Berater-Ansicht übernehmen →</span>
-        </button>
-        <button id="clientReturnSaveBtn" type="button" class="btn-tactile inline-flex items-center gap-2 bg-[#d3d800] hover:bg-[#d3d800]/90 text-[#00325b] font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-sm cursor-pointer">
+        <button id="collapseSidebarBtn" type="button" title="Menüband einklappen" aria-label="Menüband einklappen"
+                class="btn-tactile w-8 h-8 rounded-lg bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 flex items-center justify-center text-[#00325b] shrink-0 cursor-pointer">
           <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="11 17 6 12 11 7" />
+            <polyline points="18 17 13 12 18 7" />
+          </svg>
+        </button>
+      </div>
+    </div>
+
+    <!-- Navigation & Werkzeuge (mathematisch zentrierte 40x40 Icons in 64px Leiste) -->
+    <div id="sidebarScrollBody" class="flex-1 overflow-y-auto overflow-x-visible py-3 px-0 space-y-2.5">
+      <!-- 1. Gesprächs-Phase (1. Gespräch / 2. Gespräch) -->
+      <div id="sidePhaseGroup" class="space-y-1.5">
+        <span class="sidebar-label hidden px-3.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Gesprächs-Phase</span>
+        <button type="button" data-phase="first" data-tooltip="1. Gespräch (Ist-Aufnahme)"
+                class="side-item side-phase-btn active btn-tactile w-10 h-10 mx-auto rounded-xl bg-[#00325b] text-white font-bold text-xs flex items-center justify-center gap-2.5 shadow-2xs cursor-pointer">
+          <span class="text-[11px] font-extrabold shrink-0">1.</span>
+          <span class="sidebar-label hidden truncate">1. Gespräch (Ist)</span>
+        </button>
+        <button type="button" data-phase="second" data-tooltip="2. Gespräch (★ Konditions-Check)"
+                class="side-item side-phase-btn btn-tactile w-10 h-10 mx-auto rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] font-bold text-xs flex items-center justify-center gap-2.5 relative cursor-pointer">
+          <span class="text-[11px] font-extrabold text-[#1f8579] shrink-0">2.</span>
+          <span class="sidebar-label hidden flex-1 text-left truncate">2. Gespräch</span>
+          <span id="sideCheckBadge" class="absolute -top-1 -right-1 text-[9px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#d3d800] text-[#00325b] shadow-2xs">0</span>
+        </button>
+      </div>
+
+      <!-- 2. Mandant & Kunden-Freigabe -->
+      <div id="sideClientGroup" class="pt-2.5 border-t border-slate-100 space-y-1.5">
+        <span class="sidebar-label hidden px-3.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Mandant</span>
+        <button id="sideClientRecordsBtn" type="button" data-tooltip="Kundenakten speichern & laden"
+                class="side-item btn-tactile w-10 h-10 mx-auto rounded-xl hover:bg-[#F4F8FB] text-[#00325b] font-semibold text-xs flex items-center justify-center gap-2.5 cursor-pointer">
+          <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+          </svg>
+          <span id="sideClientNameLabel" class="sidebar-label hidden flex-1 text-left truncate">Kundenakten</span>
+        </button>
+
+        <button id="sideTakeHomeBtn" type="button" data-tooltip="Für Kunden freigeben (Link teilen)"
+                class="side-item btn-tactile w-10 h-10 mx-auto rounded-xl hover:bg-[#009ee3]/10 text-[#00325b] font-semibold text-xs flex items-center justify-center gap-2.5 cursor-pointer">
+          <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="18" cy="5" r="3" />
             <circle cx="6" cy="12" r="3" />
             <circle cx="18" cy="19" r="3" />
             <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
             <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
           </svg>
-          <span>Aktualisierten Link an Berater senden</span>
+          <span class="sidebar-label hidden flex-1 text-left truncate">Für Kunden freigeben</span>
         </button>
       </div>
-    </section>
 
-    <div id="heroSentinel" class="h-0 w-full pointer-events-none !m-0" aria-hidden="true"></div>
+      <!-- 3. Auswertung & Export -->
+      <div class="pt-2.5 border-t border-slate-100 space-y-1.5">
+        <span class="sidebar-label hidden px-3.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Auswertung</span>
+        <button id="sideReportBtn" type="button" data-tooltip="Report / PDF öffnen"
+                class="side-item btn-tactile w-10 h-10 mx-auto rounded-xl hover:bg-[#F4F8FB] text-[#00325b] font-semibold text-xs flex items-center justify-center gap-2.5 cursor-pointer">
+          <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+            <polyline points="14 2 14 8 20 8" />
+            <line x1="16" y1="13" x2="8" y2="13" />
+            <line x1="16" y1="17" x2="8" y2="17" />
+          </svg>
+          <span class="sidebar-label hidden flex-1 text-left truncate">Report / PDF</span>
+        </button>
 
-    <!-- ===================================================================== -->
-    <!-- 1. TOP HERO CARDS (2x2 GRID AUF SMARTPHONE, 4 SPALTEN AUF DESKTOP)     -->
-    <!-- ===================================================================== -->
-    <section id="heroCardsSection" class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 tabular-nums">
-      <div class="animate-enter stagger-1 card-hover bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
-        <div class="flex items-center justify-between gap-1.5">
-          <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">Einnahmen / Mt.</span>
-          <span class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#009ee3]/10 text-[#009ee3] flex items-center justify-center shrink-0">
-            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <circle cx="12" cy="12" r="9" />
-              <path d="M14.5 9.5a3 3 0 0 0-5 2.5 3 3 0 0 0 5 2.5" />
-              <line x1="8" y1="11" x2="13" y2="11" />
-              <line x1="8" y1="13" x2="13" y2="13" />
+        <button id="sideCsvBtn" type="button" data-tooltip="CSV-Export herunterladen"
+                class="side-item btn-tactile w-10 h-10 mx-auto rounded-xl hover:bg-[#F4F8FB] text-[#00325b] font-semibold text-xs flex items-center justify-center gap-2.5 cursor-pointer">
+          <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+            <polyline points="7 10 12 15 17 10" />
+            <line x1="12" y1="15" x2="12" y2="3" />
+          </svg>
+          <span class="sidebar-label hidden flex-1 text-left truncate">CSV-Export</span>
+        </button>
+      </div>
+
+      <!-- 4. Präsentation & Blatt-Reset -->
+      <div class="pt-2.5 border-t border-slate-100 space-y-1.5">
+        <span class="sidebar-label hidden px-3.5 text-[10px] font-bold uppercase tracking-wider text-slate-400 block">Ansicht &amp; Blatt</span>
+        <button id="sideTvScaleBtn" type="button" data-tooltip="3–4 m Großbild-Modus aktivieren"
+                class="side-item btn-tactile w-10 h-10 mx-auto rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] font-bold text-xs flex items-center justify-center gap-2.5 cursor-pointer">
+          <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <rect x="2" y="3" width="20" height="14" rx="2" />
+            <line x1="8" y1="21" x2="16" y2="21" />
+            <line x1="12" y1="17" x2="12" y2="21" />
+          </svg>
+          <span id="sideTvScaleLabel" class="sidebar-label hidden flex-1 text-left truncate">Großbild (3–4 m): Aus</span>
+        </button>
+
+        <button id="sideClearSheetBtn" type="button" data-tooltip="Aktuelles Blatt vollständig leeren"
+                class="side-item btn-tactile w-10 h-10 mx-auto rounded-xl hover:bg-red-50 text-slate-500 hover:text-red-600 font-semibold text-xs flex items-center justify-center gap-2.5 cursor-pointer">
+          <svg class="w-4 h-4 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="3 6 5 6 21 6" />
+            <path d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2" />
+            <line x1="10" y1="11" x2="10" y2="17" />
+            <line x1="14" y1="11" x2="14" y2="17" />
+          </svg>
+          <span id="sideClearSheetLabel" class="sidebar-label hidden flex-1 text-left truncate">Blatt vollständig leeren</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- Unten: Muster-Szenario (wenn ausgeklappt) -->
+    <div id="sideScenarioFooter" class="sidebar-label hidden p-3 border-t border-slate-100 space-y-1.5 bg-[#F4F8FB]/70 shrink-0">
+      <label for="sideScenarioSelect" class="text-[10px] font-bold uppercase tracking-wider text-slate-500 block">Muster-Szenario</label>
+      <select id="sideScenarioSelect" class="w-full bg-white text-[#00325b] text-xs font-semibold rounded-xl px-2.5 py-2 border border-slate-200 focus:outline-none focus:border-[#009ee3] cursor-pointer">
+        <option value="standard" selected>Standard-Haushalt</option>
+        <option value="starter">Berufseinsteiger</option>
+        <option value="couple">Doppelverdiener</option>
+        <option value="family">Familie &amp; Eigenheim</option>
+        <option value="custom" hidden>Individuell angepasst</option>
+        <option value="empty">Neues Blatt</option>
+      </select>
+    </div>
+  </aside>
+
+  <!-- ======================================================================= -->
+  <!-- HAUPTCONTAINER (MIT 64PX ABSTAND LINKS FÜR SCHMALE ICON-LEISTE AB MD)   -->
+  <!-- ======================================================================= -->
+  <div class="min-h-screen md:pl-16 flex flex-col">
+
+    <!-- SCHLANKER WIDESCREEN-HEADER (LINKSBÜNDIG, OHNE REDUNDANTE BUTTONS) -->
+    <header id="mainHeader" class="sticky top-0 z-30 w-full max-w-full overflow-x-clip bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-sm">
+      <div class="w-full px-3.5 sm:px-6 xl:px-10 py-2.5 sm:py-3.5 flex items-center justify-between gap-2 sm:gap-4 relative">
+        <div class="flex items-center gap-2.5 sm:gap-3 min-w-0 flex-1">
+          <div class="w-8 h-8 sm:w-9 sm:h-9 rounded-xl bg-[#00325b] flex items-center justify-center text-white shadow-sm shrink-0">
+            <svg class="w-4 h-4 sm:w-5 sm:h-5 text-[#009ee3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z" />
+              <path d="m9 12 2 2 4-4" />
             </svg>
-          </span>
+          </div>
+          <div class="min-w-0 flex-1">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <h1 class="text-[13px] sm:text-lg xl:text-xl font-extrabold tracking-tight text-[#00325b] truncate">
+                <span class="sm:hidden">Haushalts-Analyse</span>
+                <span class="hidden sm:inline">Persönliche Haushalts- &amp; Cashflow-Analyse</span>
+              </h1>
+              <span class="hidden lg:inline-block text-[11px] font-bold px-2.5 py-0.5 rounded-full bg-[#009ee3]/15 text-[#00325b] shrink-0">
+                Widescreen-Edition
+              </span>
+            </div>
+            <p class="hidden sm:block text-xs text-slate-500 truncate">
+              Einnahmen, Ausgaben &amp; Liquiditätspotenzial im Überblick
+            </p>
+          </div>
         </div>
-        <div id="kpiIncome" class="text-lg sm:text-2xl lg:text-[28px] font-extrabold text-[#00325b] tracking-tight mt-1.5 sm:mt-2.5">0,00 €</div>
-        <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
-          <span id="kpiIncomeYearly" class="truncate">Jahr: <strong class="text-[#00325b]">0 €</strong></span>
-          <span id="kpiIncomeSub" class="hidden sm:inline text-[11px] text-slate-400 shrink-0">0 Quellen</span>
+
+        <!-- Smartphone Controls (< md) -->
+        <div class="no-print md:hidden flex items-center gap-1.5 shrink-0">
+          <button id="mobileHeaderPhaseToggle" type="button" aria-label="Zwischen 1. und 2. Gespräch wechseln"
+                  class="btn-tactile inline-flex items-center gap-1 px-2 py-1.5 rounded-xl bg-[#F4F8FB] active:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-bold text-[#00325b] shrink-0 cursor-pointer">
+            <span id="mobileHeaderPhaseDot" class="w-1.5 h-1.5 rounded-full bg-[#009ee3] shrink-0"></span>
+            <span id="mobileHeaderPhaseLabel">1. Gespräch</span>
+            <span id="mobileHeaderCheckBadge" class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#d3d800] text-[#00325b]">0</span>
+          </button>
+
+          <button id="headerMenuBtn" type="button" aria-expanded="false" aria-haspopup="true" aria-controls="headerMenuPanel"
+                  class="btn-tactile inline-flex items-center gap-1.5 bg-white hover:bg-[#F4F8FB] active:bg-[#E8F1F8] text-[#00325b] font-bold text-xs px-2.5 py-1.5 rounded-xl border border-slate-200/95 shadow-2xs shrink-0 cursor-pointer">
+            <svg class="w-4 h-4 text-[#009ee3] shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="4" y1="7" x2="20" y2="7" />
+              <line x1="4" y1="12" x2="20" y2="12" />
+              <line x1="4" y1="17" x2="20" y2="17" />
+            </svg>
+            <span>Menü</span>
+          </button>
+        </div>
+      </div>
+    </header>
+
+    <!-- ===================================================================== -->
+    <!-- MOBILES MENÜ-DRAWER (< MD)                                            -->
+    <!-- ===================================================================== -->
+    <div id="headerMenuBackdrop" class="no-print fixed inset-0 z-40 hidden bg-[#00325b]/35 backdrop-blur-[1px]"></div>
+
+    <div id="headerMenuPanel" role="dialog" aria-modal="true" aria-label="Menü"
+         class="no-print fixed z-50 hidden inset-x-0 bottom-0 w-full max-h-[88dvh] overflow-y-auto bg-white rounded-t-3xl shadow-2xl border-t border-slate-200/90 p-5 pb-[max(1.25rem,env(safe-area-inset-bottom))] space-y-4 animate-panel">
+      <div class="w-10 h-1 rounded-full bg-slate-300 mx-auto -mt-1"></div>
+
+      <div class="flex items-center justify-between pb-2.5 border-b border-slate-100">
+        <div>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-[#009ee3]">Steuerung &amp; Werkzeuge</span>
+          <h3 class="text-sm font-extrabold text-[#00325b]">Beratungs-Menü</h3>
+        </div>
+        <button id="closeHeaderMenuBtn" type="button" aria-label="Menü schließen" class="w-7 h-7 rounded-lg bg-[#F4F8FB] hover:bg-slate-200/70 flex items-center justify-center text-slate-500 text-xs cursor-pointer">✕</button>
+      </div>
+
+      <div id="advisorPhaseSwitcher" class="space-y-1.5">
+        <span class="text-[11px] font-bold text-slate-500 block">Gesprächs-Phase wählen</span>
+        <div class="grid grid-cols-2 gap-1.5 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90" role="tablist">
+          <button type="button" data-phase="first" class="phase-btn active btn-tactile py-2 px-2.5 rounded-lg text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer">
+            1. Gespräch (Ist)
+          </button>
+          <button type="button" data-phase="second" class="phase-btn btn-tactile inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer">
+            <span>2. Gespräch</span>
+            <span id="headerCheckCountBadge" class="text-[10px] font-extrabold px-1.5 py-0.2 rounded-full bg-[#d3d800] text-[#00325b]">0</span>
+          </button>
         </div>
       </div>
 
-      <div class="animate-enter stagger-2 card-hover bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
-        <div class="flex items-center justify-between gap-1.5">
-          <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">Ausgaben / Mt.</span>
-          <div class="flex items-center gap-1">
-            <span id="kpiExpensesDeltaBadge" class="hidden text-[9.5px] sm:text-[10.5px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#269b8d]/15 text-[#1f8579]">-0 €</span>
-            <span id="kpiExpensesDot" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#F4F8FB] text-[#00325b] flex items-center justify-center shrink-0">
+      <div id="menuAdvisorClientGroup" class="space-y-1.5">
+        <span class="text-[11px] font-bold text-slate-500 block">Mandant &amp; Vorbereitung</span>
+        <div class="space-y-1.5">
+          <button id="openClientRecordsBtn" type="button" class="btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z" />
+                </svg>
+              </span>
+              <div class="min-w-0">
+                <span id="headerClientNameLabel" class="text-xs font-bold text-[#00325b] block truncate">Kundenakte speichern &amp; laden</span>
+                <span class="text-[10.5px] text-slate-500 block truncate">Stand für das 2. Gespräch sichern</span>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#009ee3] shrink-0">→</span>
+          </button>
+
+          <button id="openTakeHomeModalBtn" type="button" class="btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#009ee3]/10 hover:bg-[#009ee3]/18 border border-[#009ee3]/30 text-left cursor-pointer">
+            <div class="flex items-center gap-2.5 min-w-0">
+              <span class="w-8 h-8 rounded-lg bg-white border border-[#009ee3]/30 text-[#009ee3] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <circle cx="18" cy="5" r="3" />
+                  <circle cx="6" cy="12" r="3" />
+                  <circle cx="18" cy="19" r="3" />
+                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+                </svg>
+              </span>
+              <div class="min-w-0">
+                <span class="text-xs font-bold text-[#00325b] block truncate">Für Kunden freigeben</span>
+                <span class="text-[10.5px] text-slate-600 block truncate">Persönlichen Link teilen oder kopieren</span>
+              </div>
+            </div>
+            <span class="text-xs font-bold text-[#00325b] shrink-0">→</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="space-y-1.5">
+        <span class="text-[11px] font-bold text-slate-500 block">Auswertung &amp; Export</span>
+
+        <button id="menuClientReturnBtn" type="button" class="hidden btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#00325b] text-white text-left cursor-pointer">
+          <div class="min-w-0">
+            <span class="text-xs font-bold text-[#d3d800] block truncate">Aktualisierten Link an Berater senden</span>
+            <span class="text-[10.5px] text-slate-300 block truncate">Änderungen per Link teilen oder kopieren</span>
+          </div>
+          <span class="text-xs font-bold text-[#d3d800] shrink-0">↗</span>
+        </button>
+
+        <button id="menuSwitchToAdvisorBtn" type="button" class="hidden btn-tactile w-full flex items-center justify-between gap-3 p-2 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
+          <span class="text-[11px] font-semibold text-[#00325b] truncate">In Berater-Ansicht wechseln</span>
+          <span class="text-[11px] font-bold text-[#009ee3] shrink-0">→</span>
+        </button>
+
+        <div class="grid grid-cols-2 gap-2">
+          <button id="openReportBtn" type="button" class="btn-tactile flex items-center gap-2.5 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
+            <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+              </svg>
+            </span>
+            <div class="min-w-0">
+              <span class="text-xs font-bold text-[#00325b] block">Report / PDF</span>
+              <span class="text-[10px] text-slate-500 block truncate">Druckansicht</span>
+            </div>
+          </button>
+
+          <button id="exportCsvBtn" type="button" class="btn-tactile flex items-center gap-2.5 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
+            <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
+              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
+            </span>
+            <div class="min-w-0">
+              <span class="text-xs font-bold text-[#00325b] block">CSV-Export</span>
+              <span class="text-[10px] text-slate-500 block truncate">Excel-Tabelle</span>
+            </div>
+          </button>
+        </div>
+      </div>
+
+      <div id="advisorScenarioWrapper" class="space-y-1.5 pt-2 border-t border-slate-100">
+        <label for="scenarioSelect" class="text-[11px] font-bold text-slate-500 block">Muster-Szenario / Vorlage laden</label>
+        <select id="scenarioSelect" class="btn-tactile w-full bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] text-xs font-semibold rounded-xl px-3 py-2.5 border border-slate-200/90 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3] cursor-pointer">
+          <option value="standard" selected>Standard-Haushalt (Komplett)</option>
+          <option value="starter">Szenario: Berufseinsteiger (Single)</option>
+          <option value="couple">Szenario: Doppelverdiener &amp; Aufbau</option>
+          <option value="family">Szenario: Familie &amp; Eigenheim</option>
+          <option value="custom" hidden>Individuell angepasst</option>
+          <option value="empty">Neues Blatt (Alle löschen)</option>
+        </select>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- MITSCROLLENDE STICKY-HERO-LEISTE (VOLLE BREITE NEBEN SEITENLEISTE)    -->
+    <!-- ===================================================================== -->
+    <div id="stickyHeroBar" style="top: 64px;" class="no-print fixed left-0 md:left-16 right-0 z-20 hidden bg-white/95 backdrop-blur-md border-b border-slate-200/90 shadow-md animate-panel">
+      <div class="w-full px-3.5 sm:px-6 xl:px-10 py-1.5 sm:py-2.5 flex items-center justify-between gap-2 sm:gap-3 tabular-nums">
+        <div class="flex items-center gap-2.5 sm:gap-5 text-xs overflow-x-auto no-scrollbar">
+          <div class="shrink-0">
+            <span class="text-[9.5px] sm:text-[10px] font-medium text-slate-500 block">Einnahmen</span>
+            <strong id="stickyIncome" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0 €</strong>
+          </div>
+          <div class="h-5 sm:h-6 w-px bg-slate-200 shrink-0"></div>
+          <div class="shrink-0">
+            <span class="text-[9.5px] sm:text-[10px] font-medium text-slate-500 block">Ausgaben</span>
+            <strong id="stickyExpenses" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0 €</strong>
+          </div>
+          <div class="h-5 sm:h-6 w-px bg-slate-200 shrink-0"></div>
+          <div id="stickyCashflowBox" class="px-2 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/30 shrink-0 transition-colors">
+            <span id="stickyCashflowLabel" class="text-[9.5px] sm:text-[10px] font-semibold text-[#00325b] block">Cashflow</span>
+            <strong id="stickyCashflow" class="text-xs sm:text-sm font-extrabold text-[#1f8579]">0 €</strong>
+          </div>
+          <div class="hidden md:block h-6 w-px bg-slate-200 shrink-0"></div>
+          <div class="hidden md:block px-2.5 py-1 rounded-xl bg-[#00325b] text-white shrink-0">
+            <span class="text-[10px] font-medium text-[#d3d800] block">Gesamt-Sparpotenzial</span>
+            <strong id="stickyPotential" class="text-sm font-extrabold text-white">0 €</strong>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-1.5 sm:gap-2 shrink-0">
+          <button id="stickyAddBtn" type="button" class="hidden sm:inline-flex btn-tactile items-center gap-1 bg-[#00325b] hover:bg-[#009ee3] text-white text-xs font-bold px-3 py-1.5 rounded-xl shadow-xs cursor-pointer">
+            <span>+ Position</span>
+          </button>
+          <button id="scrollTopBtn" type="button" title="Nach oben scrollen" class="btn-tactile px-2 sm:px-2.5 py-1 sm:py-1.5 rounded-lg sm:rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200 text-[11px] sm:text-xs font-semibold text-[#00325b] cursor-pointer">
+            ↑<span class="hidden sm:inline"> Oben</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===================================================================== -->
+    <!-- HAUPTBEREICH (VOLLE BILDSCHIRMBREITE)                                 -->
+    <!-- ===================================================================== -->
+    <main class="w-full px-3.5 sm:px-6 xl:px-10 pt-4 sm:pt-6 pb-24 md:pb-8 space-y-4 sm:space-y-6">
+
+      <!-- KUNDEN-MITNAHME-BANNER -->
+      <section id="clientHomeBanner" class="no-print hidden animate-panel bg-[#00325b] text-white rounded-2xl p-4 sm:p-5 shadow-md border border-[#009ee3]/40 flex flex-wrap items-center justify-between gap-4">
+        <div class="space-y-1 max-w-3xl">
+          <div class="flex items-center gap-2 flex-wrap">
+            <span class="text-[10.5px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#d3d800] text-[#00325b]">
+              Persönliche Kunden-Ansicht
+            </span>
+            <span id="clientBannerGreeting" class="text-xs font-bold text-[#009ee3]">Persönliche Haushaltsübersicht</span>
+          </div>
+          <p id="clientBannerNote" class="text-xs text-slate-200 leading-relaxed">
+            Du kannst zuhause in Ruhe nach einem Blick aufs Konto weitere Positionen ergänzen oder Beträge anpassen. Deine Änderungen bleiben auch beim Neuladen direkt im Link gespeichert.
+          </p>
+        </div>
+
+        <div class="flex flex-wrap items-center gap-2 shrink-0">
+          <button id="bannerSwitchToAdvisorBtn" type="button" class="hidden btn-tactile inline-flex items-center gap-1.5 bg-white hover:bg-[#F4F8FB] text-[#00325b] font-extrabold text-xs px-3.5 py-2.5 rounded-xl shadow-sm cursor-pointer">
+            <span>In Berater-Ansicht übernehmen →</span>
+          </button>
+          <button id="clientReturnSaveBtn" type="button" class="btn-tactile inline-flex items-center gap-2 bg-[#d3d800] hover:bg-[#d3d800]/90 text-[#00325b] font-extrabold text-xs px-4 py-2.5 rounded-xl shadow-sm cursor-pointer">
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="18" cy="5" r="3" />
+              <circle cx="6" cy="12" r="3" />
+              <circle cx="18" cy="19" r="3" />
+              <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
+              <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+            </svg>
+            <span>Aktualisierten Link an Berater senden</span>
+          </button>
+        </div>
+      </section>
+
+      <div id="heroSentinel" class="h-0 w-full pointer-events-none !m-0" aria-hidden="true"></div>
+
+      <!-- =================================================================== -->
+      <!-- 1. TOP HERO CARDS (VOLLE BREITE)                                    -->
+      <!-- =================================================================== -->
+      <section id="heroCardsSection" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 tabular-nums">
+        <div class="animate-enter stagger-1 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between gap-1.5">
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Einnahmen / Mt.</span>
+            <span class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#009ee3]/10 text-[#009ee3] flex items-center justify-center shrink-0">
               <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <rect x="2" y="5" width="20" height="14" rx="2" />
-                <line x1="2" y1="10" x2="22" y2="10" />
+                <circle cx="12" cy="12" r="9" />
+                <path d="M14.5 9.5a3 3 0 0 0-5 2.5 3 3 0 0 0 5 2.5" />
+                <line x1="8" y1="11" x2="13" y2="11" />
+                <line x1="8" y1="13" x2="13" y2="13" />
               </svg>
             </span>
           </div>
-        </div>
-        <div id="kpiExpenses" class="text-lg sm:text-2xl lg:text-[28px] font-extrabold text-[#00325b] tracking-tight mt-1.5 sm:mt-2.5">0,00 €</div>
-        <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
-          <span id="kpiExpensesFixShare" class="truncate">Fix: 0%</span>
-          <span id="kpiExpensesSub" class="font-medium text-slate-500 shrink-0">0% Netto</span>
-        </div>
-      </div>
-
-      <div class="animate-enter stagger-3 card-hover bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
-        <div class="flex items-center justify-between gap-1.5">
-          <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">Freier Cashflow</span>
-          <span id="kpiCashflowIconBox" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#269b8d]/12 text-[#269b8d] flex items-center justify-center shrink-0">
-            <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-              <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-              <polyline points="17 6 23 6 23 12" />
-            </svg>
-          </span>
-        </div>
-        <div id="kpiCashflow" class="text-lg sm:text-2xl lg:text-[28px] font-extrabold text-[#269b8d] tracking-tight mt-1.5 sm:mt-2.5">+0,00 €</div>
-        <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs mt-2 sm:mt-3 pt-0.5">
-          <span id="kpiCashflowSub" class="hidden sm:inline font-medium text-[#269b8d] truncate">Frei verfügbar für Ziele</span>
-          <span id="kpiCashflowBadge" class="text-slate-500 font-medium truncate">+0 € / Jahr</span>
-        </div>
-      </div>
-
-      <div class="animate-enter stagger-4 card-hover relative overflow-hidden bg-[#00325b] text-white rounded-2xl p-3.5 sm:p-5 shadow-sm flex flex-col justify-between">
-        <div class="pointer-events-none absolute -right-8 -top-8 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#009ee3]/15"></div>
-        <div class="flex items-start justify-between gap-1.5 relative">
-          <span class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-[#009ee3] leading-snug">Spar-<br class="sm:hidden" />potenzial</span>
-          <span id="kpiSavingsRateBadge" class="text-[9.5px] sm:text-[10.5px] font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-white/10 text-sky-100 border border-white/10 shrink-0 leading-tight">
-            ≥ 20%
-          </span>
-        </div>
-        <div class="flex items-baseline gap-1.5 sm:gap-2 mt-1.5 sm:mt-2.5 relative flex-wrap">
-          <span id="kpiPotential" class="text-lg sm:text-2xl lg:text-[28px] font-extrabold text-white tracking-tight">0,0%</span>
-          <span id="kpiPotentialMonthly" class="text-[11px] sm:text-sm font-medium text-slate-300">(0 €)</span>
-        </div>
-        <div class="mt-2 sm:mt-3 space-y-1.5 sm:space-y-2 relative">
-          <div class="w-full h-1.5 rounded-full bg-white/15 overflow-hidden">
-            <div id="kpiPotentialBar" style="width: 0%" class="smooth-bar h-full rounded-full bg-gradient-to-r from-[#009ee3] to-[#d3d800]"></div>
+          <div id="kpiIncome" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#00325b] tracking-tight mt-2 sm:mt-3">0,00 €</div>
+          <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
+            <span id="kpiIncomeYearly" class="truncate">Jahr: <strong class="text-[#00325b]">0 €</strong></span>
+            <span id="kpiIncomeSub" class="hidden sm:inline text-[11px] text-slate-400 shrink-0">0 Quellen</span>
           </div>
-          <span id="kpiPotentialSub" class="text-[10px] sm:text-[11px] text-slate-300 block truncate">Sparraten + Cashflow</span>
         </div>
-      </div>
-    </section>
 
-    <!-- ===================================================================== -->
-    <!-- ZWEITGESPRÄCH: VORHER / NACHHER BILANZ-KOPF (★ CHECK OPTIMIERUNGEN)    -->
-    <!-- ===================================================================== -->
-    <section id="beforeAfterSection" class="hidden animate-panel bg-white border-2 border-[#009ee3]/40 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
-      <div class="flex flex-wrap items-start justify-between gap-3 sm:gap-4 pb-3.5 border-b border-slate-100">
-        <div>
-          <div class="flex items-center gap-2 flex-wrap">
-            <span class="text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Zweitgespräch • Konzeptbesprechung</span>
-            <span class="text-[10px] sm:text-[10.5px] font-bold px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b]">★ Konditions-Check</span>
+        <div class="animate-enter stagger-2 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between gap-1.5">
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Ausgaben / Mt.</span>
+            <div class="flex items-center gap-1">
+              <span id="kpiExpensesDeltaBadge" class="hidden text-[9.5px] sm:text-[10.5px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#269b8d]/15 text-[#1f8579]">-0 €</span>
+              <span id="kpiExpensesDot" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#F4F8FB] text-[#00325b] flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="5" width="20" height="14" rx="2" />
+                  <line x1="2" y1="10" x2="22" y2="10" />
+                </svg>
+              </span>
+            </div>
           </div>
-          <h2 class="text-base sm:text-lg font-bold text-[#00325b] mt-0.5">Vorher / Nachher Ergebnis-Check</h2>
-          <p class="text-xs text-slate-500 mt-0.5">
-            Die Haushaltsliste unten ist automatisch auf deine <strong>★ Check</strong>-Positionen gefiltert. Passe Konditionen direkt an und übernimm die Ersparnis in die Bilanz.
-          </p>
+          <div id="kpiExpenses" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#00325b] tracking-tight mt-2 sm:mt-3">0,00 €</div>
+          <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
+            <span id="kpiExpensesFixShare" class="truncate">Fix: 0%</span>
+            <span id="kpiExpensesSub" class="font-medium text-slate-500 shrink-0">0% Netto</span>
+          </div>
         </div>
 
-        <div class="no-print flex flex-wrap items-center gap-2 w-full sm:w-auto">
-          <button id="resetCheckDefaultsBtn" type="button" class="btn-tactile px-3 py-2 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200 text-xs font-semibold text-[#00325b] cursor-pointer">
-            Richtwerte laden
-          </button>
-          <label class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-[#00325b] text-white text-xs font-bold cursor-pointer select-none shadow-xs">
-            <input id="applyOptimizedToggle" type="checkbox" class="w-4 h-4 rounded accent-[#d3d800] cursor-pointer" />
-            <span>In Gesamtbilanz aktivieren</span>
-          </label>
-        </div>
-      </div>
-
-      <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-3.5 tabular-nums">
-        <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90">
-          <span class="text-[10.5px] sm:text-[11px] font-medium text-slate-500 block">Vorher / Mt.</span>
-          <strong id="baBeforeMonthly" class="text-base sm:text-xl font-extrabold text-slate-600 mt-1 block">0,00 € / Mt.</strong>
-          <span id="baCheckItemsCount" class="text-[10.5px] sm:text-[11px] text-slate-400 mt-0.5 block">0 Positionen im Check</span>
-        </div>
-
-        <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-[#009ee3]/40">
-          <span class="text-[10.5px] sm:text-[11px] font-semibold text-[#00325b] block">Nachher / Mt.</span>
-          <strong id="baAfterMonthly" class="text-base sm:text-xl font-extrabold text-[#009ee3] mt-1 block">0,00 € / Mt.</strong>
-          <span class="text-[10.5px] sm:text-[11px] text-slate-500 mt-0.5 block">Optimierte Konditionen</span>
+        <div class="animate-enter stagger-3 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between gap-1.5">
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Freier Cashflow</span>
+            <span id="kpiCashflowIconBox" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#269b8d]/12 text-[#269b8d] flex items-center justify-center shrink-0">
+              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                <polyline points="17 6 23 6 23 12" />
+              </svg>
+            </span>
+          </div>
+          <div id="kpiCashflow" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#269b8d] tracking-tight mt-2 sm:mt-3">+0,00 €</div>
+          <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs mt-2 sm:mt-3 pt-0.5">
+            <span id="kpiCashflowSub" class="hidden sm:inline font-medium text-[#269b8d] truncate">Frei verfügbar für Ziele</span>
+            <span id="kpiCashflowBadge" class="text-slate-500 font-medium truncate">+0 € / Jahr</span>
+          </div>
         </div>
 
-        <div class="p-3 sm:p-4 rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/35">
-          <span class="text-[10.5px] sm:text-[11px] font-bold text-[#00325b] block">Netto-Ersparnis</span>
-          <strong id="baSavingsMonthly" class="text-base sm:text-xl font-extrabold text-[#1f8579] mt-1 block">+0,00 € / Mt.</strong>
-          <span id="baSavingsYearly" class="text-[10.5px] sm:text-[11px] font-bold text-[#00325b] mt-0.5 block">+0,00 € / Jahr</span>
+        <div class="animate-enter stagger-4 card-hover relative overflow-hidden bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+          <div class="pointer-events-none absolute -right-8 -top-8 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#009ee3]/15"></div>
+          <div class="flex items-start justify-between gap-1.5 relative">
+            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#009ee3] leading-snug">Spar-<br class="sm:hidden" />potenzial</span>
+            <span id="kpiSavingsRateBadge" class="text-[9.5px] sm:text-[10.5px] font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-white/10 text-sky-100 border border-white/10 shrink-0 leading-tight">
+              ≥ 20%
+            </span>
+          </div>
+          <div class="flex items-baseline gap-1.5 sm:gap-2 mt-2 sm:mt-3 relative flex-wrap">
+            <span id="kpiPotential" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight">0,0%</span>
+            <span id="kpiPotentialMonthly" class="text-[11px] sm:text-sm font-medium text-slate-300">(0 €)</span>
+          </div>
+          <div class="mt-2 sm:mt-3 space-y-1.5 sm:space-y-2 relative">
+            <div class="w-full h-1.5 rounded-full bg-white/15 overflow-hidden">
+              <div id="kpiPotentialBar" style="width: 0%" class="smooth-bar h-full rounded-full bg-gradient-to-r from-[#009ee3] to-[#d3d800]"></div>
+            </div>
+            <span id="kpiPotentialSub" class="text-[10px] sm:text-[11px] text-slate-300 block truncate">Sparraten + Cashflow</span>
+          </div>
         </div>
+      </section>
 
-        <div class="p-3 sm:p-4 rounded-xl bg-[#00325b] text-white flex flex-col justify-between">
+      <!-- =================================================================== -->
+      <!-- ZWEITGESPRÄCH: VORHER / NACHHER BILANZ-KOPF (★ CHECK OPTIMIERUNGEN)  -->
+      <!-- =================================================================== -->
+      <section id="beforeAfterSection" class="hidden animate-panel bg-white border-2 border-[#009ee3]/40 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3 sm:gap-4 pb-3.5 border-b border-slate-100">
           <div>
-            <span class="text-[10.5px] sm:text-[11px] font-semibold text-[#d3d800] block">Zinseszins-Hebel</span>
-            <strong id="baWealthImpact" class="text-base sm:text-xl font-extrabold text-white mt-1 block">+0 €</strong>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Zweitgespräch • Konzeptbesprechung</span>
+              <span class="text-[10px] sm:text-[10.5px] font-bold px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b]">★ Konditions-Check</span>
+            </div>
+            <h2 class="text-base sm:text-lg font-bold text-[#00325b] mt-0.5">Vorher / Nachher Ergebnis-Check</h2>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Die Haushaltsliste unten ist automatisch auf deine <strong>★ Check</strong>-Positionen gefiltert. Passe Konditionen direkt an und übernimm die Ersparnis in die Bilanz.
+            </p>
           </div>
-          <div class="mt-2 flex items-center justify-between gap-1.5 flex-wrap">
-            <span id="baWealthSub" class="text-[10px] sm:text-[10.5px] text-slate-300">in 25 J. (6,5 %)</span>
-            <button id="sendSavingsToSimBtn" type="button" class="no-print btn-tactile text-[10px] sm:text-[10.5px] font-extrabold px-2 py-1 rounded-lg bg-[#d3d800] text-[#00325b] cursor-pointer">
-              Simulieren →
+
+          <div class="no-print flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <button id="resetCheckDefaultsBtn" type="button" class="btn-tactile px-3 py-2 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200 text-xs font-semibold text-[#00325b] cursor-pointer">
+              Richtwerte laden
+            </button>
+            <label class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-[#00325b] text-white text-xs font-bold cursor-pointer select-none shadow-xs">
+              <input id="applyOptimizedToggle" type="checkbox" class="w-4 h-4 rounded accent-[#d3d800] cursor-pointer" />
+              <span>In Gesamtbilanz aktivieren</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 tabular-nums">
+          <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90">
+            <span class="text-[10.5px] sm:text-[11px] font-medium text-slate-500 block">Vorher / Mt.</span>
+            <strong id="baBeforeMonthly" class="text-base sm:text-xl font-extrabold text-slate-600 mt-1 block">0,00 € / Mt.</strong>
+            <span id="baCheckItemsCount" class="text-[10.5px] sm:text-[11px] text-slate-400 mt-0.5 block">0 Positionen im Check</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-[#009ee3]/40">
+            <span class="text-[10.5px] sm:text-[11px] font-semibold text-[#00325b] block">Nachher / Mt.</span>
+            <strong id="baAfterMonthly" class="text-base sm:text-xl font-extrabold text-[#009ee3] mt-1 block">0,00 € / Mt.</strong>
+            <span class="text-[10.5px] sm:text-[11px] text-slate-500 mt-0.5 block">Optimierte Konditionen</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/35">
+            <span class="text-[10.5px] sm:text-[11px] font-bold text-[#00325b] block">Netto-Ersparnis</span>
+            <strong id="baSavingsMonthly" class="text-base sm:text-xl font-extrabold text-[#1f8579] mt-1 block">+0,00 € / Mt.</strong>
+            <span id="baSavingsYearly" class="text-[10.5px] sm:text-[11px] font-bold text-[#00325b] mt-0.5 block">+0,00 € / Jahr</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-xl bg-[#00325b] text-white flex flex-col justify-between">
+            <div>
+              <span class="text-[10.5px] sm:text-[11px] font-semibold text-[#d3d800] block">Zinseszins-Hebel</span>
+              <strong id="baWealthImpact" class="text-base sm:text-xl font-extrabold text-white mt-1 block">+0 €</strong>
+            </div>
+            <div class="mt-2 flex items-center justify-between gap-1.5 flex-wrap">
+              <span id="baWealthSub" class="text-[10px] sm:text-[10.5px] text-slate-300">in 25 J. (6,5 %)</span>
+              <button id="sendSavingsToSimBtn" type="button" class="no-print btn-tactile text-[10px] sm:text-[10.5px] font-extrabold px-2 py-1 rounded-lg bg-[#d3d800] text-[#00325b] cursor-pointer">
+                Simulieren →
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- 2. ANALYSE-DASHBOARD: 50/30/20 CHECK & MITTELVERWENDUNG             -->
+      <!-- =================================================================== -->
+      <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
+        <div class="lg:col-span-7 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between space-y-4 sm:space-y-5">
+          <div>
+            <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
+              <div>
+                <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Schritt 1 • Haushalts-Struktur</span>
+                <h2 class="text-base font-bold text-[#00325b]">50 / 30 / 20 Benchmark-Check</h2>
+              </div>
+              <span class="text-[10.5px] sm:text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#F4F8FB] border border-slate-200 text-slate-600">
+                Richtwert: 50 % Fix • 30 % Leben • 20 % Zukunft
+              </span>
+            </div>
+
+            <div class="space-y-4 tabular-nums">
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
+                  <span class="font-bold text-[#00325b]">1. Fixkosten &amp; Absicherung (Ziel ≤ 50 %)</span>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span id="benchFixedAmt" class="font-bold text-[#00325b]">0 €</span>
+                    <span id="benchFixedPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#00325b]/10 text-[#00325b]">0 %</span>
+                  </div>
+                </div>
+                <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden relative">
+                  <div id="benchFixedBar" style="width: 0%" class="smooth-bar h-full bg-[#00325b] rounded-full"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
+                  <span class="font-bold text-[#00325b]">2. Costs of Life, Unterhaltung &amp; Luxus (Ziel ≤ 30 %)</span>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span id="benchVarAmt" class="font-bold text-[#00325b]">0 €</span>
+                    <span id="benchVarPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#009ee3]/15 text-[#00325b]">0 %</span>
+                  </div>
+                </div>
+                <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
+                  <div id="benchVarBar" style="width: 0%" class="smooth-bar h-full bg-[#009ee3] rounded-full"></div>
+                </div>
+              </div>
+
+              <div>
+                <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
+                  <span class="font-bold text-[#00325b]">3. Vorsorge, Sparen &amp; freier Cashflow (Ziel ≥ 20 %)</span>
+                  <div class="flex items-center gap-2 shrink-0">
+                    <span id="benchSavAmt" class="font-bold text-[#1f8579]">0 €</span>
+                    <span id="benchSavPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#269b8d]/15 text-[#1f8579]">0 %</span>
+                  </div>
+                </div>
+                <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
+                  <div id="benchSavBar" style="width: 0%" class="smooth-bar h-full bg-[#269b8d] rounded-full"></div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div id="insightsBox" class="p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90 space-y-2 text-xs">
+          </div>
+        </div>
+
+        <!-- Rechts: Interaktives D3 Donut-Diagramm -->
+        <div class="lg:col-span-5 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+          <div class="flex items-center justify-between gap-2 mb-2">
+            <div>
+              <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Mittelverwendung</span>
+              <h2 class="text-base font-bold text-[#00325b]">Wohin fließt dein Einkommen?</h2>
+            </div>
+            <button id="resetChartFilterBtn" type="button" class="hidden btn-tactile text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#d3d800] text-[#00325b] cursor-pointer">
+              Filter zurücksetzen ✕
             </button>
           </div>
-        </div>
-      </div>
-    </section>
 
-    <!-- ===================================================================== -->
-    <!-- 2. ANALYSE-DASHBOARD: 50/30/20 CHECK & MITTELVERWENDUNG               -->
-    <!-- ===================================================================== -->
-    <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
-      <div class="lg:col-span-7 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between space-y-4 sm:space-y-5">
-        <div>
-          <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
-            <div>
-              <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Schritt 1 • Haushalts-Struktur</span>
-              <h2 class="text-base font-bold text-[#00325b]">50 / 30 / 20 Benchmark-Check</h2>
-            </div>
-            <span class="text-[10.5px] sm:text-[11px] font-semibold px-2.5 py-1 rounded-full bg-[#F4F8FB] border border-slate-200 text-slate-600">
-              Richtwert: 50 % Fix • 30 % Leben • 20 % Zukunft
-            </span>
+          <div id="donutChartContainer" class="w-full h-56 flex items-center justify-center relative">
           </div>
 
-          <div class="space-y-4 tabular-nums">
-            <div>
-              <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
-                <span class="font-bold text-[#00325b]">1. Fixkosten &amp; Absicherung (Ziel ≤ 50 %)</span>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="benchFixedAmt" class="font-bold text-[#00325b]">0 €</span>
-                  <span id="benchFixedPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#00325b]/10 text-[#00325b]">0 %</span>
-                </div>
-              </div>
-              <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden relative">
-                <div id="benchFixedBar" style="width: 0%" class="smooth-bar h-full bg-[#00325b] rounded-full"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
-                <span class="font-bold text-[#00325b]">2. Costs of Life, Unterhaltung &amp; Luxus (Ziel ≤ 30 %)</span>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="benchVarAmt" class="font-bold text-[#00325b]">0 €</span>
-                  <span id="benchVarPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#009ee3]/15 text-[#00325b]">0 %</span>
-                </div>
-              </div>
-              <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
-                <div id="benchVarBar" style="width: 0%" class="smooth-bar h-full bg-[#009ee3] rounded-full"></div>
-              </div>
-            </div>
-
-            <div>
-              <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
-                <span class="font-bold text-[#00325b]">3. Vorsorge, Sparen &amp; freier Cashflow (Ziel ≥ 20 %)</span>
-                <div class="flex items-center gap-2 shrink-0">
-                  <span id="benchSavAmt" class="font-bold text-[#1f8579]">0 €</span>
-                  <span id="benchSavPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#269b8d]/15 text-[#1f8579]">0 %</span>
-                </div>
-              </div>
-              <div class="w-full h-3 rounded-full bg-slate-100 overflow-hidden">
-                <div id="benchSavBar" style="width: 0%" class="smooth-bar h-full bg-[#269b8d] rounded-full"></div>
-              </div>
-            </div>
+          <div id="donutLegend" class="grid grid-cols-1 min-[380px]:grid-cols-2 gap-1.5 pt-2 border-t border-slate-100 text-[11px] tabular-nums">
           </div>
         </div>
+      </section>
 
-        <div id="insightsBox" class="p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90 space-y-2 text-xs">
-          <!-- Wird dynamisch per JS befüllt -->
-        </div>
-      </div>
-
-      <!-- Rechts: Interaktives D3 Donut-Diagramm (mit Hover-Segment-Vergrößerung & Zentrumsanzeige) -->
-      <div class="lg:col-span-5 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
-        <div class="flex items-center justify-between gap-2 mb-2">
+      <!-- =================================================================== -->
+      <!-- 3. HAUSHALTS- & VERTRAGSLISTE (VOLLE BILDSCHIRMBREITE)              -->
+      <!-- =================================================================== -->
+      <section class="bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-6 shadow-sm space-y-3.5 sm:space-y-4">
+        <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
           <div>
-            <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Mittelverwendung</span>
-            <h2 class="text-base font-bold text-[#00325b]">Wohin fließt dein Einkommen?</h2>
+            <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Schritt 2 • Einnahmen, Ausgaben &amp; Verträge</span>
+            <h2 class="text-base font-bold text-[#00325b]">Haushalts- &amp; Vertragsübersicht</h2>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Tippe auf eine Überkategorie zum Aufklappen und auf eine einzelne Position, um sie zu bearbeiten.
+            </p>
           </div>
-          <button id="resetChartFilterBtn" type="button" class="hidden btn-tactile text-[11px] font-bold px-2.5 py-1 rounded-lg bg-[#d3d800] text-[#00325b] cursor-pointer">
-            Filter zurücksetzen ✕
-          </button>
-        </div>
 
-        <div id="donutChartContainer" class="w-full h-56 flex items-center justify-center relative">
-          <!-- D3 Donut SVG -->
-        </div>
-
-        <div id="donutLegend" class="grid grid-cols-1 min-[380px]:grid-cols-2 gap-1.5 pt-2 border-t border-slate-100 text-[11px] tabular-nums">
-          <!-- Dynamische Legende -->
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================================================================== -->
-    <!-- 3. HAUSHALTS- & VERTRAGSLISTE (BEARBEITUNG & NEU VIA POPOVER)         -->
-    <!-- ===================================================================== -->
-    <section class="bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-6 shadow-sm space-y-3.5 sm:space-y-4">
-      <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
-        <div>
-          <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Schritt 2 • Einnahmen, Ausgaben &amp; Verträge</span>
-          <h2 class="text-base font-bold text-[#00325b]">Haushalts- &amp; Vertragsübersicht</h2>
-          <p class="text-xs text-slate-500 mt-0.5">
-            Tippe auf eine Überkategorie zum Aufklappen und auf eine einzelne Position, um sie zu bearbeiten.
-          </p>
-        </div>
-
-        <button id="openAddPopoverBtn" type="button" class="no-print hidden sm:inline-flex btn-tactile items-center gap-2 bg-[#00325b] hover:bg-[#009ee3] text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm cursor-pointer">
-          <svg class="w-4 h-4 text-[#d3d800]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="12" y1="5" x2="12" y2="19" />
-            <line x1="5" y1="12" x2="19" y2="12" />
-          </svg>
-          <span>Position hinzufügen</span>
-        </button>
-      </div>
-
-      <div class="no-print flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 sm:gap-3">
-        <div id="typeFilterBar" class="flex items-center gap-1 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90 overflow-x-auto no-scrollbar">
-          <button type="button" data-filter="all" class="filter-pill active btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#00325b] text-white shadow-2xs cursor-pointer">
-            Alle (<span id="countAll">0</span>)
-          </button>
-          <button type="button" data-filter="check" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-            ★ Im Check (<span id="countCheck">0</span>)
-          </button>
-          <button type="button" data-filter="income" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-            Einnahmen (<span id="countIncome">0</span>)
-          </button>
-          <button type="button" data-filter="fixed" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-            Fixkosten (<span id="countFixed">0</span>)
-          </button>
-          <button type="button" data-filter="variable" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-            Variabel (<span id="countVariable">0</span>)
-          </button>
-          <button type="button" data-filter="savings" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-            Vorsorge &amp; Sparen (<span id="countSavings">0</span>)
-          </button>
-        </div>
-
-        <div class="flex items-center gap-2 w-full lg:w-auto">
-          <div class="relative flex-1 sm:w-56">
-            <svg class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-              <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+          <button id="openAddPopoverBtn" type="button" class="no-print hidden sm:inline-flex btn-tactile items-center gap-2 bg-[#00325b] hover:bg-[#009ee3] text-white font-bold text-xs sm:text-sm px-4 py-2.5 rounded-xl shadow-sm cursor-pointer">
+            <svg class="w-4 h-4 text-[#d3d800]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19" />
+              <line x1="5" y1="12" x2="19" y2="12" />
             </svg>
-            <input id="tableSearchInput" type="text" placeholder="Position filtern..." class="w-full bg-[#F4F8FB] border border-slate-200/90 rounded-xl pl-8 pr-3 py-2 sm:py-1.5 text-xs font-medium text-[#00325b] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+            <span>Position hinzufügen</span>
+          </button>
+        </div>
+
+        <div class="no-print flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 sm:gap-3">
+          <div id="typeFilterBar" class="flex items-center gap-1 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90 overflow-x-auto no-scrollbar">
+            <button type="button" data-filter="all" class="filter-pill active btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#00325b] text-white shadow-2xs cursor-pointer">
+              Alle (<span id="countAll">0</span>)
+            </button>
+            <button type="button" data-filter="check" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+              ★ Im Check (<span id="countCheck">0</span>)
+            </button>
+            <button type="button" data-filter="income" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+              Einnahmen (<span id="countIncome">0</span>)
+            </button>
+            <button type="button" data-filter="fixed" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+              Fixkosten (<span id="countFixed">0</span>)
+            </button>
+            <button type="button" data-filter="variable" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+              Variabel (<span id="countVariable">0</span>)
+            </button>
+            <button type="button" data-filter="savings" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+              Vorsorge &amp; Sparen (<span id="countSavings">0</span>)
+            </button>
           </div>
 
-          <select id="tableSortSelect" class="bg-[#F4F8FB] border border-slate-200/90 rounded-xl px-2.5 py-2 sm:py-1.5 text-xs font-semibold text-[#00325b] focus:outline-none focus:border-[#009ee3] cursor-pointer shrink-0">
-            <option value="grouped" selected>Nach Überkategorien</option>
-            <option value="amount_desc">Betrag (hoch → niedrig)</option>
-            <option value="amount_asc">Betrag (niedrig → hoch)</option>
-            <option value="title">Alphabetisch (A–Z)</option>
-          </select>
+          <div class="flex items-center gap-2 w-full lg:w-auto">
+            <div class="relative flex-1 sm:w-64">
+              <svg class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
+              <input id="tableSearchInput" type="text" placeholder="Position filtern..." class="w-full bg-[#F4F8FB] border border-slate-200/90 rounded-xl pl-8 pr-3 py-2 sm:py-1.5 text-xs font-medium text-[#00325b] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+            </div>
+
+            <select id="tableSortSelect" class="bg-[#F4F8FB] border border-slate-200/90 rounded-xl px-2.5 py-2 sm:py-1.5 text-xs font-semibold text-[#00325b] focus:outline-none focus:border-[#009ee3] cursor-pointer shrink-0">
+              <option value="grouped" selected>Nach Überkategorien</option>
+              <option value="amount_desc">Betrag (hoch → niedrig)</option>
+              <option value="amount_asc">Betrag (niedrig → hoch)</option>
+              <option value="title">Alphabetisch (A–Z)</option>
+            </select>
+          </div>
         </div>
-      </div>
 
-      <div id="activeCategoryBanner" class="hidden px-3.5 py-2 rounded-xl bg-[#009ee3]/10 border border-[#009ee3]/30 flex items-center justify-between text-xs">
-        <span>Gefiltert nach Kategorie: <strong id="activeCategoryLabel" class="text-[#00325b]"></strong></span>
-        <button id="clearCategoryBannerBtn" type="button" class="font-bold text-[#009ee3] hover:underline cursor-pointer">Alle anzeigen</button>
-      </div>
+        <div id="activeCategoryBanner" class="hidden px-3.5 py-2 rounded-xl bg-[#009ee3]/10 border border-[#009ee3]/30 flex items-center justify-between text-xs">
+          <span>Gefiltert nach Kategorie: <strong id="activeCategoryLabel" class="text-[#00325b]"></strong></span>
+          <button id="clearCategoryBannerBtn" type="button" class="font-bold text-[#009ee3] hover:underline cursor-pointer">Alle anzeigen</button>
+        </div>
 
-      <div class="table-sticky-wrap rounded-xl border border-slate-200/80">
-        <table class="sticky-table w-full text-left border-separate border-spacing-0">
-          <thead>
-            <tr class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">
-              <th class="sticky-th py-2.5 sm:py-3 px-3 sm:px-3.5 rounded-tl-xl">Position / Vertrag</th>
-              <th class="sticky-th py-3 px-3.5 hidden sm:table-cell w-32">Rhythmus</th>
-              <th id="thMonthlyHeader" class="sticky-th py-2.5 sm:py-3 px-3 sm:px-3.5 text-right whitespace-nowrap rounded-tr-xl sm:rounded-tr-none">Monatswert</th>
-              <th id="thCheckColumn" class="no-print sticky-th hidden py-3 px-3.5 text-right whitespace-nowrap">Nachher / Ersparnis</th>
-              <th class="no-print sticky-th hidden sm:table-cell py-3 px-3.5 w-20 text-right whitespace-nowrap rounded-tr-xl">Aktionen</th>
-            </tr>
-          </thead>
-          <tbody id="entriesTableBody" class="text-xs sm:text-sm tabular-nums">
-            <!-- Dynamische Zeilen -->
-          </tbody>
-          <tfoot id="unifiedCheckTableFoot" class="hidden bg-[#F4F8FB] text-[#00325b] tabular-nums">
-            <tr>
-              <td colspan="2" class="py-3.5 px-3 sm:px-3.5 font-bold text-xs sm:text-sm rounded-bl-xl">
-                <div class="flex items-center gap-2">
-                  <span class="w-2.5 h-2.5 rounded-full bg-[#269b8d] shrink-0"></span>
-                  <div>
-                    <span class="block leading-tight">Gesamtersparnis nach Check</span>
-                    <span class="hidden sm:block text-[10.5px] font-medium text-slate-400 mt-0.5">Summe aller geprüften Positionen</span>
+        <div class="table-sticky-wrap rounded-xl border border-slate-200/80">
+          <table class="sticky-table w-full text-left border-separate border-spacing-0">
+            <thead>
+              <tr class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">
+                <th class="sticky-th py-2.5 sm:py-3 px-3 sm:px-4 rounded-tl-xl">Position / Vertrag</th>
+                <th class="sticky-th py-3 px-4 hidden sm:table-cell w-36">Rhythmus</th>
+                <th id="thMonthlyHeader" class="sticky-th py-2.5 sm:py-3 px-3 sm:px-4 text-right whitespace-nowrap rounded-tr-xl sm:rounded-tr-none">Monatswert</th>
+                <th id="thCheckColumn" class="no-print sticky-th hidden py-3 px-4 text-right whitespace-nowrap">Nachher / Ersparnis</th>
+                <th class="no-print sticky-th hidden sm:table-cell py-3 px-4 w-24 text-right whitespace-nowrap rounded-tr-xl">Aktionen</th>
+              </tr>
+            </thead>
+            <tbody id="entriesTableBody" class="text-xs sm:text-sm tabular-nums">
+            </tbody>
+            <tfoot id="unifiedCheckTableFoot" class="hidden bg-[#F4F8FB] text-[#00325b] tabular-nums">
+              <tr>
+                <td colspan="2" class="py-3.5 px-3 sm:px-4 font-bold text-xs sm:text-sm rounded-bl-xl">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2.5 h-2.5 rounded-full bg-[#269b8d] shrink-0"></span>
+                    <div>
+                      <span class="block leading-tight">Gesamtersparnis nach Check</span>
+                      <span class="hidden sm:block text-[10.5px] font-medium text-slate-400 mt-0.5">Summe aller geprüften Positionen</span>
+                    </div>
                   </div>
-                </div>
-              </td>
-              <td class="py-3.5 px-3 sm:px-3.5 text-right whitespace-nowrap">
-                <span class="hidden sm:block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Vorher / Mt.</span>
-                <span id="baFootBefore" class="text-xs sm:text-sm font-semibold text-slate-400 line-through decoration-slate-300">0,00 €</span>
-                <div class="sm:hidden mt-1 flex items-center justify-end gap-1.5">
-                  <span id="baFootMobileAfter" class="text-xs font-extrabold text-[#00325b]">0,00 €</span>
-                  <span id="baFootMobileSaved" class="text-[10.5px] font-extrabold px-1.5 py-0.5 rounded-md bg-[#d3d800]/45 text-[#00325b]">+0,00 €</span>
-                </div>
-              </td>
-              <td colspan="2" class="no-print hidden sm:table-cell py-3.5 px-3.5 text-right whitespace-nowrap rounded-br-xl">
-                <div class="inline-flex items-center justify-end gap-2.5 whitespace-nowrap">
-                  <div class="text-right mr-0.5">
-                    <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Nachher / Mt.</span>
-                    <strong id="baFootAfter" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0,00 €</strong>
+                </td>
+                <td class="py-3.5 px-3 sm:px-4 text-right whitespace-nowrap">
+                  <span class="hidden sm:block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Vorher / Mt.</span>
+                  <span id="baFootBefore" class="text-xs sm:text-sm font-semibold text-slate-400 line-through decoration-slate-300">0,00 €</span>
+                  <div class="sm:hidden mt-1 flex items-center justify-end gap-1.5">
+                    <span id="baFootMobileAfter" class="text-xs font-extrabold text-[#00325b]">0,00 €</span>
+                    <span id="baFootMobileSaved" class="text-[10.5px] font-extrabold px-1.5 py-0.5 rounded-md bg-[#d3d800]/45 text-[#00325b]">+0,00 €</span>
                   </div>
-                  <span id="baFootMonthly" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#d3d800]/40 border border-[#d3d800] text-[#00325b] font-extrabold text-xs">
-                    +0,00 € / Mt.
-                  </span>
-                  <span id="baFootYearly" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#269b8d]/12 border border-[#269b8d]/30 text-[#1f8579] font-extrabold text-xs">
-                    +0,00 € / Jahr
-                  </span>
-                </div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
-      </div>
+                </td>
+                <td colspan="2" class="no-print hidden sm:table-cell py-3.5 px-4 text-right whitespace-nowrap rounded-br-xl">
+                  <div class="inline-flex items-center justify-end gap-2.5 whitespace-nowrap">
+                    <div class="text-right mr-0.5">
+                      <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Nachher / Mt.</span>
+                      <strong id="baFootAfter" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0,00 €</strong>
+                    </div>
+                    <span id="baFootMonthly" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#d3d800]/40 border border-[#d3d800] text-[#00325b] font-extrabold text-xs">
+                      +0,00 € / Mt.
+                    </span>
+                    <span id="baFootYearly" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#269b8d]/12 border border-[#269b8d]/30 text-[#1f8579] font-extrabold text-xs">
+                      +0,00 € / Jahr
+                    </span>
+                  </div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
 
-      <div id="emptyTableState" class="hidden py-10 text-center space-y-3">
-        <p class="text-sm font-semibold text-slate-500">Keine Positionen für die aktuelle Auswahl gefunden.</p>
-        <button id="emptyAddBtn" type="button" class="btn-tactile inline-flex items-center gap-1.5 bg-[#00325b] text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer">
-          + Erste Position erfassen
-        </button>
-      </div>
-    </section>
+        <div id="emptyTableState" class="hidden py-10 text-center space-y-3">
+          <p class="text-sm font-semibold text-slate-500">Keine Positionen für die aktuelle Auswahl gefunden.</p>
+          <button id="emptyAddBtn" type="button" class="btn-tactile inline-flex items-center gap-1.5 bg-[#00325b] text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer">
+            + Erste Position erfassen
+          </button>
+        </div>
+      </section>
 
-    <!-- ===================================================================== -->
-    <!-- 4. ZINSESZINS- & VERMÖGENSAUFBAU-SIMULATOR                           -->
-    <!-- ===================================================================== -->
-    <section class="bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md">
-      <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-stretch">
-        <div class="lg:col-span-5 flex flex-col justify-between space-y-4 sm:space-y-5 tabular-nums">
-          <div>
-            <span class="inline-block text-[10.5px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#009ee3]/20 text-[#009ee3] border border-[#009ee3]/30">
-              Vermögensaufbau-Hebel
-            </span>
-            <h2 class="text-lg sm:text-2xl font-extrabold text-white leading-tight mt-2">
-              Was dein freier Cashflow langfristig bewirkt
-            </h2>
-            <p class="text-xs sm:text-[13px] text-slate-300 leading-relaxed mt-1.5">
-              Simuliere, wie sich dein monatlicher Überschuss (inklusive bestehender Sparraten) durch den Zinseszins-Effekt entwickelt.
-            </p>
+      <!-- =================================================================== -->
+      <!-- 4. ZINSESZINS- & VERMÖGENSAUFBAU-SIMULATOR                         -->
+      <!-- =================================================================== -->
+      <section class="bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md">
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-stretch">
+          <div class="lg:col-span-5 flex flex-col justify-between space-y-4 sm:space-y-5 tabular-nums">
+            <div>
+              <span class="inline-block text-[10.5px] font-bold uppercase tracking-wider px-3 py-1 rounded-full bg-[#009ee3]/20 text-[#009ee3] border border-[#009ee3]/30">
+                Vermögensaufbau-Hebel
+              </span>
+              <h2 class="text-lg sm:text-2xl font-extrabold text-white leading-tight mt-2">
+                Was dein freier Cashflow langfristig bewirkt
+              </h2>
+              <p class="text-xs sm:text-[13px] text-slate-300 leading-relaxed mt-1.5">
+                Simuliere, wie sich dein monatlicher Überschuss (inklusive bestehender Sparraten) durch den Zinseszins-Effekt entwickelt.
+              </p>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.06] border border-white/12 space-y-2.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-white font-semibold">Monatliche Spar- &amp; Investitionsrate</span>
+                <strong id="simMonthlyLabel" class="text-base font-extrabold text-[#d3d800]">600 €</strong>
+              </div>
+              <input id="simMonthlySlider" type="range" min="25" max="3000" step="25" value="600" class="brand-slider w-full" />
+              <div class="flex items-center justify-between text-[10.5px] text-slate-400">
+                <span>25 €</span>
+                <button id="syncCashflowToSimBtn" type="button" class="no-print font-semibold text-[#009ee3] hover:text-[#d3d800] transition-colors cursor-pointer">
+                  Auf Gesamt-Sparpotenzial setzen
+                </button>
+                <span>3.000 €</span>
+              </div>
+            </div>
+
+            <div class="p-4 rounded-xl bg-white/[0.06] border border-white/12 space-y-2.5">
+              <div class="flex items-center justify-between text-xs">
+                <span class="text-white font-semibold">Anlagehorizont</span>
+                <strong id="simYearsLabel" class="text-base font-extrabold text-white">25 Jahre</strong>
+              </div>
+              <input id="simYearsSlider" type="range" min="5" max="40" step="1" value="25" class="brand-slider w-full" />
+              <div class="flex justify-between text-[10.5px] text-slate-400">
+                <span>5 Jahre</span>
+                <span>20 Jahre</span>
+                <span>40 Jahre</span>
+              </div>
+            </div>
+
+            <div>
+              <span class="block text-xs text-slate-200 font-semibold mb-2">Erwartete Zielrendite p.a. (Investment / Altersvorsorge)</span>
+              <div id="returnRateButtons" class="grid grid-cols-3 gap-2.5">
+                <button type="button" data-rate="4.0" class="rate-btn btn-tactile py-2.5 px-2 rounded-xl border border-white/15 bg-white/[0.05] hover:bg-white/[0.09] text-center cursor-pointer">
+                  <span class="block text-xs font-bold text-white">Konservativ</span>
+                  <span class="block text-[11px] font-semibold text-[#009ee3] mt-0.5">4,0 %</span>
+                </button>
+                <button type="button" data-rate="6.5" class="rate-btn active btn-tactile py-2.5 px-2 rounded-xl border-2 border-[#009ee3] bg-[#009ee3]/15 text-white text-center cursor-pointer">
+                  <span class="block text-xs font-bold text-white">Ausgewogen</span>
+                  <span class="block text-[11px] font-semibold text-[#d3d800] mt-0.5">6,5 %</span>
+                </button>
+                <button type="button" data-rate="8.0" class="rate-btn btn-tactile py-2.5 px-2 rounded-xl border border-white/15 bg-white/[0.05] hover:bg-white/[0.09] text-center cursor-pointer">
+                  <span class="block text-xs font-bold text-white">Chancen</span>
+                  <span class="block text-[11px] font-semibold text-[#009ee3] mt-0.5">8,0 %</span>
+                </button>
+              </div>
+            </div>
           </div>
 
-          <div class="p-4 rounded-xl bg-white/[0.06] border border-white/12 space-y-2.5">
-            <div class="flex items-center justify-between text-xs">
-              <span class="text-white font-semibold">Monatliche Spar- &amp; Investitionsrate</span>
-              <strong id="simMonthlyLabel" class="text-base font-extrabold text-[#d3d800]">600 €</strong>
+          <div class="lg:col-span-7 rounded-2xl bg-white/[0.03] border border-white/10 p-3.5 sm:p-5 flex flex-col justify-between space-y-4">
+            <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 tabular-nums">
+              <div class="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/10">
+                <span class="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-300 block">Eigene Einzahlungen</span>
+                <strong id="simInvestedOut" class="text-base sm:text-xl font-extrabold text-white mt-1 block">0 €</strong>
+              </div>
+              <div class="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/10">
+                <span class="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-[#4fd1c5] block">Zinseszins-Ertrag</span>
+                <strong id="simGainOut" class="text-base sm:text-xl font-extrabold text-[#4fd1c5] mt-1 block">+0 €</strong>
+              </div>
+              <div class="col-span-2 sm:col-span-1 p-3 sm:p-3.5 rounded-xl bg-gradient-to-br from-[#009ee3] to-[#0077b6] text-white shadow-md border border-[#d3d800]/40">
+                <span class="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-white/90 block">Endkapital (Prognose)</span>
+                <strong id="simTotalOut" class="text-lg sm:text-xl font-extrabold text-white mt-1 block">0 €</strong>
+              </div>
             </div>
-            <input id="simMonthlySlider" type="range" min="25" max="3000" step="25" value="600" class="brand-slider w-full" />
-            <div class="flex items-center justify-between text-[10.5px] text-slate-400">
-              <span>25 €</span>
-              <button id="syncCashflowToSimBtn" type="button" class="no-print font-semibold text-[#009ee3] hover:text-[#d3d800] transition-colors cursor-pointer">
-                Auf Gesamt-Sparpotenzial setzen
-              </button>
-              <span>3.000 €</span>
-            </div>
-          </div>
 
-          <div class="p-4 rounded-xl bg-white/[0.06] border border-white/12 space-y-2.5">
-            <div class="flex items-center justify-between text-xs">
-              <span class="text-white font-semibold">Anlagehorizont</span>
-              <strong id="simYearsLabel" class="text-base font-extrabold text-white">25 Jahre</strong>
-            </div>
-            <input id="simYearsSlider" type="range" min="5" max="40" step="1" value="25" class="brand-slider w-full" />
-            <div class="flex justify-between text-[10.5px] text-slate-400">
-              <span>5 Jahre</span>
-              <span>20 Jahre</span>
-              <span>40 Jahre</span>
-            </div>
-          </div>
-
-          <div>
-            <span class="block text-xs text-slate-200 font-semibold mb-2">Erwartete Zielrendite p.a. (Investment / Altersvorsorge)</span>
-            <div id="returnRateButtons" class="grid grid-cols-3 gap-2.5">
-              <button type="button" data-rate="4.0" class="rate-btn btn-tactile py-2.5 px-2 rounded-xl border border-white/15 bg-white/[0.05] hover:bg-white/[0.09] text-center cursor-pointer">
-                <span class="block text-xs font-bold text-white">Konservativ</span>
-                <span class="block text-[11px] font-semibold text-[#009ee3] mt-0.5">4,0 %</span>
-              </button>
-              <button type="button" data-rate="6.5" class="rate-btn active btn-tactile py-2.5 px-2 rounded-xl border-2 border-[#009ee3] bg-[#009ee3]/15 text-white text-center cursor-pointer">
-                <span class="block text-xs font-bold text-white">Ausgewogen</span>
-                <span class="block text-[11px] font-semibold text-[#d3d800] mt-0.5">6,5 %</span>
-              </button>
-              <button type="button" data-rate="8.0" class="rate-btn btn-tactile py-2.5 px-2 rounded-xl border border-white/15 bg-white/[0.05] hover:bg-white/[0.09] text-center cursor-pointer">
-                <span class="block text-xs font-bold text-white">Chancen</span>
-                <span class="block text-[11px] font-semibold text-[#009ee3] mt-0.5">8,0 %</span>
-              </button>
+            <div class="flex-1 flex flex-col justify-between">
+              <div id="wealthChartContainer" class="w-full h-52 sm:h-60 relative">
+              </div>
+              <p class="text-[10.5px] text-slate-400 text-center pt-1">
+                Modellrechnung bei monatlicher vorschüssiger Einzahlung ohne Berücksichtigung von Steuern/Inflation.
+              </p>
             </div>
           </div>
         </div>
+      </section>
 
-        <div class="lg:col-span-7 rounded-2xl bg-white/[0.03] border border-white/10 p-3.5 sm:p-5 flex flex-col justify-between space-y-4">
-          <div class="grid grid-cols-2 sm:grid-cols-3 gap-2.5 sm:gap-3 tabular-nums">
-            <div class="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/10">
-              <span class="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-slate-300 block">Eigene Einzahlungen</span>
-              <strong id="simInvestedOut" class="text-base sm:text-xl font-extrabold text-white mt-1 block">0 €</strong>
-            </div>
-            <div class="p-3 sm:p-3.5 rounded-xl bg-white/[0.05] border border-white/10">
-              <span class="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-[#4fd1c5] block">Zinseszins-Ertrag</span>
-              <strong id="simGainOut" class="text-base sm:text-xl font-extrabold text-[#4fd1c5] mt-1 block">+0 €</strong>
-            </div>
-            <div class="col-span-2 sm:col-span-1 p-3 sm:p-3.5 rounded-xl bg-gradient-to-br from-[#009ee3] to-[#0077b6] text-white shadow-md border border-[#d3d800]/40">
-              <span class="text-[9.5px] sm:text-[10px] font-bold uppercase tracking-wider text-white/90 block">Endkapital (Prognose)</span>
-              <strong id="simTotalOut" class="text-lg sm:text-xl font-extrabold text-white mt-1 block">0 €</strong>
-            </div>
-          </div>
+      <!-- DATENSCHUTZ- & NUTZUNGSHINWEIS -->
+      <footer class="px-2 pt-1 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-slate-400">
+        <p>
+          <strong class="font-semibold text-slate-500">Datenschutz &amp; Hinweis:</strong> Alle eingegebenen Haushalts- und Finanzdaten werden ausschließlich lokal im Arbeitsspeicher deines Browsers sowie im geteilten Link-Parameter (<code class="font-mono text-[10px]">?d=...</code>) verarbeitet und nicht an Datenbanken oder den Website-Betreiber übermittelt. Beim technischen Abruf der Seite über GitHub Pages bzw. eingebundene Programmbibliotheken (CDNs) werden Verbindungsdaten (z. B. IP-Adresse) zur Auslieferung verarbeitet. Alle Berechnungen sind unverbindliche Modellrechnungen.
+        </p>
+        <span class="shrink-0 text-slate-400">Lokale Verarbeitung</span>
+      </footer>
 
-          <div class="flex-1 flex flex-col justify-between">
-            <div id="wealthChartContainer" class="w-full h-52 sm:h-60 relative">
-              <!-- D3 Vermögensaufbau-Chart -->
-            </div>
-            <p class="text-[10.5px] text-slate-400 text-center pt-1">
-              Modellrechnung bei monatlicher vorschüssiger Einzahlung ohne Berücksichtigung von Steuern/Inflation.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================================================================== -->
-    <!-- DATENSCHUTZ- & NUTZUNGSHINWEIS (FÜR ÖFFENTLICHES HOSTING)             -->
-    <!-- ===================================================================== -->
-    <footer class="px-2 pt-1 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-slate-400">
-      <p>
-        <strong class="font-semibold text-slate-500">Datenschutz &amp; Hinweis:</strong> Alle eingegebenen Haushalts- und Finanzdaten werden ausschließlich lokal im Arbeitsspeicher deines Browsers sowie im geteilten Link-Parameter (<code class="font-mono text-[10px]">?d=...</code>) verarbeitet und nicht an Datenbanken oder den Website-Betreiber übermittelt. Beim technischen Abruf der Seite über GitHub Pages bzw. eingebundene Programmbibliotheken (CDNs) werden Verbindungsdaten (z. B. IP-Adresse) zur Auslieferung verarbeitet. Alle Berechnungen sind unverbindliche Modellrechnungen.
-      </p>
-      <span class="shrink-0 text-slate-400">Lokale Verarbeitung</span>
-    </footer>
-
-  </main>
+    </main>
+  </div>
 
   <!-- ======================================================================= -->
-  <!-- SMARTPHONE BOTTOM ACTION BAR                                            -->
+  <!-- SMARTPHONE BOTTOM ACTION BAR (< MD)                                     -->
   <!-- ======================================================================= -->
   <nav id="mobileBottomBar" aria-label="Schnellzugriff" class="no-print md:hidden fixed bottom-0 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-slate-200/90 shadow-[0_-4px_16px_rgba(0,50,91,0.06)] px-3 pt-2 pb-[max(0.5rem,env(safe-area-inset-bottom))]">
     <div class="max-w-lg mx-auto grid grid-cols-4 gap-2 items-center">
@@ -1048,7 +1215,6 @@
           </div>
 
           <div id="presetDropdown" class="hidden absolute z-50 left-0 right-0 mt-1 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1">
-            <!-- Wird dynamisch per JS befüllt -->
           </div>
         </div>
 
@@ -1072,7 +1238,6 @@
             </div>
           </div>
 
-          <!-- Berufsstatus: Angestellt | Beamte | Selbstständig -->
           <div id="salStatusToggle" role="group" aria-label="Berufsstatus wählen" class="grid grid-cols-3 gap-1 bg-white p-1 rounded-xl border border-slate-200 text-[11px] font-bold">
             <button type="button" data-sal-status="employee" class="sal-status-btn active py-1 px-2 rounded-lg bg-[#00325b] text-white shadow-2xs cursor-pointer">Angestellt</button>
             <button type="button" data-sal-status="civil" class="sal-status-btn py-1 px-2 rounded-lg text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">Beamte</button>
@@ -1134,7 +1299,6 @@
             </div>
           </div>
 
-          <!-- Durchsuchbare Krankenkassen-Auswahl (für Angestellte) -->
           <div class="relative" id="popGkvSearchWrapper">
             <div class="flex items-center justify-between mb-1">
               <label for="popGkvSearchInput" class="block text-[11px] font-semibold text-slate-600">Gesetzliche Krankenkasse (Stand 11/2026)</label>
@@ -1676,7 +1840,7 @@
         return Math.floor(0.45 * x0 - 19470.38);
       }
 
-      // Angestellte: Lohnsteuer-, Sozialversicherungs- & Netto-Berechnung 2026 (PAP 2026 / § 39b EStG & § 20 Abs. 2 SGB IV)
+      // Angestellte: Lohnsteuer-, Sozialversicherungs- & Netto-Berechnung 2026
       function calcGermanPayroll2026(grossMonthly, opts = {}) {
         const gross = Math.max(0, Number(grossMonthly) || 0);
         const taxClass = Number(opts.taxClass) || 1;
@@ -1707,7 +1871,6 @@
           kvZusatzAn = basisKvPv * ((gkv.zusatz / 100) / 2);
         }
 
-        // Pflegeversicherung 2026
         let pvRate = stObj.saxonyPflege ? 0.023 : 0.018;
         if (children === 0) {
           pvRate += 0.006;
@@ -1716,7 +1879,6 @@
         }
         const pvAn = basisKvPv * Math.max(0.008, pvRate);
 
-        // Lohnsteuer nach PAP 2026 (§ 39b EStG)
         const annualGross = gross * 12;
         const wk = taxClass === 6 ? 0 : 1230;
         const sa = taxClass === 6 ? 0 : 36;
@@ -1734,7 +1896,6 @@
           const vspHb = taxClass === 6 ? 0 : Math.min(1900, vsp2KvPv + vsp3Av);
           vorsorgePauschale = Math.ceil(vsp1Rv + Math.max(vsp2KvPv, vspHb));
         } else {
-          // Wegfall der pauschalen Mindestvorsorgepauschale für PKV ab 01.01.2026
           vorsorgePauschale = Math.ceil(vsp1Rv);
         }
 
@@ -1832,7 +1993,7 @@
         };
       }
 
-      // Selbstständige / Freiberufler 2026 (Einkommensteuer § 32a EStG + Soli + Kirchensteuer)
+      // Selbstständige / Freiberufler 2026
       function calcSelfEmployedIncome2026(monthlyProfit, opts = {}) {
         const profit = Math.max(0, Number(monthlyProfit) || 0);
         const taxClass = Number(opts.taxClass) || 1;
@@ -1906,7 +2067,6 @@
         return Math.round(Math.min(svBasis, 5812.50) * ((gkv.zusatz / 100) / 2) * 100) / 100;
       }
 
-      // bAV Brutto → Nettoaufwand (Stand 2026: 338 € steuer- & SV-frei; 676 € steuerfrei)
       function calcBavNetCost2026(inputAmount, agPct, mode = 'total_gross') {
         const val = Math.max(0, Number(inputAmount) || 0);
         const pct = Math.max(0, Number(agPct) || 0);
@@ -1962,7 +2122,6 @@
         };
       }
 
-      // PKV Eigenanteil & Zuschuss / Beihilfe (Stand 2026: AG-Höchstzuschuss 613,22 € bzw. 584,15 € in Sachsen)
       function calcPkvNetCost2026(grossPkv, mode = 'employee_ag', subsidyPct = 50, stateCode = 'NI') {
         const gross = Math.max(0, Number(grossPkv) || 0);
         let subsidyEur = 0;
@@ -1997,10 +2156,9 @@
       }
 
       // =========================================================================
-      // 3. VORLAGENKATALOG & MUSTER-SZENARIEN (OSTFRIESLAND 2026)
+      // 3. VORLAGENKATALOG & MUSTER-SZENARIEN (STAND 2026)
       // =========================================================================
       const PRESET_CATALOG = [
-        // Einnahmen
         { title: 'Nettogehalt (Haupteinkommen)', type: 'income', categoryId: 'income_salary', amount: 2550, freq: 1, optimize: false, tags: 'lohn gehalt einkommen arbeitgeber' },
         { title: 'Zweiteinkommen / Partnergehalt', type: 'income', categoryId: 'income_salary', amount: 2150, freq: 1, optimize: false, tags: 'partner gehalt zweitgehalt' },
         { title: 'Besoldung (Beamte)', type: 'income', categoryId: 'income_salary', amount: 3450, freq: 1, optimize: false, tags: 'beamte besoldung land bund' },
@@ -2009,7 +2167,6 @@
         { title: 'Vermögenswirksame Leistungen (VL)', type: 'income', categoryId: 'income_other', amount: 40, freq: 1, optimize: false, tags: 'vl arbeitgeber zuschuss' },
         { title: 'Nebengewerbe / Minijob', type: 'income', categoryId: 'income_other', amount: 603, freq: 1, optimize: false, tags: 'minijob nebenjob freiberuf' },
 
-        // Wohnen
         { title: 'Kaltmiete / Immobilienrate', type: 'fixed', categoryId: 'fixed_housing', amount: 640, freq: 1, optimize: false, tags: 'miete kredit darlehen wohnung haus' },
         { title: 'Nebenkosten & Hausgeld', type: 'fixed', categoryId: 'fixed_housing', amount: 165, freq: 1, optimize: false, tags: 'nebenkosten hausgeld verwaltung' },
         { title: 'Strom (Abschlag)', type: 'fixed', categoryId: 'fixed_housing', amount: 75, freq: 1, optimize: true, tags: 'strom energie anbieter wechsel' },
@@ -2021,7 +2178,6 @@
         { title: 'Grundsteuer & Schornsteinfeger', type: 'fixed', categoryId: 'fixed_housing', amount: 110, freq: 3, optimize: false, tags: 'grundsteuer schornsteinfeger haus eigentum' },
         { title: 'Garagen- / Stellplatzmiete', type: 'fixed', categoryId: 'fixed_housing', amount: 45, freq: 1, optimize: false, tags: 'garage stellplatz carport parkplatz' },
 
-        // Sachversicherungen
         { title: 'Privathaftpflichtversicherung', type: 'fixed', categoryId: 'fixed_property_ins', amount: 66, freq: 12, optimize: true, tags: 'haftpflicht schutz sach' },
         { title: 'Hausratversicherung', type: 'fixed', categoryId: 'fixed_property_ins', amount: 84, freq: 12, optimize: true, tags: 'hausrat wohnung fahrrad' },
         { title: 'Wohngebäudeversicherung', type: 'fixed', categoryId: 'fixed_property_ins', amount: 380, freq: 12, optimize: true, tags: 'haus immobilie gebaeude' },
@@ -2032,14 +2188,12 @@
         { title: 'Reiserücktritt- & Auslandskrankenversicherung', type: 'fixed', categoryId: 'fixed_property_ins', amount: 45, freq: 12, optimize: true, tags: 'reise ausland urlaub reiseruecktritt' },
         { title: 'Fahrrad- / E-Bike-Versicherung', type: 'fixed', categoryId: 'fixed_property_ins', amount: 85, freq: 12, optimize: true, tags: 'fahrrad ebike pedelec diebstahl' },
 
-        // Personen- & Einkommensabsicherung
         { title: 'Berufsunfähigkeitsversicherung (BU)', type: 'fixed', categoryId: 'fixed_income_ins', amount: 72, freq: 1, optimize: true, tags: 'bu arbeitskraft absicherung' },
         { title: 'Risikolebensversicherung', type: 'fixed', categoryId: 'fixed_income_ins', amount: 16, freq: 1, optimize: true, tags: 'rlv familie hinterbliebene' },
         { title: 'Unfallversicherung', type: 'fixed', categoryId: 'fixed_income_ins', amount: 19, freq: 1, optimize: true, tags: 'unfall freizeit invaliditaet' },
         { title: 'Grundfähigkeitsversicherung', type: 'fixed', categoryId: 'fixed_income_ins', amount: 58, freq: 1, optimize: true, tags: 'grundfaehigkeit einkommen schutz' },
         { title: 'Sterbegeldversicherung', type: 'fixed', categoryId: 'fixed_income_ins', amount: 22, freq: 1, optimize: true, tags: 'sterbegeld vorsorge bestattung' },
 
-        // Gesundheitsvorsorge & Krankenzusatz
         { title: 'Private Krankenversicherung (PKV)', type: 'fixed', categoryId: 'fixed_health_ins', amount: 340, freq: 1, optimize: true, tags: 'pkv privat krankenversicherung beihilfe beamte vollversicherung' },
         { title: 'Zahnzusatzversicherung', type: 'fixed', categoryId: 'fixed_health_ins', amount: 21.90, freq: 1, optimize: true, tags: 'zahn kranken zusatz' },
         { title: 'Krankentagegeld / Ambulant', type: 'fixed', categoryId: 'fixed_health_ins', amount: 17, freq: 1, optimize: true, tags: 'krankentagegeld gesundheit' },
@@ -2048,7 +2202,6 @@
         { title: 'Pflegezusatzversicherung', type: 'fixed', categoryId: 'fixed_health_ins', amount: 32, freq: 1, optimize: true, tags: 'pflege pflegetagegeld vorsorge' },
         { title: 'Tierkranken- / Tier-OP-Versicherung', type: 'fixed', categoryId: 'fixed_health_ins', amount: 39, freq: 1, optimize: true, tags: 'hund katze tierarzt op kranken' },
 
-        // Costs of Life
         { title: 'Kontoführungsgebühren (Girokonto)', type: 'variable', categoryId: 'var_living', amount: 9.90, freq: 1, optimize: true, tags: 'bank kontofuehrung giro sparkasse volksbank gebuehr' },
         { title: 'Kreditkartengebühren', type: 'variable', categoryId: 'var_living', amount: 36, freq: 12, optimize: true, tags: 'kreditkarte visa mastercard amex bank gebuehr' },
         { title: 'Lebensmittel & Haushalt', type: 'variable', categoryId: 'var_living', amount: 360, freq: 1, optimize: false, tags: 'supermarkt einkauf essen' },
@@ -2064,7 +2217,6 @@
         { title: 'Friseur & Körperpflege', type: 'variable', categoryId: 'var_living', amount: 42, freq: 1, optimize: false, tags: 'friseur kosmetik pflege' },
         { title: 'Haustierbedarf & Futter', type: 'variable', categoryId: 'var_living', amount: 55, freq: 1, optimize: false, tags: 'hund katze tier futter zubehoer' },
 
-        // Unterhaltung
         { title: 'Video-Streaming (VOD: Netflix, Prime, Disney+)', type: 'variable', categoryId: 'var_entertainment', amount: 22.99, freq: 1, optimize: true, tags: 'vod video streaming netflix prime disney fernsehen abo' },
         { title: 'Musik-Streaming (MOD: Spotify, Apple Music)', type: 'variable', categoryId: 'var_entertainment', amount: 10.99, freq: 1, optimize: true, tags: 'mod musik streaming spotify apple music hoerbuch abo' },
         { title: 'Pay-TV / Sport-Streaming (Sky, DAZN, RTL+)', type: 'variable', categoryId: 'var_entertainment', amount: 34.99, freq: 1, optimize: true, tags: 'sky dazn rtl plus sport bundesliga tv abo' },
@@ -2073,7 +2225,6 @@
         { title: 'Hörbuch- & E-Book-Abo (Audible, Kindle)', type: 'variable', categoryId: 'var_entertainment', amount: 9.95, freq: 1, optimize: true, tags: 'audible kindle hoerbuch buch abo' },
         { title: 'Kino, Konzerte & Events', type: 'variable', categoryId: 'var_entertainment', amount: 30, freq: 1, optimize: false, tags: 'kino konzert veranstaltung unterhaltung' },
 
-        // Luxus
         { title: 'Fitnessstudio / Sportverein', type: 'variable', categoryId: 'var_luxury', amount: 39.90, freq: 1, optimize: true, tags: 'fitness studio gym sport verein mitgliedschaft' },
         { title: 'Mitgliedsbeiträge & Vereine', type: 'variable', categoryId: 'var_luxury', amount: 15, freq: 1, optimize: true, tags: 'verein club beitrag mitgliedschaft' },
         { title: 'Freizeit, Sport & Gastronomie', type: 'variable', categoryId: 'var_luxury', amount: 130, freq: 1, optimize: false, tags: 'restaurant ausgehen fitness hobby' },
@@ -2083,7 +2234,6 @@
         { title: 'Urlaub & Reisen (Rücklage)', type: 'variable', categoryId: 'var_luxury', amount: 100, freq: 1, optimize: false, tags: 'urlaub reise flug hotel' },
         { title: 'Geschenke & Spenden', type: 'variable', categoryId: 'var_luxury', amount: 35, freq: 1, optimize: false, tags: 'geburtstag weihnachten geschenk spende' },
 
-        // Altersvorsorge & Vermögensaufbau
         { title: 'Private Fondsgebundene Rentenversicherung (pAV)', type: 'savings', categoryId: 'sav_retirement', amount: 125, freq: 1, optimize: false, tags: 'rente altersvorsorge fonds' },
         { title: 'Betriebliche Altersvorsorge (bAV)', type: 'savings', categoryId: 'sav_retirement', amount: 98, freq: 1, optimize: false, tags: 'bav direktversicherung arbeitgeber zuschuss' },
         { title: 'Basisrente (Rürup) / Riester', type: 'savings', categoryId: 'sav_retirement', amount: 100, freq: 1, optimize: false, tags: 'ruerup riester steuer' },
@@ -2266,6 +2416,8 @@
         pkvLastCalc: null,
         popCheckTargetGkvId: 'bkk_firmus',
         popCheckChurchExit: true,
+        sidebarExpanded: false,
+        tvScaleMode: false,
         clientMode: false,
         canSwitchToAdvisor: false,
         currentClientName: '',
@@ -2315,12 +2467,83 @@
         return list[0] || { id: categoryId || 'other', label: 'Sonstiges', shortLabel: 'Sonstiges', color: '#64748b', order: 50 };
       }
 
+      function applyTvScaleUi() {
+        document.documentElement.classList.toggle('tv-scale-mode', Boolean(state.tvScaleMode));
+        const sideLbl = document.getElementById('sideTvScaleLabel');
+        const sideBtn = document.getElementById('sideTvScaleBtn');
+        if (sideLbl) {
+          sideLbl.textContent = state.tvScaleMode ? 'Großbild (3–4 m): Aktiv' : 'Großbild (3–4 m): Aus';
+        }
+        if (sideBtn) {
+          sideBtn.dataset.tooltip = state.tvScaleMode
+            ? '3–4 m Großbild-Modus: Aktiv (klicken für Normal)'
+            : '3–4 m Großbild-Modus aktivieren';
+          sideBtn.classList.toggle('bg-[#d3d800]/55', Boolean(state.tvScaleMode));
+          sideBtn.classList.toggle('bg-[#F4F8FB]', !state.tvScaleMode);
+        }
+      }
+
+      function applySidebarExpandedUi() {
+        const aside = document.getElementById('desktopSidebar');
+        const backdropEl = document.getElementById('sidebarOverlayBackdrop');
+        const expandBtn = document.getElementById('expandSidebarBtn');
+        const expandedHeader = document.getElementById('expandedSidebarHeader');
+        const headerRow = document.getElementById('sidebarHeaderRow');
+        const scrollBody = document.getElementById('sidebarScrollBody');
+        const sideCheckBadge = document.getElementById('sideCheckBadge');
+        if (!aside) return;
+
+        aside.dataset.collapsed = state.sidebarExpanded ? 'false' : 'true';
+
+        if (state.sidebarExpanded) {
+          aside.classList.remove('w-16', 'shadow-sm');
+          aside.classList.add('w-64', 'shadow-2xl');
+          backdropEl?.classList.remove('hidden');
+          expandBtn?.classList.add('hidden');
+          expandedHeader?.classList.remove('hidden');
+          headerRow?.classList.remove('justify-center');
+          headerRow?.classList.add('justify-between');
+          scrollBody?.classList.remove('px-0', 'overflow-x-visible');
+          scrollBody?.classList.add('px-2.5');
+          aside.querySelectorAll('.sidebar-label').forEach((el) => el.classList.remove('hidden'));
+          aside.querySelectorAll('.side-item:not(#expandSidebarBtn)').forEach((b) => {
+            b.classList.remove('w-10', 'mx-auto', 'justify-center');
+            b.classList.add('w-full', 'px-3', 'justify-start');
+          });
+          if (sideCheckBadge) {
+            sideCheckBadge.classList.remove('absolute', '-top-1', '-right-1');
+          }
+        } else {
+          aside.classList.remove('w-64', 'shadow-2xl');
+          aside.classList.add('w-16', 'shadow-sm');
+          backdropEl?.classList.add('hidden');
+          expandBtn?.classList.remove('hidden');
+          expandedHeader?.classList.add('hidden');
+          headerRow?.classList.remove('justify-between');
+          headerRow?.classList.add('justify-center');
+          scrollBody?.classList.remove('px-2.5');
+          scrollBody?.classList.add('px-0', 'overflow-x-visible');
+          aside.querySelectorAll('.sidebar-label').forEach((el) => el.classList.add('hidden'));
+          aside.querySelectorAll('.side-item:not(#expandSidebarBtn)').forEach((b) => {
+            b.classList.remove('w-full', 'px-3', 'justify-start');
+            b.classList.add('w-10', 'mx-auto', 'justify-center');
+          });
+          if (sideCheckBadge) {
+            sideCheckBadge.classList.add('absolute', '-top-1', '-right-1');
+          }
+        }
+      }
+
       function updateHeaderClientBadge() {
         const lbl = document.getElementById('headerClientNameLabel');
-        if (!lbl) return;
-        lbl.textContent = state.currentClientName
+        const sideLbl = document.getElementById('sideClientNameLabel');
+        const sideRecBtn = document.getElementById('sideClientRecordsBtn');
+        const text = state.currentClientName
           ? `Mandant: ${state.currentClientName}`
           : 'Kundenakte speichern & laden';
+        if (lbl) lbl.textContent = text;
+        if (sideLbl) sideLbl.textContent = state.currentClientName || 'Kundenakten';
+        if (sideRecBtn) sideRecBtn.dataset.tooltip = text;
       }
 
       function applyClientHomeModeUi() {
@@ -2333,8 +2556,10 @@
         const menuClientReturnBtn = document.getElementById('menuClientReturnBtn');
         const menuSwitchToAdvisorBtn = document.getElementById('menuSwitchToAdvisorBtn');
         const bannerSwitchToAdvisorBtn = document.getElementById('bannerSwitchToAdvisorBtn');
-        const desktopToggleGroup = document.getElementById('headerPhaseToggleGroup');
         const mobileToggleBtn = document.getElementById('mobileHeaderPhaseToggle');
+        const sidePhaseGroup = document.getElementById('sidePhaseGroup');
+        const sideClientGroup = document.getElementById('sideClientGroup');
+        const sideScenarioFooter = document.getElementById('sideScenarioFooter');
 
         if (!banner) return;
 
@@ -2346,24 +2571,28 @@
           if (state.clientNote) {
             noteEl.textContent = state.clientNote;
           }
-          if (phaseSwitcher) phaseSwitcher.classList.add('hidden');
-          if (scenarioWrap) scenarioWrap.classList.add('hidden');
-          if (advisorClientGroup) advisorClientGroup.classList.add('hidden');
-          if (menuClientReturnBtn) menuClientReturnBtn.classList.remove('hidden');
-          if (menuSwitchToAdvisorBtn) menuSwitchToAdvisorBtn.classList.toggle('hidden', !state.canSwitchToAdvisor);
-          if (bannerSwitchToAdvisorBtn) bannerSwitchToAdvisorBtn.classList.toggle('hidden', !state.canSwitchToAdvisor);
-          if (desktopToggleGroup) desktopToggleGroup.classList.add('hidden');
-          if (mobileToggleBtn) mobileToggleBtn.classList.add('hidden');
+          phaseSwitcher?.classList.add('hidden');
+          scenarioWrap?.classList.add('hidden');
+          advisorClientGroup?.classList.add('hidden');
+          sidePhaseGroup?.classList.add('hidden');
+          sideClientGroup?.classList.add('hidden');
+          if (sideScenarioFooter) sideScenarioFooter.style.display = 'none';
+          menuClientReturnBtn?.classList.remove('hidden');
+          menuSwitchToAdvisorBtn?.classList.toggle('hidden', !state.canSwitchToAdvisor);
+          bannerSwitchToAdvisorBtn?.classList.toggle('hidden', !state.canSwitchToAdvisor);
+          mobileToggleBtn?.classList.add('hidden');
         } else {
           banner.classList.add('hidden');
-          if (phaseSwitcher) phaseSwitcher.classList.remove('hidden');
-          if (scenarioWrap) scenarioWrap.classList.remove('hidden');
-          if (advisorClientGroup) advisorClientGroup.classList.remove('hidden');
-          if (menuClientReturnBtn) menuClientReturnBtn.classList.add('hidden');
-          if (menuSwitchToAdvisorBtn) menuSwitchToAdvisorBtn.classList.add('hidden');
-          if (bannerSwitchToAdvisorBtn) bannerSwitchToAdvisorBtn.classList.add('hidden');
-          if (desktopToggleGroup) desktopToggleGroup.classList.remove('hidden');
-          if (mobileToggleBtn) mobileToggleBtn.classList.remove('hidden');
+          phaseSwitcher?.classList.remove('hidden');
+          scenarioWrap?.classList.remove('hidden');
+          advisorClientGroup?.classList.remove('hidden');
+          sidePhaseGroup?.classList.remove('hidden');
+          sideClientGroup?.classList.remove('hidden');
+          if (sideScenarioFooter) sideScenarioFooter.style.display = '';
+          menuClientReturnBtn?.classList.add('hidden');
+          menuSwitchToAdvisorBtn?.classList.add('hidden');
+          bannerSwitchToAdvisorBtn?.classList.add('hidden');
+          mobileToggleBtn?.classList.remove('hidden');
         }
         updateHeaderClientBadge();
       }
@@ -2972,7 +3201,7 @@
           urlObj.searchParams.set('d', encoded);
           window.history.replaceState(null, '', urlObj.toString());
         } catch (err) {
-          // Ignorieren falls Umgebung replaceState einschränkt
+          // Ignorieren
         }
       }
 
@@ -3090,13 +3319,13 @@
             }
           }
         } catch (err) {
-          // Ignorieren bei ungültiger URL
+          // Ignorieren
         }
         return false;
       }
 
       // =========================================================================
-      // 5. KERNBERECHNUNGEN & KENNZAHLEN (INKL. CHECK-SIMULATION)
+      // 5. KERNBERECHNUNGEN & KENNZAHLEN
       // =========================================================================
       function calculateMetrics() {
         let incomeMonthly = 0;
@@ -3252,7 +3481,7 @@
 
       function renderBeforeAfterSection(m) {
         const checkLen = m.optimizeCandidates.length;
-        ['headerCheckCountBadge', 'headerToggleCheckBadge', 'mobileHeaderCheckBadge'].forEach((id) => {
+        ['headerCheckCountBadge', 'sideCheckBadge', 'mobileHeaderCheckBadge'].forEach((id) => {
           const el = document.getElementById(id);
           if (el) el.textContent = checkLen;
         });
@@ -3272,7 +3501,6 @@
       function renderDashboard() {
         const m = calculateMetrics();
 
-        // Hero Cards
         document.getElementById('kpiIncome').textContent = formatEuro(m.incomeMonthly);
         document.getElementById('kpiIncomeYearly').innerHTML = `Jahr: <strong class="text-[#00325b]">${formatEuroCompact(m.incomeMonthly * 12)}</strong>`;
         document.getElementById('kpiIncomeSub').textContent = `${m.incomeCount} Quelle${m.incomeCount === 1 ? '' : 'n'}`;
@@ -3293,7 +3521,6 @@
           deltaBadge.classList.add('hidden');
         }
 
-        // Cashflow
         const cfEl = document.getElementById('kpiCashflow');
         const cfSub = document.getElementById('kpiCashflowSub');
         const cfIcon = document.getElementById('kpiCashflowIconBox');
@@ -3302,18 +3529,17 @@
         document.getElementById('kpiCashflowBadge').textContent = `${cfPrefix}${formatEuroCompact(m.cashflowMonthly * 12)} / Jahr`;
 
         if (m.cashflowMonthly >= 0) {
-          cfEl.className = 'text-lg sm:text-2xl lg:text-[28px] font-extrabold text-[#269b8d] tracking-tight mt-1.5 sm:mt-2.5';
+          cfEl.className = 'tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#269b8d] tracking-tight mt-2 sm:mt-3';
           cfSub.textContent = 'Frei verfügbar für Ziele';
           cfSub.className = 'hidden sm:inline font-medium text-[#269b8d] truncate';
           cfIcon.className = 'w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#269b8d]/12 text-[#269b8d] flex items-center justify-center shrink-0';
         } else {
-          cfEl.className = 'text-lg sm:text-2xl lg:text-[28px] font-extrabold text-red-600 tracking-tight mt-1.5 sm:mt-2.5';
+          cfEl.className = 'tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-red-600 tracking-tight mt-2 sm:mt-3';
           cfSub.textContent = 'Unterdeckung im Budget';
           cfSub.className = 'hidden sm:inline font-medium text-red-600 truncate';
           cfIcon.className = 'w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0';
         }
 
-        // Sparpotenzial
         document.getElementById('kpiPotential').textContent = `${m.potentialRate.toFixed(1).replace('.', ',')}%`;
         document.getElementById('kpiPotentialMonthly').textContent = `(${formatEuroCompact(m.totalWealthPotential)})`;
         document.getElementById('kpiPotentialBar').style.width = `${Math.min(100, Math.max(0, m.potentialRate * 2.5))}%`;
@@ -3346,7 +3572,6 @@
         }
         document.getElementById('stickyPotential').textContent = `${formatEuroCompact(m.totalWealthPotential)} / Mt.`;
 
-        // 50/30/20 Benchmark
         document.getElementById('benchFixedAmt').textContent = `${formatEuroCompact(m.fixedCoreMonthly)} / Mt.`;
         document.getElementById('benchFixedPct').textContent = `${Math.round(m.fixedShare)} %`;
         document.getElementById('benchFixedBar').style.width = `${Math.min(100, m.fixedShare)}%`;
@@ -3359,7 +3584,6 @@
         document.getElementById('benchSavPct').textContent = `${Math.round(m.potentialRate)} %`;
         document.getElementById('benchSavBar').style.width = `${Math.min(100, m.potentialRate)}%`;
 
-        // Dynamische Beratungs-Insights
         const insightsBox = document.getElementById('insightsBox');
         const notes = [];
         if (m.incomeMonthly <= 0) {
@@ -3610,7 +3834,7 @@
       function buildCheckControlCellHtml(entry, isSecondPhase) {
         if (!isSecondPhase) return '';
         if (!entry.optimize) {
-          return `<td class="no-print hidden sm:table-cell py-2.5 px-3.5 text-right text-xs text-slate-300">—</td>`;
+          return `<td class="no-print hidden sm:table-cell py-2.5 px-4 text-right text-xs text-slate-300">—</td>`;
         }
 
         const baseMonthly = getMonthlyAmount(entry);
@@ -3628,7 +3852,7 @@
         if (isGkvItem) {
           const selectedTargetGkv = getGkvById(entry.targetGkvId || 'bkk_firmus');
           return `
-            <td class="no-print hidden sm:table-cell py-2.5 px-3.5 text-right whitespace-nowrap">
+            <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
               <div class="inline-flex items-center justify-end gap-2.5">
                 <div class="ba-gkv-picker relative inline-block text-left w-52" data-ba-gkv-picker="${entry.id}">
                   <div class="relative flex items-center">
@@ -3662,7 +3886,7 @@
         if (isChurchItem) {
           const isChurchExit = afterMonthly <= 0.005;
           return `
-            <td class="no-print hidden sm:table-cell py-2.5 px-3.5 text-right whitespace-nowrap">
+            <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
               <div class="inline-flex items-center justify-end gap-2.5">
                 <div class="inline-flex items-center gap-1.5">
                   <span class="text-[11px] font-semibold text-slate-500">Austritt:</span>
@@ -3685,7 +3909,7 @@
         }
 
         return `
-          <td class="no-print hidden sm:table-cell py-2.5 px-3.5 text-right whitespace-nowrap">
+          <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
             <div class="inline-flex items-center justify-end gap-2">
               <div class="relative inline-flex items-center">
                 <input type="number" step="0.01" min="0" data-ba-id="${entry.id}" value="${afterMonthly.toFixed(2)}"
@@ -3750,7 +3974,7 @@
           : '';
 
         return `
-          <td class="py-3 px-3 sm:px-3.5 ${isGroupedChild ? 'pl-6 sm:pl-8' : ''}">
+          <td class="py-3 px-3 sm:px-4 ${isGroupedChild ? 'pl-6 sm:pl-9' : ''}">
             <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
               <span class="font-semibold text-[#00325b] leading-snug break-words">${escapeHtml(entry.title)}</span>
               ${entry.optimize ? `<span class="text-[9.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b] shrink-0">★ Check</span>` : ''}
@@ -3758,11 +3982,11 @@
             ${desktopFlatCatHtml}
             ${mobileSubHtml}
           </td>
-          <td class="py-3 px-3.5 hidden sm:table-cell text-xs text-slate-500">
+          <td class="py-3 px-4 hidden sm:table-cell text-xs text-slate-500">
             <span>${FREQUENCY_LABELS[entry.freq] || 'Monatlich'}</span>
             ${freqInfo}
           </td>
-          <td class="py-3 px-3 sm:px-3.5 text-right font-bold whitespace-nowrap ${isIncome ? 'text-[#009ee3]' : isSavings ? 'text-[#1f8579]' : 'text-[#00325b]'}">
+          <td class="py-3 px-3 sm:px-4 text-right font-bold whitespace-nowrap ${isIncome ? 'text-[#009ee3]' : isSavings ? 'text-[#1f8579]' : 'text-[#00325b]'}">
             <div class="inline-flex items-center justify-end gap-1.5">
               <div>
                 ${isOptimizedActive ? `<span class="block text-[10px] sm:text-[10.5px] font-normal text-slate-400 line-through">${formatEuro(rawMonthly)}</span>` : ''}
@@ -3774,7 +3998,7 @@
             </div>
           </td>
           ${buildCheckControlCellHtml(entry, isSecondPhase)}
-          <td class="no-print hidden sm:table-cell py-2.5 px-3.5 text-right whitespace-nowrap">
+          <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
             <div class="inline-flex items-center justify-end gap-1">
               <button type="button" data-edit-id="${entry.id}" title="Position bearbeiten" class="btn-tactile p-1.5 rounded-lg text-slate-400 hover:text-[#00325b] hover:bg-slate-200/60 cursor-pointer">
                 <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
@@ -3894,7 +4118,7 @@
             headerTr.dataset.groupToggle = group.key;
 
             const groupCheckColHtml = isSecondPhase
-              ? `<td class="no-print hidden sm:table-cell py-2.5 px-3.5 text-right whitespace-nowrap">
+              ? `<td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
                    ${groupDiff > 0.005
                      ? `<span class="text-xs font-extrabold text-[#1f8579]">Nachher: ${formatEuro(group.afterSum)} (-${formatEuro(groupDiff)})</span>`
                      : `<span class="text-xs text-slate-400">—</span>`}
@@ -3902,7 +4126,7 @@
               : '';
 
             headerTr.innerHTML = `
-              <td class="py-2.5 px-3 sm:px-3.5">
+              <td class="py-2.5 px-3 sm:px-4">
                 <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
                   <span class="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-md text-[#00325b]/70 shrink-0 transition-transform duration-200 ${!isExpanded ? '-rotate-90' : ''}">
                     <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
@@ -3914,15 +4138,15 @@
                   <span class="text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 rounded-full bg-slate-200/70 text-[#00325b] shrink-0">${group.items.length}<span class="hidden sm:inline"> Position${group.items.length === 1 ? '' : 'en'}</span></span>
                 </div>
               </td>
-              <td class="hidden sm:table-cell py-2.5 px-3.5"></td>
-              <td class="py-2.5 px-3 sm:px-3.5 text-right whitespace-nowrap">
+              <td class="hidden sm:table-cell py-2.5 px-4"></td>
+              <td class="py-2.5 px-3 sm:px-4 text-right whitespace-nowrap">
                 <span class="hidden sm:block text-[10.5px] font-medium text-slate-400 leading-none mb-0.5">Teilsumme</span>
                 <span class="text-xs sm:text-sm font-extrabold ${isIncome ? 'text-[#009ee3]' : isSavings ? 'text-[#1f8579]' : 'text-[#00325b]'}">
                   ${isIncome ? '+' : ''}${formatEuro(group.activeSum)}
                 </span>
               </td>
               ${groupCheckColHtml}
-              <td class="no-print hidden sm:table-cell py-2.5 px-3.5 text-right whitespace-nowrap">
+              <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
                 <button type="button" data-quick-add-cat="${group.meta.id}" data-quick-add-type="${group.type}" title="Neue Position in „${escapeHtml(group.meta.label)}“" class="btn-tactile inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white hover:bg-[#00325b] text-[#00325b] hover:text-white border border-slate-200 text-xs font-bold shadow-2xs cursor-pointer">
                   +
                 </button>
@@ -4616,12 +4840,14 @@
             appleLink.href = canvas.toDataURL('image/png');
           }
         } catch (err) {
-          // Ignorieren falls Canvas nicht verfügbar
+          // Ignorieren
         }
       }
 
       function init() {
         initAppIcons();
+        applyTvScaleUi();
+        applySidebarExpandedUi();
 
         const salStateSelect = document.getElementById('popSalState');
         if (salStateSelect) {
@@ -4678,6 +4904,101 @@
           openPopover({ mode: 'add' });
         });
 
+        // Seitenleiste als Overlay ein-/ausklappen & Großbild-Toggle
+        function setSidebarExpanded(expanded) {
+          state.sidebarExpanded = Boolean(expanded);
+          applySidebarExpandedUi();
+        }
+
+        document.getElementById('expandSidebarBtn')?.addEventListener('click', () => setSidebarExpanded(true));
+        document.getElementById('collapseSidebarBtn')?.addEventListener('click', () => setSidebarExpanded(false));
+        document.getElementById('sidebarOverlayBackdrop')?.addEventListener('click', () => setSidebarExpanded(false));
+
+        function toggleTvScale() {
+          state.tvScaleMode = !state.tvScaleMode;
+          applyTvScaleUi();
+          updateStickyOffsets();
+          renderDashboard();
+          showToast(state.tvScaleMode ? 'Großbild-Schrift (3–4 m Entfernung) aktiviert.' : 'Standard-Schriftgröße aktiviert.');
+        }
+
+        document.getElementById('sideTvScaleBtn')?.addEventListener('click', toggleTvScale);
+
+        // Schnellfunktion: Aktuelles Blatt vollständig leeren (mit 2-Klick-Schutz)
+        let clearConfirmTimer = null;
+        let clearConfirmPending = false;
+        const sideClearBtn = document.getElementById('sideClearSheetBtn');
+        const sideClearLbl = document.getElementById('sideClearSheetLabel');
+
+        function resetClearSheetButton() {
+          clearConfirmPending = false;
+          if (clearConfirmTimer) clearTimeout(clearConfirmTimer);
+          if (sideClearBtn) {
+            sideClearBtn.classList.remove('bg-red-600', 'text-white', 'hover:bg-red-700');
+            sideClearBtn.classList.add('hover:bg-red-50', 'text-slate-500', 'hover:text-red-600');
+            sideClearBtn.dataset.tooltip = 'Aktuelles Blatt vollständig leeren';
+          }
+          if (sideClearLbl) sideClearLbl.textContent = 'Blatt vollständig leeren';
+        }
+
+        sideClearBtn?.addEventListener('click', () => {
+          if (!clearConfirmPending) {
+            clearConfirmPending = true;
+            sideClearBtn.classList.remove('hover:bg-red-50', 'text-slate-500', 'hover:text-red-600');
+            sideClearBtn.classList.add('bg-red-600', 'text-white', 'hover:bg-red-700');
+            sideClearBtn.dataset.tooltip = 'Nochmal klicken zum Leeren!';
+            if (sideClearLbl) sideClearLbl.textContent = 'Wirklich alles leeren?';
+            showToast('Sicherheitsabfrage: Klicke nochmal, um das gesamte Blatt zu leeren.');
+            clearConfirmTimer = setTimeout(resetClearSheetButton, 4000);
+            return;
+          }
+          resetClearSheetButton();
+          state.entries = [];
+          state.expandedGroups = {};
+          state.filterCategoryId = null;
+          state.applyOptimizedToBalance = false;
+          const optToggle = document.getElementById('applyOptimizedToggle');
+          if (optToggle) optToggle.checked = false;
+          const sel1 = document.getElementById('scenarioSelect');
+          const sel2 = document.getElementById('sideScenarioSelect');
+          if (sel1) sel1.value = 'empty';
+          if (sel2) sel2.value = 'empty';
+          setSidebarExpanded(false);
+          renderAll();
+          showToast('Blatt vollständig geleert.');
+        });
+
+        // Sidebar-Aktionen
+        document.getElementById('sideClientRecordsBtn')?.addEventListener('click', () => {
+          setSidebarExpanded(false);
+          document.getElementById('clientRecordNameInput').value = state.currentClientName || '';
+          renderClientRecordsList();
+          clientModal.classList.remove('hidden');
+        });
+        document.getElementById('sideTakeHomeBtn')?.addEventListener('click', () => {
+          setSidebarExpanded(false);
+          document.getElementById('takeHomeClientNameInput').value = state.currentClientName || '';
+          updateTakeHomeShareLink();
+          takeHomeModal.classList.remove('hidden');
+        });
+        document.getElementById('sideReportBtn')?.addEventListener('click', () => {
+          setSidebarExpanded(false);
+          renderReportModal();
+          reportModal.classList.remove('hidden');
+        });
+        document.getElementById('sideCsvBtn')?.addEventListener('click', () => {
+          setSidebarExpanded(false);
+          document.getElementById('exportCsvBtn')?.click();
+        });
+        document.getElementById('sideScenarioSelect')?.addEventListener('change', (e) => {
+          const mainSel = document.getElementById('scenarioSelect');
+          if (mainSel) {
+            mainSel.value = e.target.value;
+            mainSel.dispatchEvent(new Event('change'));
+          }
+          setSidebarExpanded(false);
+        });
+
         function setConversationPhase(phase) {
           if (state.conversationPhase === phase) return;
           state.conversationPhase = phase;
@@ -4696,18 +5017,19 @@
               : 'filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer';
           });
 
-          document.querySelectorAll('.header-phase-toggle-btn').forEach((btn) => {
-            const active = btn.dataset.phase === phase;
-            btn.className = active
-              ? 'header-phase-toggle-btn active btn-tactile inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer'
-              : 'header-phase-toggle-btn btn-tactile inline-flex items-center gap-1.5 px-2.5 py-1.5 rounded-[10px] text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
-          });
-
           document.querySelectorAll('.phase-btn').forEach((btn) => {
             const active = btn.dataset.phase === phase;
             btn.className = active
               ? 'phase-btn active btn-tactile inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer'
               : 'phase-btn btn-tactile inline-flex items-center justify-center gap-1.5 py-2 px-2.5 rounded-lg text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
+          });
+
+          document.querySelectorAll('.side-phase-btn').forEach((btn) => {
+            const active = btn.dataset.phase === phase;
+            const sizeCls = state.sidebarExpanded ? 'w-full px-3 justify-start' : 'w-10 mx-auto justify-center';
+            btn.className = active
+              ? `side-item side-phase-btn active btn-tactile ${sizeCls} h-10 rounded-xl bg-[#00325b] text-white font-bold text-xs flex items-center gap-2.5 shadow-2xs relative cursor-pointer`
+              : `side-item side-phase-btn btn-tactile ${sizeCls} h-10 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] font-bold text-xs flex items-center gap-2.5 relative cursor-pointer`;
           });
 
           const mobLabel = document.getElementById('mobileHeaderPhaseLabel');
@@ -4718,10 +5040,11 @@
           renderAll();
         }
 
-        document.querySelectorAll('.header-phase-toggle-btn, .phase-btn').forEach((btn) => {
+        document.querySelectorAll('.phase-btn, .side-phase-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             setConversationPhase(btn.dataset.phase);
             closeHeaderMenu();
+            setSidebarExpanded(false);
           });
         });
 
@@ -4732,13 +5055,11 @@
         const headerMenuPanel = document.getElementById('headerMenuPanel');
         const headerMenuBackdrop = document.getElementById('headerMenuBackdrop');
         const headerMenuBtn = document.getElementById('headerMenuBtn');
-        const headerMenuChevron = document.getElementById('headerMenuChevron');
 
         function closeHeaderMenu() {
           headerMenuPanel?.classList.add('hidden');
           headerMenuBackdrop?.classList.add('hidden');
           headerMenuBtn?.setAttribute('aria-expanded', 'false');
-          headerMenuChevron?.classList.remove('rotate-180');
         }
 
         function toggleHeaderMenu() {
@@ -4749,7 +5070,6 @@
             headerMenuPanel.classList.remove('hidden');
             headerMenuBackdrop.classList.remove('hidden');
             headerMenuBtn?.setAttribute('aria-expanded', 'true');
-            headerMenuChevron?.classList.add('rotate-180');
           }
         }
 
@@ -4883,6 +5203,8 @@
             if (rec) {
               applyImportedPayload(rec, { forceClientMode: false });
               document.getElementById('scenarioSelect').value = 'custom';
+              const sideSel = document.getElementById('sideScenarioSelect');
+              if (sideSel) sideSel.value = 'custom';
               clientModal.classList.add('hidden');
               renderAll();
               showToast(`Kundenakte „${rec.clientName}“ geladen.`);
@@ -4984,7 +5306,6 @@
           showToast('Richtwerte für Check-Positionen geladen.');
         });
 
-        // Keine Doppelzählung beim Übergeben in den Zinseszins-Simulator
         document.getElementById('sendSavingsToSimBtn')?.addEventListener('click', () => {
           const m = calculateMetrics();
           const postCheckCashflow = state.applyOptimizedToBalance
@@ -5049,6 +5370,8 @@
         document.getElementById('scenarioSelect')?.addEventListener('change', (e) => {
           const val = e.target.value;
           if (val === 'custom') return;
+          const sideSel = document.getElementById('sideScenarioSelect');
+          if (sideSel) sideSel.value = val;
           closeHeaderMenu();
           if (val === 'empty') {
             state.entries = [];
@@ -5226,6 +5549,8 @@
             const id = delBtn.dataset.deleteId;
             state.entries = state.entries.filter((x) => x.id !== id && x.linkedSalaryId !== id);
             document.getElementById('scenarioSelect').value = 'custom';
+            const sideSel = document.getElementById('sideScenarioSelect');
+            if (sideSel) sideSel.value = 'custom';
             renderAll();
             showToast('Position entfernt.');
             return;
@@ -5294,7 +5619,6 @@
           closePresetDropdown();
         });
 
-        // Berufsstatus & Einkommensrechner-Interaktionen im Popover
         document.querySelectorAll('.sal-status-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             state.salStatus = btn.dataset.salStatus;
@@ -5365,7 +5689,6 @@
           updateSalaryCalculatorUi();
         });
 
-        // bAV & PKV Rechner-Interaktionen im Popover
         document.querySelectorAll('.bav-mode-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             state.bavMode = btn.dataset.bavMode;
@@ -5433,6 +5756,8 @@
           const id = state.editingId;
           state.entries = state.entries.filter((x) => x.id !== id && x.linkedSalaryId !== id);
           document.getElementById('scenarioSelect').value = 'custom';
+          const sideSel = document.getElementById('sideScenarioSelect');
+          if (sideSel) sideSel.value = 'custom';
           closePopover();
           renderAll();
           showToast('Position gelöscht.');
@@ -5563,6 +5888,8 @@
           }
 
           document.getElementById('scenarioSelect').value = 'custom';
+          const sideSel = document.getElementById('sideScenarioSelect');
+          if (sideSel) sideSel.value = 'custom';
           closePopover();
           renderAll();
           showToast('Position gespeichert.');
@@ -5781,6 +6108,7 @@
             closeAllBaGkvDropdowns(true);
             closePopover();
             closeHeaderMenu();
+            setSidebarExpanded(false);
             document.body.classList.remove('printing-report');
             reportModal?.classList.add('hidden');
             clientModal?.classList.add('hidden');
