@@ -750,67 +750,6 @@
       </section>
 
       <!-- =================================================================== -->
-      <!-- ZWEITGESPRÄCH: VORHER / NACHHER BILANZ-KOPF (★ CHECK OPTIMIERUNGEN)  -->
-      <!-- =================================================================== -->
-      <section id="beforeAfterSection" class="hidden animate-panel bg-white border-2 border-[#009ee3]/40 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
-        <div class="flex flex-wrap items-start justify-between gap-3 sm:gap-4 pb-3.5 border-b border-slate-100">
-          <div>
-            <div class="flex items-center gap-2 flex-wrap">
-              <span class="text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Zweitgespräch • Konzeptbesprechung</span>
-              <span class="text-[10px] sm:text-[10.5px] font-bold px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b]">★ Konditions-Check</span>
-            </div>
-            <h2 class="text-base sm:text-lg font-bold text-[#00325b] mt-0.5">Vorher / Nachher Ergebnis-Check</h2>
-            <p class="text-xs text-slate-500 mt-0.5">
-              Die Haushaltsliste unten ist automatisch auf deine <strong>★ Check</strong>-Positionen gefiltert. Passe Konditionen direkt an und übernimm die Ersparnis in die Bilanz.
-            </p>
-          </div>
-
-          <div class="no-print flex flex-wrap items-center gap-2 w-full sm:w-auto">
-            <button id="resetCheckDefaultsBtn" type="button" class="btn-tactile px-3 py-2 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200 text-xs font-semibold text-[#00325b] cursor-pointer">
-              Richtwerte laden
-            </button>
-            <label class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-[#00325b] text-white text-xs font-bold cursor-pointer select-none shadow-xs">
-              <input id="applyOptimizedToggle" type="checkbox" class="w-4 h-4 rounded accent-[#d3d800] cursor-pointer" />
-              <span>In Gesamtbilanz aktivieren</span>
-            </label>
-          </div>
-        </div>
-
-        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 tabular-nums">
-          <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90">
-            <span class="text-[10.5px] sm:text-[11px] font-medium text-slate-500 block">Vorher / Mt.</span>
-            <strong id="baBeforeMonthly" class="text-base sm:text-xl font-extrabold text-slate-600 mt-1 block">0,00 € / Mt.</strong>
-            <span id="baCheckItemsCount" class="text-[10.5px] sm:text-[11px] text-slate-400 mt-0.5 block">0 Positionen im Check</span>
-          </div>
-
-          <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-[#009ee3]/40">
-            <span class="text-[10.5px] sm:text-[11px] font-semibold text-[#00325b] block">Nachher / Mt.</span>
-            <strong id="baAfterMonthly" class="text-base sm:text-xl font-extrabold text-[#009ee3] mt-1 block">0,00 € / Mt.</strong>
-            <span class="text-[10.5px] sm:text-[11px] text-slate-500 mt-0.5 block">Optimierte Konditionen</span>
-          </div>
-
-          <div class="p-3 sm:p-4 rounded-xl bg-[#269b8d]/10 border border-[#269b8d]/35">
-            <span class="text-[10.5px] sm:text-[11px] font-bold text-[#00325b] block">Netto-Ersparnis</span>
-            <strong id="baSavingsMonthly" class="text-base sm:text-xl font-extrabold text-[#1f8579] mt-1 block">+0,00 € / Mt.</strong>
-            <span id="baSavingsYearly" class="text-[10.5px] sm:text-[11px] font-bold text-[#00325b] mt-0.5 block">+0,00 € / Jahr</span>
-          </div>
-
-          <div class="p-3 sm:p-4 rounded-xl bg-[#00325b] text-white flex flex-col justify-between">
-            <div>
-              <span class="text-[10.5px] sm:text-[11px] font-semibold text-[#d3d800] block">Zinseszins-Hebel</span>
-              <strong id="baWealthImpact" class="text-base sm:text-xl font-extrabold text-white mt-1 block">+0 €</strong>
-            </div>
-            <div class="mt-2 flex items-center justify-between gap-1.5 flex-wrap">
-              <span id="baWealthSub" class="text-[10px] sm:text-[10.5px] text-slate-300">in 25 J. (6,5 %)</span>
-              <button id="sendSavingsToSimBtn" type="button" class="no-print btn-tactile text-[10px] sm:text-[10.5px] font-extrabold px-2 py-1 rounded-lg bg-[#d3d800] text-[#00325b] cursor-pointer">
-                Simulieren →
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- =================================================================== -->
       <!-- 2. ANALYSE-DASHBOARD: 50/30/20 CHECK & MITTELVERWENDUNG             -->
       <!-- =================================================================== -->
       <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
@@ -963,49 +902,15 @@
             <thead>
               <tr class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 <th class="sticky-th py-2.5 sm:py-3 px-3 sm:px-4 rounded-tl-xl">Position / Vertrag</th>
-                <th class="sticky-th py-3 px-4 hidden sm:table-cell w-36">Rhythmus</th>
+                <th id="thRhythmHeader" class="sticky-th py-3 px-4 hidden sm:table-cell w-36">Rhythmus</th>
                 <th id="thMonthlyHeader" class="sticky-th py-2.5 sm:py-3 px-3 sm:px-4 text-right whitespace-nowrap rounded-tr-xl sm:rounded-tr-none">Monatswert</th>
-                <th id="thCheckColumn" class="no-print sticky-th hidden py-3 px-4 text-right whitespace-nowrap">Nachher / Ersparnis</th>
-                <th class="no-print sticky-th hidden sm:table-cell py-3 px-4 w-24 text-right whitespace-nowrap rounded-tr-xl">Aktionen</th>
+                <th id="thCheckAfterHeader" class="no-print sticky-th hidden py-3 px-4 text-right whitespace-nowrap">Nachher</th>
+                <th id="thCheckSavingsHeader" class="no-print sticky-th hidden py-3 px-4 text-right whitespace-nowrap text-[#146c62]">Ersparnis</th>
+                <th class="no-print sticky-th hidden sm:table-cell py-3 px-4 w-20 text-right whitespace-nowrap rounded-tr-xl">Aktionen</th>
               </tr>
             </thead>
             <tbody id="entriesTableBody" class="text-xs sm:text-sm tabular-nums">
             </tbody>
-            <tfoot id="unifiedCheckTableFoot" class="hidden bg-[#F4F8FB] text-[#00325b] tabular-nums">
-              <tr>
-                <td colspan="2" class="py-3.5 px-3 sm:px-4 font-bold text-xs sm:text-sm rounded-bl-xl">
-                  <div class="flex items-center gap-2">
-                    <span class="w-2.5 h-2.5 rounded-full bg-[#269b8d] shrink-0"></span>
-                    <div>
-                      <span class="block leading-tight">Gesamtersparnis nach Check</span>
-                      <span class="hidden sm:block text-[10.5px] font-medium text-slate-400 mt-0.5">Summe aller geprüften Positionen</span>
-                    </div>
-                  </div>
-                </td>
-                <td class="py-3.5 px-3 sm:px-4 text-right whitespace-nowrap">
-                  <span class="hidden sm:block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Vorher / Mt.</span>
-                  <span id="baFootBefore" class="text-xs sm:text-sm font-semibold text-slate-400 line-through decoration-slate-300">0,00 €</span>
-                  <div class="sm:hidden mt-1 flex items-center justify-end gap-1.5">
-                    <span id="baFootMobileAfter" class="text-xs font-extrabold text-[#00325b]">0,00 €</span>
-                    <span id="baFootMobileSaved" class="text-[10.5px] font-extrabold px-1.5 py-0.5 rounded-md bg-[#d3d800]/45 text-[#00325b]">+0,00 €</span>
-                  </div>
-                </td>
-                <td colspan="2" class="no-print hidden sm:table-cell py-3.5 px-4 text-right whitespace-nowrap rounded-br-xl">
-                  <div class="inline-flex items-center justify-end gap-2.5 whitespace-nowrap">
-                    <div class="text-right mr-0.5">
-                      <span class="block text-[10px] font-medium text-slate-400 leading-none mb-0.5">Nachher / Mt.</span>
-                      <strong id="baFootAfter" class="text-xs sm:text-sm font-extrabold text-[#00325b]">0,00 €</strong>
-                    </div>
-                    <span id="baFootMonthly" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#d3d800]/40 border border-[#d3d800] text-[#00325b] font-extrabold text-xs">
-                      +0,00 € / Mt.
-                    </span>
-                    <span id="baFootYearly" class="inline-flex items-center whitespace-nowrap px-2.5 py-1 rounded-lg bg-[#269b8d]/12 border border-[#269b8d]/30 text-[#1f8579] font-extrabold text-xs">
-                      +0,00 € / Jahr
-                    </span>
-                  </div>
-                </td>
-              </tr>
-            </tfoot>
           </table>
         </div>
 
@@ -1014,6 +919,80 @@
           <button id="emptyAddBtn" type="button" class="btn-tactile inline-flex items-center gap-1.5 bg-[#00325b] text-white text-xs font-bold px-4 py-2 rounded-xl cursor-pointer">
             + Erste Position erfassen
           </button>
+        </div>
+      </section>
+
+      <!-- =================================================================== -->
+      <!-- ZWEITGESPRÄCH: VORHER / NACHHER BILANZ-KOPF (★ CHECK OPTIMIERUNGEN)  -->
+      <!-- =================================================================== -->
+      <section id="beforeAfterSection" class="hidden animate-panel bg-white border-2 border-[#009ee3]/40 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+        <div class="flex flex-wrap items-start justify-between gap-3 sm:gap-4 pb-3.5 border-b border-slate-100">
+          <div>
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="text-[10.5px] sm:text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Zweitgespräch • Konzeptbesprechung</span>
+              <span class="text-[10px] sm:text-[10.5px] font-bold px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b]">★ Konditions-Check</span>
+            </div>
+            <h2 class="text-base sm:text-lg font-bold text-[#00325b] mt-0.5">Vorher / Nachher Ergebnis-Check</h2>
+            <p class="text-xs text-slate-500 mt-0.5">
+              Direkter Vergleich deiner geprüften Verträge – passe Konditionen an und übernimm die Ersparnis in die Bilanz.
+            </p>
+          </div>
+
+          <div class="no-print flex flex-wrap items-center gap-2 w-full sm:w-auto">
+            <!-- Umschalter Monatlich / Jährlich -->
+            <div id="checkPeriodToggle" role="group" aria-label="Anzeigezeitraum wählen"
+                 class="inline-flex items-center bg-[#F4F8FB] p-0.5 rounded-xl border border-slate-200/90 shrink-0">
+              <button type="button" data-check-period="monthly"
+                      class="check-period-btn active btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer">
+                Mt.
+              </button>
+              <button type="button" data-check-period="yearly"
+                      class="check-period-btn btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer">
+                Jahr
+              </button>
+            </div>
+
+            <button id="resetCheckDefaultsBtn" type="button" class="btn-tactile px-3 py-2 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200 text-xs font-semibold text-[#00325b] cursor-pointer">
+              Richtwerte laden
+            </button>
+            <label class="flex-1 sm:flex-initial inline-flex items-center justify-center gap-2 px-3.5 py-2 rounded-xl bg-[#00325b] text-white text-xs font-bold cursor-pointer select-none shadow-xs">
+              <input id="applyOptimizedToggle" type="checkbox" class="w-4 h-4 rounded accent-[#d3d800] cursor-pointer" />
+              <span>In Gesamtbilanz aktivieren</span>
+            </label>
+          </div>
+        </div>
+
+        <div class="grid grid-cols-2 lg:grid-cols-4 gap-2.5 sm:gap-4 tabular-nums">
+          <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90">
+            <span id="baBeforeLabel" class="text-[10.5px] sm:text-[11px] font-medium text-slate-500 block">Vorher / Mt.</span>
+            <strong id="baBeforeMonthly" class="text-base sm:text-xl font-extrabold text-slate-600 mt-1 block">0,00 € / Mt.</strong>
+            <span id="baCheckItemsCount" class="text-[10.5px] sm:text-[11px] text-slate-400 mt-0.5 block">0 Positionen im Check</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-xl bg-[#F4F8FB] border border-[#009ee3]/40">
+            <span id="baAfterLabel" class="text-[10.5px] sm:text-[11px] font-semibold text-[#00325b] block">Nachher / Mt.</span>
+            <strong id="baAfterMonthly" class="text-base sm:text-xl font-extrabold text-[#009ee3] mt-1 block">0,00 € / Mt.</strong>
+            <span class="text-[10.5px] sm:text-[11px] text-slate-500 mt-0.5 block">Optimierte Konditionen</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-xl bg-[#269b8d]/14 border-2 border-[#269b8d]/50 shadow-2xs">
+            <span class="text-[10.5px] sm:text-[11px] font-extrabold uppercase tracking-wider text-[#146c62] block">Deine Ersparnis</span>
+            <strong id="baSavingsMonthly" class="text-lg sm:text-2xl font-extrabold text-[#146c62] mt-1 block">+0,00 € / Mt.</strong>
+            <span id="baSavingsYearly" class="text-[11px] sm:text-xs font-extrabold text-[#00325b] mt-0.5 block">+0,00 € / Jahr</span>
+          </div>
+
+          <div class="p-3 sm:p-4 rounded-xl bg-[#00325b] text-white flex flex-col justify-between">
+            <div>
+              <span class="text-[10.5px] sm:text-[11px] font-semibold text-[#d3d800] block">Zinseszins-Hebel</span>
+              <strong id="baWealthImpact" class="text-base sm:text-xl font-extrabold text-white mt-1 block">+0 €</strong>
+            </div>
+            <div class="mt-2 flex items-center justify-between gap-1.5 flex-wrap">
+              <span id="baWealthSub" class="text-[10px] sm:text-[10.5px] text-slate-300">in 25 J. (6,5 %)</span>
+              <button id="sendSavingsToSimBtn" type="button" class="no-print btn-tactile text-[10px] sm:text-[10.5px] font-extrabold px-2 py-1 rounded-lg bg-[#d3d800] text-[#00325b] cursor-pointer">
+                Simulieren →
+              </button>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -2393,6 +2372,7 @@
       const state = {
         entries: JSON.parse(JSON.stringify(SCENARIOS.standard)),
         conversationPhase: 'first',
+        checkPeriod: 'monthly',
         prevFilterType: 'all',
         filterType: 'all',
         filterCategoryId: null,
@@ -3449,34 +3429,35 @@
       // 6. VORHER / NACHHER BILANZ-KOPF RENDERN (2. GESPRÄCH)
       // =========================================================================
       function syncCheckSummaryDom(m) {
+        const isYearly = state.checkPeriod === 'yearly';
+        const mult = isYearly ? 12 : 1;
+        const unit = isYearly ? '/ Jahr' : '/ Mt.';
+        const altUnit = isYearly ? '/ Mt.' : '/ Jahr';
+
         const beforeSum = m.optimizeCandidates.reduce((s, x) => s + x.beforeMonthly, 0);
         const afterSum = m.optimizeCandidates.reduce((s, x) => s + x.afterMonthly, 0);
         const monthlySaved = m.totalCheckSavingsMonthly;
-        const yearlySaved = monthlySaved * 12;
+        const primarySaved = monthlySaved * mult;
+        const secondarySaved = isYearly ? monthlySaved : monthlySaved * 12;
 
-        document.getElementById('baBeforeMonthly').textContent = `${formatEuro(beforeSum)} / Mt.`;
+        const beforeLbl = document.getElementById('baBeforeLabel');
+        const afterLbl = document.getElementById('baAfterLabel');
+        if (beforeLbl) beforeLbl.textContent = `Vorher ${unit}`;
+        if (afterLbl) afterLbl.textContent = `Nachher ${unit}`;
+
+        document.getElementById('baBeforeMonthly').textContent = `${formatEuro(beforeSum * mult)} ${unit}`;
         document.getElementById('baCheckItemsCount').textContent = `${m.optimizeCandidates.length} Position${m.optimizeCandidates.length === 1 ? '' : 'en'} im Check`;
-        document.getElementById('baAfterMonthly').textContent = `${formatEuro(afterSum)} / Mt.`;
+        document.getElementById('baAfterMonthly').textContent = `${formatEuro(afterSum * mult)} ${unit}`;
 
         const savEl = document.getElementById('baSavingsMonthly');
-        savEl.textContent = `${monthlySaved >= 0 ? '+' : ''}${formatEuro(monthlySaved)} / Mt.`;
-        savEl.className = `text-base sm:text-xl font-extrabold mt-1 block ${monthlySaved >= 0 ? 'text-[#1f8579]' : 'text-red-600'}`;
-        document.getElementById('baSavingsYearly').textContent = `${yearlySaved >= 0 ? '+' : ''}${formatEuro(yearlySaved)} / Jahr`;
+        savEl.textContent = `${primarySaved >= 0 ? '+' : ''}${formatEuro(primarySaved)} ${unit}`;
+        savEl.className = `text-lg sm:text-2xl font-extrabold mt-1 block ${primarySaved >= 0 ? 'text-[#146c62]' : 'text-red-600'}`;
+        document.getElementById('baSavingsYearly').textContent = `${secondarySaved >= 0 ? '+' : ''}${formatEuro(secondarySaved)} ${altUnit}`;
 
         const simSeries = computeCompoundSeries(monthlySaved, state.simYears, state.simRate);
         const endWealth = simSeries.length ? simSeries[simSeries.length - 1].total : 0;
         document.getElementById('baWealthImpact').textContent = `+${formatEuroCompact(endWealth)}`;
         document.getElementById('baWealthSub').textContent = `in ${state.simYears} J. (${state.simRate.toFixed(1).replace('.', ',')} %)`;
-
-        document.getElementById('baFootBefore').textContent = formatEuro(beforeSum);
-        document.getElementById('baFootAfter').textContent = formatEuro(afterSum);
-        document.getElementById('baFootMonthly').textContent = `${monthlySaved >= 0 ? '+' : ''}${formatEuro(monthlySaved)} / Mt.`;
-        document.getElementById('baFootYearly').textContent = `${yearlySaved >= 0 ? '+' : ''}${formatEuro(yearlySaved)} / Jahr`;
-
-        const mobAfterEl = document.getElementById('baFootMobileAfter');
-        const mobSavedEl = document.getElementById('baFootMobileSaved');
-        if (mobAfterEl) mobAfterEl.textContent = formatEuro(afterSum);
-        if (mobSavedEl) mobSavedEl.textContent = `${monthlySaved >= 0 ? '+' : ''}${formatEuro(monthlySaved)}`;
       }
 
       function renderBeforeAfterSection(m) {
@@ -3831,95 +3812,104 @@
       // =========================================================================
       // 9. EINHEITLICHE HAUSHALTS- & CHECKUP-TABELLE RENDERN
       // =========================================================================
+      function formatSavingsBadgeHtml(entryId, diffPeriod, unit) {
+        if (diffPeriod > 0.005) {
+          return `<span data-row-savings="${entryId}" class="inline-flex items-center px-2.5 py-1 rounded-xl bg-[#269b8d]/15 border border-[#269b8d]/40 text-[#146c62] font-extrabold text-xs sm:text-[13px] whitespace-nowrap">+${formatEuro(diffPeriod)} ${unit}</span>`;
+        }
+        if (diffPeriod < -0.005) {
+          return `<span data-row-savings="${entryId}" class="inline-flex items-center px-2.5 py-1 rounded-xl bg-red-50 border border-red-200 text-red-600 font-bold text-xs whitespace-nowrap">-${formatEuro(Math.abs(diffPeriod))} ${unit}</span>`;
+        }
+        return `<span data-row-savings="${entryId}" class="inline-flex items-center px-2.5 py-1 rounded-xl bg-slate-100 text-slate-400 font-semibold text-xs whitespace-nowrap">0,00 €</span>`;
+      }
+
       function buildCheckControlCellHtml(entry, isSecondPhase) {
         if (!isSecondPhase) return '';
         if (!entry.optimize) {
-          return `<td class="no-print hidden sm:table-cell py-2.5 px-4 text-right text-xs text-slate-300">—</td>`;
+          return `
+            <td class="no-print hidden sm:table-cell py-3 px-4 text-right text-xs text-slate-300">—</td>
+            <td class="no-print hidden sm:table-cell py-3 px-4 text-right text-xs text-slate-300">—</td>
+          `;
         }
+
+        const isYearly = state.checkPeriod === 'yearly';
+        const mult = isYearly ? 12 : 1;
+        const unit = isYearly ? '/ Jahr' : '/ Mt.';
 
         const baseMonthly = getMonthlyAmount(entry);
         const afterMonthly = getOptimizedTargetMonthly(entry);
-        const diffMonthly = baseMonthly - afterMonthly;
+        const diffPeriod = (baseMonthly - afterMonthly) * mult;
         const isGkvItem = entry.linkedKind === 'gkv';
         const isChurchItem = entry.linkedKind === 'church';
 
-        const savedBadgeHtml = `
-          <span data-row-savings="${entry.id}" class="text-[11px] font-extrabold whitespace-nowrap ${diffMonthly > 0.005 ? 'text-[#1f8579]' : diffMonthly < -0.005 ? 'text-red-600' : 'text-slate-400'}">
-            ${diffMonthly > 0.005 ? `-${formatEuro(diffMonthly)}/Mt.` : diffMonthly < -0.005 ? `+${formatEuro(Math.abs(diffMonthly))}/Mt.` : '0,00 €'}
-          </span>
+        const savingsCellHtml = `
+          <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
+            ${formatSavingsBadgeHtml(entry.id, diffPeriod, unit)}
+          </td>
         `;
 
         if (isGkvItem) {
           const selectedTargetGkv = getGkvById(entry.targetGkvId || 'bkk_firmus');
+          const displayGkv = `${selectedTargetGkv.name} (${selectedTargetGkv.zusatz.toFixed(2).replace('.', ',')} %)`;
           return `
-            <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
-              <div class="inline-flex items-center justify-end gap-2.5">
-                <div class="ba-gkv-picker relative inline-block text-left w-52" data-ba-gkv-picker="${entry.id}">
-                  <div class="relative flex items-center">
-                    <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                      <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+            <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
+              <div class="ba-gkv-picker relative inline-block text-left w-60" data-ba-gkv-picker="${entry.id}">
+                <div class="relative flex items-center">
+                  <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                  </svg>
+                  <input type="text" autocomplete="off"
+                    data-ba-gkv-search="${entry.id}"
+                    value="${escapeHtml(displayGkv)}"
+                    aria-label="Ziel-Krankenkasse suchen"
+                    placeholder="Kasse suchen..."
+                    class="ba-gkv-search-input w-full bg-[#F4F8FB] border border-[#009ee3]/50 rounded-xl pl-7 pr-6 py-1.5 text-xs font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+                  <button type="button" tabindex="-1" data-ba-gkv-toggle="${entry.id}" aria-label="Krankenkassenliste öffnen"
+                    class="absolute right-2 text-slate-400 hover:text-[#00325b] cursor-pointer">
+                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                      <polyline points="6 9 12 15 18 9" />
                     </svg>
-                    <input type="text" autocomplete="off"
-                      data-ba-gkv-search="${entry.id}"
-                      value="${escapeHtml(selectedTargetGkv.name)}"
-                      aria-label="Ziel-Krankenkasse suchen"
-                      placeholder="Kasse suchen..."
-                      class="ba-gkv-search-input w-full bg-[#F4F8FB] border border-[#009ee3]/50 rounded-lg pl-7 pr-6 py-1 text-xs font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
-                    <button type="button" tabindex="-1" data-ba-gkv-toggle="${entry.id}" aria-label="Krankenkassenliste öffnen"
-                      class="absolute right-1.5 text-slate-400 hover:text-[#00325b] cursor-pointer">
-                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                        <polyline points="6 9 12 15 18 9" />
-                      </svg>
-                    </button>
-                  </div>
-                  <div data-ba-gkv-dropdown="${entry.id}" class="ba-gkv-dropdown hidden absolute right-0 z-40 mt-1 w-72 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1 text-left"></div>
-                  <span class="block text-[10.5px] font-bold text-slate-500 mt-0.5 text-right">
-                    ${selectedTargetGkv.zusatz.toFixed(2).replace('.', ',')} % → ${formatEuro(afterMonthly)} / Mt.
-                  </span>
+                  </button>
                 </div>
-                ${savedBadgeHtml}
+                <div data-ba-gkv-dropdown="${entry.id}" class="ba-gkv-dropdown hidden absolute right-0 z-40 mt-1 w-72 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1 text-left"></div>
               </div>
             </td>
+            ${savingsCellHtml}
           `;
         }
 
         if (isChurchItem) {
           const isChurchExit = afterMonthly <= 0.005;
           return `
-            <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
-              <div class="inline-flex items-center justify-end gap-2.5">
-                <div class="inline-flex items-center gap-1.5">
-                  <span class="text-[11px] font-semibold text-slate-500">Austritt:</span>
-                  <div role="group" aria-label="Kirchenaustritt simulieren"
-                       class="inline-flex bg-[#F4F8FB] p-0.5 rounded-lg border border-slate-200/90">
-                    <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="yes"
-                            class="btn-tactile px-2 py-0.5 rounded-md text-xs font-extrabold cursor-pointer ${isChurchExit ? 'bg-[#00325b] text-[#d3d800] shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
-                      Ja
-                    </button>
-                    <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="no"
-                            class="btn-tactile px-2 py-0.5 rounded-md text-xs font-bold cursor-pointer ${!isChurchExit ? 'bg-slate-600 text-white shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
-                      Nein
-                    </button>
-                  </div>
+            <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
+              <div class="inline-flex items-center gap-1.5">
+                <span class="text-[11px] font-semibold text-slate-500">Austritt:</span>
+                <div role="group" aria-label="Kirchenaustritt simulieren"
+                     class="inline-flex bg-[#F4F8FB] p-0.5 rounded-xl border border-slate-200/90">
+                  <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="yes"
+                          class="btn-tactile px-2.5 py-1 rounded-lg text-xs font-extrabold cursor-pointer ${isChurchExit ? 'bg-[#00325b] text-[#d3d800] shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
+                    Ja
+                  </button>
+                  <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="no"
+                          class="btn-tactile px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer ${!isChurchExit ? 'bg-slate-600 text-white shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
+                    Nein
+                  </button>
                 </div>
-                ${savedBadgeHtml}
               </div>
             </td>
+            ${savingsCellHtml}
           `;
         }
 
         return `
-          <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
-            <div class="inline-flex items-center justify-end gap-2">
-              <div class="relative inline-flex items-center">
-                <input type="number" step="0.01" min="0" data-ba-id="${entry.id}" value="${afterMonthly.toFixed(2)}"
-                  aria-label="Optimierter Monatswert für ${escapeHtml(entry.title)}"
-                  class="ba-after-input w-20 text-right bg-[#F4F8FB] border border-[#009ee3]/50 rounded-lg pl-2 pr-5 py-1 text-xs font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
-                <span class="absolute right-2 text-[11px] font-semibold text-slate-400 pointer-events-none">€</span>
-              </div>
-              ${savedBadgeHtml}
+          <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
+            <div class="relative inline-flex items-center">
+              <input type="number" step="0.01" min="0" data-ba-id="${entry.id}" value="${(afterMonthly * mult).toFixed(2)}"
+                aria-label="Optimierter Wert für ${escapeHtml(entry.title)}"
+                class="ba-after-input w-24 text-right bg-[#F4F8FB] border border-[#009ee3]/50 rounded-xl pl-2.5 pr-6 py-1.5 text-xs sm:text-sm font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+              <span class="absolute right-2.5 text-[11px] font-semibold text-slate-400 pointer-events-none">€</span>
             </div>
           </td>
+          ${savingsCellHtml}
         `;
       }
 
@@ -3928,25 +3918,31 @@
         const rawMonthly = getMonthlyAmount(entry);
         const monthly = getEffectiveMonthlyAmount(entry);
         const isSecondPhase = state.conversationPhase === 'second';
-        const isOptimizedActive = state.applyOptimizedToBalance && entry.optimize && Math.abs(rawMonthly - monthly) > 0.01;
+        const isYearly = state.checkPeriod === 'yearly';
+        const mult = isSecondPhase && isYearly ? 12 : 1;
+        const unit = isYearly ? '/ Jahr' : '/ Mt.';
+
+        const isOptimizedActive = !isSecondPhase && state.applyOptimizedToBalance && entry.optimize && Math.abs(rawMonthly - monthly) > 0.01;
         const isIncome = entry.type === 'income';
         const isSavings = entry.type === 'savings';
 
         const afterCheckM = getOptimizedTargetMonthly(entry);
-        const checkDiffM = rawMonthly - afterCheckM;
+        const checkDiffPeriod = (rawMonthly - afterCheckM) * mult;
 
         let specialSubText = '';
-        if (entry.salaryMeta) {
-          const st = entry.salaryMeta.status || 'employee';
-          const statusLbl = st === 'civil' ? 'Beamte' : st === 'self' ? 'Selbstständig' : 'Brutto';
-          specialSubText = `${statusLbl} ${formatEuroCompact(entry.salaryMeta.grossMonthly)} • Auszahlung ${formatEuro(entry.salaryMeta.netPayout)}`;
-        } else if (entry.bavMeta) {
-          specialSubText = `Brutto-Sparbeitrag ${formatEuro(entry.bavMeta.totalGross)} (inkl. ${entry.bavMeta.agPct} % AG) • Nettoaufwand`;
-        } else if (entry.pkvMeta && entry.pkvMeta.subsidyEur > 0.01) {
-          specialSubText = `Tarif ${formatEuro(entry.pkvMeta.grossPkv)} − Zuschuss ${formatEuro(entry.pkvMeta.subsidyEur)}`;
+        if (!isSecondPhase) {
+          if (entry.salaryMeta) {
+            const st = entry.salaryMeta.status || 'employee';
+            const statusLbl = st === 'civil' ? 'Beamte' : st === 'self' ? 'Selbstständig' : 'Brutto';
+            specialSubText = `${statusLbl} ${formatEuroCompact(entry.salaryMeta.grossMonthly)} • Auszahlung ${formatEuro(entry.salaryMeta.netPayout)}`;
+          } else if (entry.bavMeta) {
+            specialSubText = `Brutto-Sparbeitrag ${formatEuro(entry.bavMeta.totalGross)} (inkl. ${entry.bavMeta.agPct} % AG) • Nettoaufwand`;
+          } else if (entry.pkvMeta && entry.pkvMeta.subsidyEur > 0.01) {
+            specialSubText = `Tarif ${formatEuro(entry.pkvMeta.grossPkv)} − Zuschuss ${formatEuro(entry.pkvMeta.subsidyEur)}`;
+          }
         }
 
-        const freqInfo = entry.freq > 1
+        const freqInfo = !isSecondPhase && entry.freq > 1
           ? `<span class="block text-[10.5px] text-slate-400">${formatEuro(entry.amount)} alle ${entry.freq} Mt.</span>`
           : (specialSubText
               ? `<span class="block text-[10.5px] text-slate-400">${specialSubText}</span>`
@@ -3962,8 +3958,10 @@
         const mobileSubParts = [];
         if (!isGroupedChild) mobileSubParts.push(escapeHtml(meta.shortLabel));
         if (isSecondPhase && entry.optimize) {
-          const diffTxt = checkDiffM > 0.005 ? ` (-${formatEuro(checkDiffM)})` : '';
-          mobileSubParts.push(`<span class="font-bold text-[#1f8579]">Nachher: ${formatEuro(afterCheckM)}${diffTxt}</span>`);
+          mobileSubParts.push(`Nachher: ${formatEuro(afterCheckM * mult)}`);
+          if (checkDiffPeriod > 0.005) {
+            mobileSubParts.push(`<span class="inline-block px-1.5 py-0.2 rounded-md bg-[#269b8d]/15 text-[#146c62] font-extrabold">+${formatEuro(checkDiffPeriod)} ${unit}</span>`);
+          }
         } else if (entry.freq > 1) {
           mobileSubParts.push(`${FREQUENCY_LABELS[entry.freq]} (${formatEuroCompact(entry.amount)})`);
         } else if (specialSubText) {
@@ -3973,24 +3971,32 @@
           ? `<span class="sm:hidden block text-[10.5px] text-slate-400 mt-0.5">${mobileSubParts.join(' • ')}</span>`
           : '';
 
+        const rhythmCellHtml = isSecondPhase
+          ? ''
+          : `<td class="py-3 px-4 hidden sm:table-cell text-xs text-slate-500">
+               <span>${FREQUENCY_LABELS[entry.freq] || 'Monatlich'}</span>
+               ${freqInfo}
+             </td>`;
+
+        const mainValueColor = isSecondPhase
+          ? 'text-slate-500 font-semibold'
+          : (isIncome ? 'text-[#009ee3] font-bold' : isSavings ? 'text-[#1f8579] font-bold' : 'text-[#00325b] font-bold');
+
         return `
-          <td class="py-3 px-3 sm:px-4 ${isGroupedChild ? 'pl-6 sm:pl-9' : ''}">
+          <td class="py-3.5 px-3 sm:px-4 ${isGroupedChild ? 'pl-6 sm:pl-8' : ''}">
             <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
               <span class="font-semibold text-[#00325b] leading-snug break-words">${escapeHtml(entry.title)}</span>
-              ${entry.optimize ? `<span class="text-[9.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b] shrink-0">★ Check</span>` : ''}
+              ${!isSecondPhase && entry.optimize ? `<span class="text-[9.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b] shrink-0">★ Check</span>` : ''}
             </div>
             ${desktopFlatCatHtml}
             ${mobileSubHtml}
           </td>
-          <td class="py-3 px-4 hidden sm:table-cell text-xs text-slate-500">
-            <span>${FREQUENCY_LABELS[entry.freq] || 'Monatlich'}</span>
-            ${freqInfo}
-          </td>
-          <td class="py-3 px-3 sm:px-4 text-right font-bold whitespace-nowrap ${isIncome ? 'text-[#009ee3]' : isSavings ? 'text-[#1f8579]' : 'text-[#00325b]'}">
+          ${rhythmCellHtml}
+          <td class="py-3.5 px-3 sm:px-4 text-right whitespace-nowrap ${mainValueColor}">
             <div class="inline-flex items-center justify-end gap-1.5">
               <div>
                 ${isOptimizedActive ? `<span class="block text-[10px] sm:text-[10.5px] font-normal text-slate-400 line-through">${formatEuro(rawMonthly)}</span>` : ''}
-                <span>${isIncome ? '+' : ''}${formatEuro(monthly)}</span>
+                <span>${!isSecondPhase && isIncome ? '+' : ''}${formatEuro((isSecondPhase ? rawMonthly : monthly) * mult)}</span>
               </div>
               <svg class="sm:hidden w-3.5 h-3.5 text-slate-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="9 18 15 12 9 6" />
@@ -4019,16 +4025,29 @@
         const tbody = document.getElementById('entriesTableBody');
         const emptyState = document.getElementById('emptyTableState');
         const isSecondPhase = state.conversationPhase === 'second';
+        const isYearly = state.checkPeriod === 'yearly';
+        const unit = isYearly ? '/ Jahr' : '/ Mt.';
 
-        const thCheckCol = document.getElementById('thCheckColumn');
+        const thRhythm = document.getElementById('thRhythmHeader');
+        const thCheckAfter = document.getElementById('thCheckAfterHeader');
+        const thCheckSavings = document.getElementById('thCheckSavingsHeader');
         const thMonthly = document.getElementById('thMonthlyHeader');
-        if (thCheckCol) {
-          thCheckCol.classList.toggle('hidden', !isSecondPhase);
-          if (isSecondPhase) thCheckCol.classList.add('sm:table-cell');
-          else thCheckCol.classList.remove('sm:table-cell');
+
+        if (thRhythm) {
+          thRhythm.classList.toggle('sm:table-cell', !isSecondPhase);
+        }
+        if (thCheckAfter) {
+          thCheckAfter.classList.toggle('hidden', !isSecondPhase);
+          thCheckAfter.classList.toggle('sm:table-cell', isSecondPhase);
+          thCheckAfter.textContent = `Nachher ${unit}`;
+        }
+        if (thCheckSavings) {
+          thCheckSavings.classList.toggle('hidden', !isSecondPhase);
+          thCheckSavings.classList.toggle('sm:table-cell', isSecondPhase);
+          thCheckSavings.textContent = `Ersparnis ${unit}`;
         }
         if (thMonthly) {
-          thMonthly.textContent = isSecondPhase ? 'Vorher / Mt.' : 'Monatswert';
+          thMonthly.textContent = isSecondPhase ? `Vorher ${unit}` : 'Monatswert';
         }
 
         const checkItems = state.entries.filter((e) => e.optimize);
@@ -4063,16 +4082,6 @@
 
         tbody.innerHTML = '';
 
-        const tfoot = document.getElementById('unifiedCheckTableFoot');
-        if (tfoot) {
-          if (isSecondPhase && checkItems.length > 0) {
-            tfoot.classList.remove('hidden');
-            syncCheckSummaryDom(calculateMetrics());
-          } else {
-            tfoot.classList.add('hidden');
-          }
-        }
-
         if (filtered.length === 0) {
           emptyState.classList.remove('hidden');
           return;
@@ -4089,14 +4098,12 @@
                 type: entry.type,
                 meta,
                 items: [],
-                activeSum: 0,
-                afterSum: 0
+                activeSum: 0
               });
             }
             const grp = groupsMap.get(meta.id);
             grp.items.push(entry);
             grp.activeSum += getEffectiveMonthlyAmount(entry);
-            grp.afterSum += entry.optimize ? getOptimizedTargetMonthly(entry) : getEffectiveMonthlyAmount(entry);
           });
 
           const prioritizeTaxSocial = isSecondPhase || state.filterType === 'check';
@@ -4111,47 +4118,49 @@
             const isExpanded = q.length > 0 || state.filterType === 'check' ? true : Boolean(state.expandedGroups[group.key]);
             const isIncome = group.type === 'income';
             const isSavings = group.type === 'savings';
-            const groupDiff = group.activeSum - group.afterSum;
 
             const headerTr = document.createElement('tr');
-            headerTr.className = 'bg-[#F4F8FB] border-t-2 border-slate-200/90 hover:bg-[#E8F1F8]/70 active:bg-[#E8F1F8] transition-colors cursor-pointer select-none';
-            headerTr.dataset.groupToggle = group.key;
-
-            const groupCheckColHtml = isSecondPhase
-              ? `<td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
-                   ${groupDiff > 0.005
-                     ? `<span class="text-xs font-extrabold text-[#1f8579]">Nachher: ${formatEuro(group.afterSum)} (-${formatEuro(groupDiff)})</span>`
-                     : `<span class="text-xs text-slate-400">—</span>`}
-                 </td>`
-              : '';
-
-            headerTr.innerHTML = `
-              <td class="py-2.5 px-3 sm:px-4">
-                <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
-                  <span class="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-md text-[#00325b]/70 shrink-0 transition-transform duration-200 ${!isExpanded ? '-rotate-90' : ''}">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
+            if (isSecondPhase) {
+              // Ruhiger, schlanker Abschnitts-Trenner im 2. Gespräch (ohne doppelte Teilsummen)
+              headerTr.className = 'bg-[#F4F8FB]/90 border-t border-slate-200/90 select-none';
+              headerTr.innerHTML = `
+                <td colspan="5" class="py-2 px-3 sm:px-4">
+                  <div class="flex items-center gap-2">
+                    <span class="w-2 h-2 rounded-full shrink-0" style="background:${group.meta.color}"></span>
+                    <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-slate-500">${escapeHtml(group.meta.label)}</span>
+                  </div>
+                </td>
+              `;
+            } else {
+              headerTr.className = 'bg-[#F4F8FB] border-t-2 border-slate-200/90 hover:bg-[#E8F1F8]/70 active:bg-[#E8F1F8] transition-colors cursor-pointer select-none';
+              headerTr.dataset.groupToggle = group.key;
+              headerTr.innerHTML = `
+                <td class="py-2.5 px-3 sm:px-4">
+                  <div class="flex items-center gap-1.5 sm:gap-2 min-w-0">
+                    <span class="inline-flex items-center justify-center w-4 h-4 sm:w-5 sm:h-5 rounded-md text-[#00325b]/70 shrink-0 transition-transform duration-200 ${!isExpanded ? '-rotate-90' : ''}">
+                      <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+                        <polyline points="6 9 12 15 18 9" />
+                      </svg>
+                    </span>
+                    <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0" style="background:${group.meta.color}"></span>
+                    <span class="text-xs sm:text-[13px] font-extrabold text-[#00325b] tracking-tight leading-snug break-words">${escapeHtml(group.meta.label)}</span>
+                    <span class="text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 rounded-full bg-slate-200/70 text-[#00325b] shrink-0">${group.items.length}<span class="hidden sm:inline"> Position${group.items.length === 1 ? '' : 'en'}</span></span>
+                  </div>
+                </td>
+                <td class="hidden sm:table-cell py-2.5 px-4"></td>
+                <td class="py-2.5 px-3 sm:px-4 text-right whitespace-nowrap">
+                  <span class="hidden sm:block text-[10.5px] font-medium text-slate-400 leading-none mb-0.5">Teilsumme</span>
+                  <span class="text-xs sm:text-sm font-extrabold ${isIncome ? 'text-[#009ee3]' : isSavings ? 'text-[#1f8579]' : 'text-[#00325b]'}">
+                    ${isIncome ? '+' : ''}${formatEuro(group.activeSum)}
                   </span>
-                  <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0" style="background:${group.meta.color}"></span>
-                  <span class="text-xs sm:text-[13px] font-extrabold text-[#00325b] tracking-tight leading-snug break-words">${escapeHtml(group.meta.label)}</span>
-                  <span class="text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 rounded-full bg-slate-200/70 text-[#00325b] shrink-0">${group.items.length}<span class="hidden sm:inline"> Position${group.items.length === 1 ? '' : 'en'}</span></span>
-                </div>
-              </td>
-              <td class="hidden sm:table-cell py-2.5 px-4"></td>
-              <td class="py-2.5 px-3 sm:px-4 text-right whitespace-nowrap">
-                <span class="hidden sm:block text-[10.5px] font-medium text-slate-400 leading-none mb-0.5">Teilsumme</span>
-                <span class="text-xs sm:text-sm font-extrabold ${isIncome ? 'text-[#009ee3]' : isSavings ? 'text-[#1f8579]' : 'text-[#00325b]'}">
-                  ${isIncome ? '+' : ''}${formatEuro(group.activeSum)}
-                </span>
-              </td>
-              ${groupCheckColHtml}
-              <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
-                <button type="button" data-quick-add-cat="${group.meta.id}" data-quick-add-type="${group.type}" title="Neue Position in „${escapeHtml(group.meta.label)}“" class="btn-tactile inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white hover:bg-[#00325b] text-[#00325b] hover:text-white border border-slate-200 text-xs font-bold shadow-2xs cursor-pointer">
-                  +
-                </button>
-              </td>
-            `;
+                </td>
+                <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
+                  <button type="button" data-quick-add-cat="${group.meta.id}" data-quick-add-type="${group.type}" title="Neue Position in „${escapeHtml(group.meta.label)}“" class="btn-tactile inline-flex items-center justify-center w-7 h-7 rounded-lg bg-white hover:bg-[#00325b] text-[#00325b] hover:text-white border border-slate-200 text-xs font-bold shadow-2xs cursor-pointer">
+                    +
+                  </button>
+                </td>
+              `;
+            }
             tbody.appendChild(headerTr);
 
             if (isExpanded) {
@@ -5296,6 +5305,21 @@
           renderAll();
         });
 
+        document.getElementById('checkPeriodToggle')?.addEventListener('click', (e) => {
+          const btn = e.target.closest('.check-period-btn');
+          if (!btn) return;
+          const nextPeriod = btn.dataset.checkPeriod === 'yearly' ? 'yearly' : 'monthly';
+          if (state.checkPeriod === nextPeriod) return;
+          state.checkPeriod = nextPeriod;
+          document.querySelectorAll('.check-period-btn').forEach((b) => {
+            const active = b.dataset.checkPeriod === nextPeriod;
+            b.className = active
+              ? 'check-period-btn active btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer'
+              : 'check-period-btn btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
+          });
+          renderAll();
+        });
+
         document.getElementById('resetCheckDefaultsBtn')?.addEventListener('click', () => {
           state.entries.forEach((entry) => {
             if (entry.optimize) {
@@ -5407,7 +5431,8 @@
               const entry = state.entries.find((x) => x.id === id);
               const inp = picker.querySelector('.ba-gkv-search-input');
               if (entry && inp) {
-                inp.value = getGkvById(entry.targetGkvId || 'bkk_firmus').name;
+                const gkv = getGkvById(entry.targetGkvId || 'bkk_firmus');
+                inp.value = `${gkv.name} (${gkv.zusatz.toFixed(2).replace('.', ',')} %)`;
               }
             }
           });
@@ -5431,16 +5456,20 @@
           const entry = state.entries.find((x) => x.id === id);
           if (!entry) return;
 
-          const val = Math.max(0, parseFloat(input.value) || 0);
-          entry.optimizedMonthly = val;
+          const isYearly = state.checkPeriod === 'yearly';
+          const mult = isYearly ? 12 : 1;
+          const unit = isYearly ? '/ Jahr' : '/ Mt.';
+
+          const enteredVal = Math.max(0, parseFloat(input.value) || 0);
+          const monthlyVal = enteredVal / mult;
+          entry.optimizedMonthly = monthlyVal;
 
           syncCheckSummaryDom(calculateMetrics());
 
-          const diffM = getMonthlyAmount(entry) - val;
+          const diffPeriod = (getMonthlyAmount(entry) - monthlyVal) * mult;
           const rowBadge = document.querySelector(`[data-row-savings="${id}"]`);
           if (rowBadge) {
-            rowBadge.textContent = diffM > 0.005 ? `-${formatEuro(diffM)}/Mt.` : diffM < -0.005 ? `+${formatEuro(Math.abs(diffM))}/Mt.` : '0,00 €';
-            rowBadge.className = `text-[11px] font-extrabold whitespace-nowrap ${diffM > 0.005 ? 'text-[#1f8579]' : diffM < -0.005 ? 'text-red-600' : 'text-slate-400'}`;
+            rowBadge.outerHTML = formatSavingsBadgeHtml(id, diffPeriod, unit);
           }
 
           syncStateToUrlHash();
