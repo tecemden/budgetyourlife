@@ -96,7 +96,7 @@
 
     @keyframes groupRowReveal {
       from { opacity: 0; transform: translateY(-3px); }
-      to { opacity: 1; transform: translateY(0); }
+      to { opacity: 1; transform: none; }
     }
 
     @keyframes sheetSlideUp {
@@ -5527,6 +5527,12 @@
           const dropdown = pickerEl.querySelector('.ba-gkv-dropdown');
           if (!dropdown) return;
 
+          const parentRow = pickerEl.closest('tr');
+          if (parentRow) {
+            parentRow.style.position = 'relative';
+            parentRow.style.zIndex = '45';
+          }
+
           dropdown.innerHTML = buildTargetGkvListHtml(
             queryText,
             entry.targetGkvId || 'bkk_firmus',
@@ -5540,6 +5546,11 @@
           document.querySelectorAll('.ba-gkv-picker').forEach((picker) => {
             const dd = picker.querySelector('.ba-gkv-dropdown');
             if (dd) dd.classList.add('hidden');
+            const parentRow = picker.closest('tr');
+            if (parentRow) {
+              parentRow.style.position = '';
+              parentRow.style.zIndex = '';
+            }
             if (restoreValues) {
               const id = picker.dataset.baGkvPicker;
               const entry = state.entries.find((x) => x.id === id);
@@ -5573,17 +5584,20 @@
           const isYearly = state.checkPeriod === 'yearly';
           const mult = isYearly ? 12 : 1;
           const unitShort = isYearly ? '/ Jahr' : '/ Mt.';
-
-          const enteredVal = Math.max(0, parseFloat(input.value) || 0);
-          const monthlyVal = isYearly ? (enteredVal / 12) : enteredVal;
-          entry.optimizedMonthly = monthlyVal;
+          const rawVal = Math.max(0, parseFloat(input.value) || 0);
+          const valMonthly = rawVal / mult;
+          entry.optimizedMonthly = valMonthly;
 
           syncCheckSummaryDom(calculateMetrics());
 
-          const diffPeriod = (getMonthlyAmount(entry) - monthlyVal) * mult;
+          const diffPeriod = (getMonthlyAmount(entry) - valMonthly) * mult;
           const rowBadge = document.querySelector(`[data-row-savings="${id}"]`);
           if (rowBadge) {
-            rowBadge.textContent = diffPeriod > 0.005 ? `+${formatEuro(diffPeriod)} ${unitShort}` : diffPeriod < -0.005 ? `-${formatEuro(Math.abs(diffPeriod))} ${unitShort}` : '0,00 €';
+            rowBadge.textContent = diffPeriod > 0.005
+              ? `+${formatEuro(diffPeriod)} ${unitShort}`
+              : diffPeriod < -0.005
+                ? `-${formatEuro(Math.abs(diffPeriod))} ${unitShort}`
+                : '0,00 €';
             rowBadge.className = `inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-extrabold whitespace-nowrap ${diffPeriod > 0.005 ? 'bg-[#269b8d]/14 text-[#146c62] border border-[#269b8d]/35' : diffPeriod < -0.005 ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-100 text-slate-400'}`;
           }
 
@@ -5707,6 +5721,25 @@
           }
         });
 
+        function applyCatalogPresetToPopover(preset) {
+          if (!preset) return;
+          setPopoverType(preset.type);
+          populateCategorySelect(preset.type, preset.categoryId);
+          popTitleInput.value = preset.title;
+          document.getElementById('popAmountInput').value = Number(preset.amount).toFixed(2);
+          document.getElementById('popFrequencySelect').value = String(preset.freq || 1);
+          document.getElementById('popOptimizeCheckbox').checked = Boolean(preset.optimize);
+          if (preset.type === 'income' && preset.categoryId === 'income_salary') {
+            if (preset.title.toLowerCase().includes('beamte')) state.salStatus = 'civil';
+            else if (preset.title.toLowerCase().includes('selbstständig')) state.salStatus = 'self';
+            else state.salStatus = 'employee';
+            document.getElementById('popSalNetInput').value = Number(preset.amount).toFixed(2);
+          }
+          toggleSalaryPanelVisibility();
+          updatePopoverMonthlyPreview();
+          closePresetDropdown();
+        }
+
         document.getElementById('openAddPopoverBtn')?.addEventListener('click', () => openPopover({ mode: 'add' }));
         document.getElementById('emptyAddBtn')?.addEventListener('click', () => openPopover({ mode: 'add' }));
         document.getElementById('closePopoverBtn')?.addEventListener('click', closePopover);
@@ -5741,37 +5774,18 @@
           }
         });
 
-        function applyPresetToPopover(preset) {
-          setPopoverType(preset.type);
-          populateCategorySelect(preset.type, preset.categoryId);
-          popTitleInput.value = preset.title;
-          document.getElementById('popAmountInput').value = Number(preset.amount).toFixed(2);
-          document.getElementById('popFrequencySelect').value = String(preset.freq || 1);
-          document.getElementById('popOptimizeCheckbox').checked = Boolean(preset.optimize);
-          if (preset.type === 'income' && preset.categoryId === 'income_salary') {
-            if (preset.title.toLowerCase().includes('beamte')) state.salStatus = 'civil';
-            else if (preset.title.toLowerCase().includes('selbstständig')) state.salStatus = 'self';
-            else state.salStatus = 'employee';
-            document.getElementById('popSalNetInput').value = Number(preset.amount).toFixed(2);
-          }
-          toggleSalaryPanelVisibility();
-          updatePopoverMonthlyPreview();
-          closePresetDropdown();
-        }
-
         presetDropdown?.addEventListener('click', (e) => {
           const btn = e.target.closest('[data-preset-idx]');
           if (!btn) return;
           const preset = PRESET_CATALOG[parseInt(btn.dataset.presetIdx, 10)];
-          if (!preset) return;
-          applyPresetToPopover(preset);
+          applyCatalogPresetToPopover(preset);
         });
 
         document.getElementById('quickPresetChipsWrap')?.addEventListener('click', (e) => {
           const chip = e.target.closest('[data-quick-preset]');
           if (!chip) return;
           const preset = PRESET_CATALOG.find((p) => p.title === chip.dataset.quickPreset);
-          if (preset) applyPresetToPopover(preset);
+          applyCatalogPresetToPopover(preset);
         });
 
         // Berufsstatus & Einkommensrechner-Interaktionen im Popover
@@ -5944,7 +5958,14 @@
           if (isSalary) {
             updateSalaryCalculatorUi();
             const status = state.salStatus || 'employee';
-            const calc = state.salLastCalc || computeIncomeByStatus2026('net2gross', 2550, 3920, { status, taxClass: 1, stateCode: 'NI', church: true, children: 0, gkvId: 'aok_niedersachsen' });
+            const calc = state.salLastCalc || computeIncomeByStatus2026('net2gross', 2550, 3920, {
+              status,
+              taxClass: 1,
+              stateCode: 'NI',
+              church: true,
+              children: 0,
+              gkvId: 'aok_niedersachsen'
+            });
             amount = calc.basisNetBeforeOpt;
             freq = 1;
             salaryMeta = {
