@@ -164,9 +164,6 @@
     table.sticky-table tbody tr:not(:last-child) td {
       border-bottom: 1px solid #F1F5F9;
     }
-    table.sticky-table tfoot tr:first-child td {
-      border-top: 2px solid #E2E8F0;
-    }
 
     @media (max-width: 639px) {
       #entryPopover {
@@ -302,7 +299,7 @@
       </div>
     </div>
 
-    <!-- Navigation & Werkzeuge (mathematisch zentrierte 40x40 Icons in 64px Leiste) -->
+    <!-- Navigation & Werkzeuge -->
     <div id="sidebarScrollBody" class="flex-1 overflow-y-auto overflow-x-visible py-3 px-0 space-y-2.5">
       <!-- 1. Gesprächs-Phase (1. Gespräch / 2. Gespräch) -->
       <div id="sidePhaseGroup" class="space-y-1.5">
@@ -463,7 +460,7 @@
     </header>
 
     <!-- ===================================================================== -->
-    <!-- MOBILES MENÜ-DRAWER (< MD)                                            -->
+    <!-- MOBILES MENÜ-DRAWER (< MD, OHNE DOPPELTE BOTTOM-BAR-BUTTONS)          -->
     <!-- ===================================================================== -->
     <div id="headerMenuBackdrop" class="no-print fixed inset-0 z-40 hidden bg-[#00325b]/35 backdrop-blur-[1px]"></div>
 
@@ -493,7 +490,7 @@
       </div>
 
       <div id="menuAdvisorClientGroup" class="space-y-1.5">
-        <span class="text-[11px] font-bold text-slate-500 block">Mandant &amp; Vorbereitung</span>
+        <span class="text-[11px] font-bold text-slate-500 block">Mandant &amp; Export</span>
         <div class="space-y-1.5">
           <button id="openClientRecordsBtn" type="button" class="btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
             <div class="flex items-center gap-2.5 min-w-0">
@@ -510,74 +507,29 @@
             <span class="text-xs font-bold text-[#009ee3] shrink-0">→</span>
           </button>
 
-          <button id="openTakeHomeModalBtn" type="button" class="btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#009ee3]/10 hover:bg-[#009ee3]/18 border border-[#009ee3]/30 text-left cursor-pointer">
+          <button id="exportCsvBtn" type="button" class="btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
             <div class="flex items-center gap-2.5 min-w-0">
-              <span class="w-8 h-8 rounded-lg bg-white border border-[#009ee3]/30 text-[#009ee3] flex items-center justify-center shrink-0">
-                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <circle cx="18" cy="5" r="3" />
-                  <circle cx="6" cy="12" r="3" />
-                  <circle cx="18" cy="19" r="3" />
-                  <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
-                  <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
+              <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                  <polyline points="7 10 12 15 17 10" />
+                  <line x1="12" y1="15" x2="12" y2="3" />
                 </svg>
               </span>
               <div class="min-w-0">
-                <span class="text-xs font-bold text-[#00325b] block truncate">Für Kunden freigeben</span>
-                <span class="text-[10.5px] text-slate-600 block truncate">Persönlichen Link teilen oder kopieren</span>
+                <span class="text-xs font-bold text-[#00325b] block truncate">CSV-Export herunterladen</span>
+                <span class="text-[10.5px] text-slate-500 block truncate">Haushaltsdaten als Excel-Tabelle</span>
               </div>
             </div>
-            <span class="text-xs font-bold text-[#00325b] shrink-0">→</span>
+            <span class="text-xs font-bold text-[#009ee3] shrink-0">↓</span>
           </button>
         </div>
       </div>
 
-      <div class="space-y-1.5">
-        <span class="text-[11px] font-bold text-slate-500 block">Auswertung &amp; Export</span>
-
-        <button id="menuClientReturnBtn" type="button" class="hidden btn-tactile w-full flex items-center justify-between gap-3 p-2.5 rounded-xl bg-[#00325b] text-white text-left cursor-pointer">
-          <div class="min-w-0">
-            <span class="text-xs font-bold text-[#d3d800] block truncate">Aktualisierten Link an Berater senden</span>
-            <span class="text-[10.5px] text-slate-300 block truncate">Änderungen per Link teilen oder kopieren</span>
-          </div>
-          <span class="text-xs font-bold text-[#d3d800] shrink-0">↗</span>
-        </button>
-
-        <button id="menuSwitchToAdvisorBtn" type="button" class="hidden btn-tactile w-full flex items-center justify-between gap-3 p-2 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
-          <span class="text-[11px] font-semibold text-[#00325b] truncate">In Berater-Ansicht wechseln</span>
-          <span class="text-[11px] font-bold text-[#009ee3] shrink-0">→</span>
-        </button>
-
-        <div class="grid grid-cols-2 gap-2">
-          <button id="openReportBtn" type="button" class="btn-tactile flex items-center gap-2.5 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
-            <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z" />
-                <polyline points="14 2 14 8 20 8" />
-                <line x1="16" y1="13" x2="8" y2="13" />
-                <line x1="16" y1="17" x2="8" y2="17" />
-              </svg>
-            </span>
-            <div class="min-w-0">
-              <span class="text-xs font-bold text-[#00325b] block">Report / PDF</span>
-              <span class="text-[10px] text-slate-500 block truncate">Druckansicht</span>
-            </div>
-          </button>
-
-          <button id="exportCsvBtn" type="button" class="btn-tactile flex items-center gap-2.5 p-2.5 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/80 text-left cursor-pointer">
-            <span class="w-8 h-8 rounded-lg bg-white border border-slate-200/80 text-[#009ee3] flex items-center justify-center shrink-0">
-              <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
-                <polyline points="7 10 12 15 17 10" />
-                <line x1="12" y1="15" x2="12" y2="3" />
-              </svg>
-            </span>
-            <div class="min-w-0">
-              <span class="text-xs font-bold text-[#00325b] block">CSV-Export</span>
-              <span class="text-[10px] text-slate-500 block truncate">Excel-Tabelle</span>
-            </div>
-          </button>
-        </div>
-      </div>
+      <button id="openTakeHomeModalBtn" type="button" class="hidden" aria-hidden="true"></button>
+      <button id="openReportBtn" type="button" class="hidden" aria-hidden="true"></button>
+      <button id="menuClientReturnBtn" type="button" class="hidden" aria-hidden="true"></button>
+      <button id="menuSwitchToAdvisorBtn" type="button" class="hidden" aria-hidden="true"></button>
 
       <div id="advisorScenarioWrapper" class="space-y-1.5 pt-2 border-t border-slate-100">
         <label for="scenarioSelect" class="text-[11px] font-bold text-slate-500 block">Muster-Szenario / Vorlage laden</label>
@@ -631,12 +583,12 @@
     </div>
 
     <!-- ===================================================================== -->
-    <!-- HAUPTBEREICH (VOLLE BILDSCHIRMBREITE)                                 -->
+    <!-- HAUPTBEREICH (MOBIL: HAUSHALTSLISTE DIREKT NACH KPI-KARTEN)            -->
     <!-- ===================================================================== -->
-    <main class="w-full px-3.5 sm:px-6 xl:px-10 pt-4 sm:pt-6 pb-24 md:pb-8 space-y-4 sm:space-y-6">
+    <main class="w-full px-3.5 sm:px-6 xl:px-10 pt-4 sm:pt-6 pb-24 md:pb-8 flex flex-col gap-4 sm:gap-6">
 
       <!-- KUNDEN-MITNAHME-BANNER -->
-      <section id="clientHomeBanner" class="no-print hidden animate-panel bg-[#00325b] text-white rounded-2xl p-4 sm:p-5 shadow-md border border-[#009ee3]/40 flex flex-wrap items-center justify-between gap-4">
+      <section id="clientHomeBanner" class="order-1 no-print hidden animate-panel bg-[#00325b] text-white rounded-2xl p-4 sm:p-5 shadow-md border border-[#009ee3]/40 flex flex-wrap items-center justify-between gap-4">
         <div class="space-y-1 max-w-3xl">
           <div class="flex items-center gap-2 flex-wrap">
             <span class="text-[10.5px] font-extrabold uppercase tracking-wider px-2.5 py-0.5 rounded-full bg-[#d3d800] text-[#00325b]">
@@ -666,94 +618,104 @@
         </div>
       </section>
 
-      <div id="heroSentinel" class="h-0 w-full pointer-events-none !m-0" aria-hidden="true"></div>
-
       <!-- =================================================================== -->
-      <!-- 1. TOP HERO CARDS (VOLLE BREITE)                                    -->
+      <!-- 1. TOP HERO CARDS (VERSCHLANKT AUF KLARE MONATSWERTE)                -->
       <!-- =================================================================== -->
-      <section id="heroCardsSection" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 tabular-nums">
-        <div class="animate-enter stagger-1 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
-          <div class="flex items-center justify-between gap-1.5">
-            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Einnahmen / Mt.</span>
-            <span class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#009ee3]/10 text-[#009ee3] flex items-center justify-center shrink-0">
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="12" cy="12" r="9" />
-                <path d="M14.5 9.5a3 3 0 0 0-5 2.5 3 3 0 0 0 5 2.5" />
-                <line x1="8" y1="11" x2="13" y2="11" />
-                <line x1="8" y1="13" x2="13" y2="13" />
-              </svg>
-            </span>
-          </div>
-          <div id="kpiIncome" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#00325b] tracking-tight mt-2 sm:mt-3">0,00 €</div>
-          <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
-            <span id="kpiIncomeYearly" class="truncate">Jahr: <strong class="text-[#00325b]">0 €</strong></span>
-            <span id="kpiIncomeSub" class="hidden sm:inline text-[11px] text-slate-400 shrink-0">0 Quellen</span>
-          </div>
-        </div>
-
-        <div class="animate-enter stagger-2 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
-          <div class="flex items-center justify-between gap-1.5">
-            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Ausgaben / Mt.</span>
-            <div class="flex items-center gap-1">
-              <span id="kpiExpensesDeltaBadge" class="hidden text-[9.5px] sm:text-[10.5px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#269b8d]/15 text-[#1f8579]">-0 €</span>
-              <span id="kpiExpensesDot" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#F4F8FB] text-[#00325b] flex items-center justify-center shrink-0">
+      <div class="order-2">
+        <div id="heroSentinel" class="h-0 w-full pointer-events-none" aria-hidden="true"></div>
+        <section id="heroCardsSection" class="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-5 tabular-nums">
+          <div class="animate-enter stagger-1 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-1.5">
+              <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Einnahmen / Mt.</span>
+              <span class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#009ee3]/10 text-[#009ee3] flex items-center justify-center shrink-0">
                 <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                  <rect x="2" y="5" width="20" height="14" rx="2" />
-                  <line x1="2" y1="10" x2="22" y2="10" />
+                  <circle cx="12" cy="12" r="9" />
+                  <path d="M14.5 9.5a3 3 0 0 0-5 2.5 3 3 0 0 0 5 2.5" />
+                  <line x1="8" y1="11" x2="13" y2="11" />
+                  <line x1="8" y1="13" x2="13" y2="13" />
                 </svg>
               </span>
             </div>
-          </div>
-          <div id="kpiExpenses" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#00325b] tracking-tight mt-2 sm:mt-3">0,00 €</div>
-          <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
-            <span id="kpiExpensesFixShare" class="truncate">Fix: 0%</span>
-            <span id="kpiExpensesSub" class="font-medium text-slate-500 shrink-0">0% Netto</span>
-          </div>
-        </div>
-
-        <div class="animate-enter stagger-3 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
-          <div class="flex items-center justify-between gap-1.5">
-            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Freier Cashflow</span>
-            <span id="kpiCashflowIconBox" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#269b8d]/12 text-[#269b8d] flex items-center justify-center shrink-0">
-              <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
-                <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
-                <polyline points="17 6 23 6 23 12" />
-              </svg>
-            </span>
-          </div>
-          <div id="kpiCashflow" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#269b8d] tracking-tight mt-2 sm:mt-3">+0,00 €</div>
-          <div class="flex items-center justify-between gap-1.5 text-[10.5px] sm:text-xs mt-2 sm:mt-3 pt-0.5">
-            <span id="kpiCashflowSub" class="hidden sm:inline font-medium text-[#269b8d] truncate">Frei verfügbar für Ziele</span>
-            <span id="kpiCashflowBadge" class="text-slate-500 font-medium truncate">+0 € / Jahr</span>
-          </div>
-        </div>
-
-        <div class="animate-enter stagger-4 card-hover relative overflow-hidden bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
-          <div class="pointer-events-none absolute -right-8 -top-8 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#009ee3]/15"></div>
-          <div class="flex items-start justify-between gap-1.5 relative">
-            <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#009ee3] leading-snug">Spar-<br class="sm:hidden" />potenzial</span>
-            <span id="kpiSavingsRateBadge" class="text-[9.5px] sm:text-[10.5px] font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-white/10 text-sky-100 border border-white/10 shrink-0 leading-tight">
-              ≥ 20%
-            </span>
-          </div>
-          <div class="flex items-baseline gap-1.5 sm:gap-2 mt-2 sm:mt-3 relative flex-wrap">
-            <span id="kpiPotential" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight">0,0%</span>
-            <span id="kpiPotentialMonthly" class="text-[11px] sm:text-sm font-medium text-slate-300">(0 €)</span>
-          </div>
-          <div class="mt-2 sm:mt-3 space-y-1.5 sm:space-y-2 relative">
-            <div class="w-full h-1.5 rounded-full bg-white/15 overflow-hidden">
-              <div id="kpiPotentialBar" style="width: 0%" class="smooth-bar h-full rounded-full bg-gradient-to-r from-[#009ee3] to-[#d3d800]"></div>
+            <div id="kpiIncome" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#00325b] tracking-tight mt-2 sm:mt-3">0,00 €</div>
+            <div class="text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
+              <span id="kpiIncomeSub" class="font-medium text-slate-500 truncate block">0 Einkommensquellen</span>
             </div>
-            <span id="kpiPotentialSub" class="text-[10px] sm:text-[11px] text-slate-300 block truncate">Sparraten + Cashflow</span>
           </div>
-        </div>
-      </section>
+
+          <div class="animate-enter stagger-2 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-1.5">
+              <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Ausgaben / Mt.</span>
+              <div class="flex items-center gap-1">
+                <span id="kpiExpensesDeltaBadge" class="hidden text-[9.5px] sm:text-[10.5px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#269b8d]/15 text-[#1f8579]">-0 €</span>
+                <span id="kpiExpensesDot" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#F4F8FB] text-[#00325b] flex items-center justify-center shrink-0">
+                  <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <rect x="2" y="5" width="20" height="14" rx="2" />
+                    <line x1="2" y1="10" x2="22" y2="10" />
+                  </svg>
+                </span>
+              </div>
+            </div>
+            <div id="kpiExpenses" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#00325b] tracking-tight mt-2 sm:mt-3">0,00 €</div>
+            <div class="text-[10.5px] sm:text-xs text-slate-500 mt-2 sm:mt-3 pt-0.5">
+              <span id="kpiExpensesSub" class="font-medium text-slate-500 truncate block">0% vom Einkommen</span>
+            </div>
+          </div>
+
+          <div class="animate-enter stagger-3 card-hover bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+            <div class="flex items-center justify-between gap-1.5">
+              <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-slate-500">Freier Cashflow</span>
+              <span id="kpiCashflowIconBox" class="w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#269b8d]/12 text-[#269b8d] flex items-center justify-center shrink-0">
+                <svg class="w-3.5 h-3.5 sm:w-4 sm:h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round">
+                  <polyline points="23 6 13.5 15.5 8.5 10.5 1 18" />
+                  <polyline points="17 6 23 6 23 12" />
+                </svg>
+              </span>
+            </div>
+            <div id="kpiCashflow" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#269b8d] tracking-tight mt-2 sm:mt-3">+0,00 €</div>
+            <div class="text-[10.5px] sm:text-xs mt-2 sm:mt-3 pt-0.5">
+              <span id="kpiCashflowSub" class="font-medium text-[#269b8d] truncate block">Frei verfügbar für Ziele</span>
+            </div>
+          </div>
+
+          <div class="animate-enter stagger-4 card-hover relative overflow-hidden bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+            <div class="pointer-events-none absolute -right-8 -top-8 w-24 h-24 sm:w-28 sm:h-28 rounded-full bg-[#009ee3]/15"></div>
+            <div class="flex items-start justify-between gap-1.5 relative">
+              <span class="text-[10px] sm:text-xs font-bold uppercase tracking-wider text-[#009ee3] leading-snug">Spar-<br class="sm:hidden" />potenzial</span>
+              <span id="kpiSavingsRateBadge" class="text-[9.5px] sm:text-[10.5px] font-semibold px-1.5 sm:px-2.5 py-0.5 sm:py-1 rounded-lg sm:rounded-xl bg-white/10 text-sky-100 border border-white/10 shrink-0 leading-tight">
+                ≥ 20%
+              </span>
+            </div>
+            <div class="flex items-baseline gap-1.5 sm:gap-2 mt-2 sm:mt-3 relative flex-wrap">
+              <span id="kpiPotential" class="tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-white tracking-tight">0,0%</span>
+              <span id="kpiPotentialMonthly" class="text-[11px] sm:text-sm font-medium text-slate-300">(0 €)</span>
+            </div>
+            <div class="mt-2 sm:mt-3 space-y-1.5 sm:space-y-2 relative">
+              <div class="hidden sm:block w-full h-1.5 rounded-full bg-white/15 overflow-hidden">
+                <div id="kpiPotentialBar" style="width: 0%" class="smooth-bar h-full rounded-full bg-gradient-to-r from-[#009ee3] to-[#d3d800]"></div>
+              </div>
+              <span id="kpiPotentialSub" class="text-[10px] sm:text-[11px] text-slate-300 block truncate">Sparraten + Cashflow</span>
+            </div>
+          </div>
+        </section>
+      </div>
 
       <!-- =================================================================== -->
-      <!-- 2. ANALYSE-DASHBOARD: 50/30/20 CHECK & MITTELVERWENDUNG             -->
+      <!-- 2. ANALYSE-DASHBOARD (MOBIL ALS TABS UNTER DER LISTE, DESKTOP OBEN) -->
       <!-- =================================================================== -->
-      <section class="grid grid-cols-1 lg:grid-cols-12 gap-4 sm:gap-6 items-stretch">
-        <div class="lg:col-span-7 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between space-y-4 sm:space-y-5">
+      <section id="analysisDashboardSection" class="order-5 md:order-3 grid grid-cols-1 lg:grid-cols-12 gap-3 sm:gap-6 items-stretch">
+        <!-- Mobile Tab-Umschalter (< md) -->
+        <div id="mobileAnalysisTabs" class="no-print md:hidden grid grid-cols-2 gap-1 bg-white p-1 rounded-2xl border border-slate-200/80 shadow-2xs">
+          <button type="button" data-analysis-tab="benchmark"
+                  class="mobile-analysis-tab-btn active btn-tactile py-2 px-3 rounded-xl text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer">
+            Struktur 50 / 30 / 20
+          </button>
+          <button type="button" data-analysis-tab="donut"
+                  class="mobile-analysis-tab-btn btn-tactile py-2 px-3 rounded-xl text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer">
+            Verteilung (Donut)
+          </button>
+        </div>
+
+        <div id="benchmarkCard" class="lg:col-span-7 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between space-y-4 sm:space-y-5">
           <div>
             <div class="flex flex-wrap items-center justify-between gap-2 mb-4">
               <div>
@@ -768,9 +730,9 @@
             <div class="space-y-4 tabular-nums">
               <div>
                 <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
-                  <span class="font-bold text-[#00325b]">1. Fixkosten &amp; Absicherung (Ziel ≤ 50 %)</span>
+                  <span class="font-bold text-[#00325b]">1. Fixkosten &amp; Absicherung</span>
                   <div class="flex items-center gap-2 shrink-0">
-                    <span id="benchFixedAmt" class="font-bold text-[#00325b]">0 €</span>
+                    <span id="benchFixedTarget" class="text-[11px] font-medium text-slate-400">Ziel ≤ 50 %</span>
                     <span id="benchFixedPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#00325b]/10 text-[#00325b]">0 %</span>
                   </div>
                 </div>
@@ -781,9 +743,9 @@
 
               <div>
                 <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
-                  <span class="font-bold text-[#00325b]">2. Costs of Life, Unterhaltung &amp; Luxus (Ziel ≤ 30 %)</span>
+                  <span class="font-bold text-[#00325b]">2. Costs of Life, Unterhaltung &amp; Luxus</span>
                   <div class="flex items-center gap-2 shrink-0">
-                    <span id="benchVarAmt" class="font-bold text-[#00325b]">0 €</span>
+                    <span id="benchVarTarget" class="text-[11px] font-medium text-slate-400">Ziel ≤ 30 %</span>
                     <span id="benchVarPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#009ee3]/15 text-[#00325b]">0 %</span>
                   </div>
                 </div>
@@ -794,9 +756,9 @@
 
               <div>
                 <div class="flex items-center justify-between text-xs mb-1.5 gap-2">
-                  <span class="font-bold text-[#00325b]">3. Vorsorge, Sparen &amp; freier Cashflow (Ziel ≥ 20 %)</span>
+                  <span class="font-bold text-[#00325b]">3. Vorsorge, Sparen &amp; freier Cashflow</span>
                   <div class="flex items-center gap-2 shrink-0">
-                    <span id="benchSavAmt" class="font-bold text-[#1f8579]">0 €</span>
+                    <span id="benchSavTarget" class="text-[11px] font-medium text-slate-400">Ziel ≥ 20 %</span>
                     <span id="benchSavPct" class="text-[11px] font-extrabold px-2 py-0.5 rounded-md bg-[#269b8d]/15 text-[#1f8579]">0 %</span>
                   </div>
                 </div>
@@ -807,12 +769,12 @@
             </div>
           </div>
 
-          <div id="insightsBox" class="p-4 rounded-xl bg-[#F4F8FB] border border-slate-200/90 space-y-2 text-xs">
+          <div id="insightsBox" class="hidden p-3.5 rounded-xl bg-amber-50/75 border border-amber-200/80 space-y-1.5 text-xs">
           </div>
         </div>
 
         <!-- Rechts: Interaktives D3 Donut-Diagramm -->
-        <div class="lg:col-span-5 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex flex-col justify-between">
+        <div id="donutCard" class="hidden md:flex lg:col-span-5 bg-white border border-slate-200/80 rounded-2xl p-4 sm:p-6 shadow-sm flex-col justify-between">
           <div class="flex items-center justify-between gap-2 mb-2">
             <div>
               <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Mittelverwendung</span>
@@ -832,9 +794,9 @@
       </section>
 
       <!-- =================================================================== -->
-      <!-- 3. HAUSHALTS- & VERTRAGSLISTE (VOLLE BILDSCHIRMBREITE)              -->
+      <!-- 3. HAUSHALTS- & VERTRAGSLISTE (MOBIL DIREKT UNTER DEN KPI-KARTEN)   -->
       <!-- =================================================================== -->
-      <section class="bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-6 shadow-sm space-y-3.5 sm:space-y-4">
+      <section id="entriesSection" class="order-3 md:order-4 bg-white border border-slate-200/80 rounded-2xl p-3.5 sm:p-6 shadow-sm space-y-3.5 sm:space-y-4">
         <div class="flex flex-wrap items-center justify-between gap-3 pb-3 border-b border-slate-100">
           <div>
             <span class="text-[11px] font-bold uppercase tracking-wider text-[#009ee3]">Schritt 2 • Einnahmen, Ausgaben &amp; Verträge</span>
@@ -853,37 +815,51 @@
           </button>
         </div>
 
-        <div class="no-print flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 sm:gap-3">
-          <div id="typeFilterBar" class="flex items-center gap-1 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90 overflow-x-auto no-scrollbar">
-            <button type="button" data-filter="all" class="filter-pill active btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#00325b] text-white shadow-2xs cursor-pointer">
-              Alle (<span id="countAll">0</span>)
-            </button>
-            <button type="button" data-filter="check" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-              ★ Im Check (<span id="countCheck">0</span>)
-            </button>
-            <button type="button" data-filter="income" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-              Einnahmen (<span id="countIncome">0</span>)
-            </button>
-            <button type="button" data-filter="fixed" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-              Fixkosten (<span id="countFixed">0</span>)
-            </button>
-            <button type="button" data-filter="variable" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-              Variabel (<span id="countVariable">0</span>)
-            </button>
-            <button type="button" data-filter="savings" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
-              Vorsorge &amp; Sparen (<span id="countSavings">0</span>)
+        <div id="tableToolbarRow" class="no-print flex flex-col lg:flex-row lg:items-center justify-between gap-2.5 sm:gap-3">
+          <div class="flex items-center gap-1.5 min-w-0">
+            <div id="typeFilterBar" class="flex-1 min-w-0 flex items-center gap-1 bg-[#F4F8FB] p-1 rounded-xl border border-slate-200/90 overflow-x-auto no-scrollbar">
+              <button type="button" data-filter="all" class="filter-pill active btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold bg-[#00325b] text-white shadow-2xs cursor-pointer">
+                Alle (<span id="countAll">0</span>)
+              </button>
+              <button id="filterPillCheck" type="button" data-filter="check" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+                ★ Im Check (<span id="countCheck">0</span>)
+              </button>
+              <button type="button" data-filter="income" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+                Einnahmen (<span id="countIncome">0</span>)
+              </button>
+              <button type="button" data-filter="fixed" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+                Fixkosten (<span id="countFixed">0</span>)
+              </button>
+              <button type="button" data-filter="variable" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+                Variabel (<span id="countVariable">0</span>)
+              </button>
+              <button type="button" data-filter="savings" class="filter-pill btn-tactile shrink-0 px-3 py-1.5 rounded-lg text-xs font-semibold text-[#00325b]/70 hover:text-[#00325b] cursor-pointer">
+                Vorsorge &amp; Sparen (<span id="countSavings">0</span>)
+              </button>
+            </div>
+
+            <!-- Smartphone Lupen-Trigger für verstecktes Suchfeld (< sm) -->
+            <button id="mobileTableSearchToggle" type="button" aria-label="Positionen durchsuchen"
+                    class="sm:hidden btn-tactile w-9 h-9 rounded-xl bg-[#F4F8FB] active:bg-[#E8F1F8] border border-slate-200/90 text-[#00325b] flex items-center justify-center shrink-0 cursor-pointer">
+              <svg class="w-4 h-4 text-[#009ee3]" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2">
+                <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+              </svg>
             </button>
           </div>
 
-          <div class="flex items-center gap-2 w-full lg:w-auto">
+          <div id="tableSearchWrap" class="hidden sm:flex items-center gap-2 w-full lg:w-auto lg:ml-auto">
             <div class="relative flex-1 sm:w-64">
               <svg class="w-3.5 h-3.5 text-slate-400 absolute left-3 top-1/2 -translate-y-1/2 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                 <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
               </svg>
-              <input id="tableSearchInput" type="text" placeholder="Position filtern..." class="w-full bg-[#F4F8FB] border border-slate-200/90 rounded-xl pl-8 pr-3 py-2 sm:py-1.5 text-xs font-medium text-[#00325b] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+              <input id="tableSearchInput" type="text" placeholder="Position filtern..." class="w-full bg-[#F4F8FB] border border-slate-200/90 rounded-xl pl-8 pr-8 py-2 sm:py-1.5 text-xs font-medium text-[#00325b] placeholder-slate-400 focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+              <button id="clearMobileSearchBtn" type="button" aria-label="Suche schließen"
+                      class="sm:hidden absolute right-2.5 top-1/2 -translate-y-1/2 text-slate-400 hover:text-[#00325b] text-xs cursor-pointer">
+                ✕
+              </button>
             </div>
 
-            <select id="tableSortSelect" class="bg-[#F4F8FB] border border-slate-200/90 rounded-xl px-2.5 py-2 sm:py-1.5 text-xs font-semibold text-[#00325b] focus:outline-none focus:border-[#009ee3] cursor-pointer shrink-0">
+            <select id="tableSortSelect" class="hidden sm:block bg-[#F4F8FB] border border-slate-200/90 rounded-xl px-2.5 py-1.5 text-xs font-semibold text-[#00325b] focus:outline-none focus:border-[#009ee3] cursor-pointer shrink-0">
               <option value="grouped" selected>Nach Überkategorien</option>
               <option value="amount_desc">Betrag (hoch → niedrig)</option>
               <option value="amount_asc">Betrag (niedrig → hoch)</option>
@@ -902,7 +878,7 @@
             <thead>
               <tr class="text-[10px] sm:text-[11px] font-bold uppercase tracking-wider text-slate-500">
                 <th class="sticky-th py-2.5 sm:py-3 px-3 sm:px-4 rounded-tl-xl">Position / Vertrag</th>
-                <th id="thRhythmHeader" class="sticky-th py-3 px-4 hidden sm:table-cell w-36">Rhythmus</th>
+                <th id="thRhythmHeader" class="sticky-th py-3 px-4 hidden sm:table-cell w-40">Turnus</th>
                 <th id="thMonthlyHeader" class="sticky-th py-2.5 sm:py-3 px-3 sm:px-4 text-right whitespace-nowrap rounded-tr-xl sm:rounded-tr-none">Monatswert</th>
                 <th id="thCheckAfterHeader" class="no-print sticky-th hidden py-3 px-4 text-right whitespace-nowrap">Nachher</th>
                 <th id="thCheckSavingsHeader" class="no-print sticky-th hidden py-3 px-4 text-right whitespace-nowrap text-[#146c62]">Ersparnis</th>
@@ -925,7 +901,7 @@
       <!-- =================================================================== -->
       <!-- ZWEITGESPRÄCH: VORHER / NACHHER BILANZ-KOPF (★ CHECK OPTIMIERUNGEN)  -->
       <!-- =================================================================== -->
-      <section id="beforeAfterSection" class="hidden animate-panel bg-white border-2 border-[#009ee3]/40 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
+      <section id="beforeAfterSection" class="order-4 md:order-5 hidden animate-panel bg-white border-2 border-[#009ee3]/40 rounded-2xl p-4 sm:p-6 shadow-sm space-y-4">
         <div class="flex flex-wrap items-start justify-between gap-3 sm:gap-4 pb-3.5 border-b border-slate-100">
           <div>
             <div class="flex items-center gap-2 flex-wrap">
@@ -999,7 +975,7 @@
       <!-- =================================================================== -->
       <!-- 4. ZINSESZINS- & VERMÖGENSAUFBAU-SIMULATOR                         -->
       <!-- =================================================================== -->
-      <section class="bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md">
+      <section id="wealthSimulatorSection" class="order-6 bg-[#00325b] text-white rounded-2xl p-4 sm:p-6 lg:p-8 shadow-md">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-5 sm:gap-7 items-stretch">
           <div class="lg:col-span-5 flex flex-col justify-between space-y-4 sm:space-y-5 tabular-nums">
             <div>
@@ -1089,7 +1065,7 @@
       </section>
 
       <!-- DATENSCHUTZ- & NUTZUNGSHINWEIS -->
-      <footer class="px-2 pt-1 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-slate-400">
+      <footer class="order-7 px-2 pt-1 pb-4 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-2 text-[11px] text-slate-400">
         <p>
           <strong class="font-semibold text-slate-500">Datenschutz &amp; Hinweis:</strong> Alle eingegebenen Haushalts- und Finanzdaten werden ausschließlich lokal im Arbeitsspeicher deines Browsers sowie im geteilten Link-Parameter (<code class="font-mono text-[10px]">?d=...</code>) verarbeitet und nicht an Datenbanken oder den Website-Betreiber übermittelt. Beim technischen Abruf der Seite über GitHub Pages bzw. eingebundene Programmbibliotheken (CDNs) werden Verbindungsdaten (z. B. IP-Adresse) zur Auslieferung verarbeitet. Alle Berechnungen sind unverbindliche Modellrechnungen.
         </p>
@@ -1120,7 +1096,7 @@
           <line x1="8.59" y1="13.51" x2="15.42" y2="17.49" />
           <line x1="15.41" y1="6.51" x2="8.59" y2="10.49" />
         </svg>
-        <span class="text-[10px] font-bold mt-0.5">Teilen</span>
+        <span id="mobileBarShareLabel" class="text-[10px] font-bold mt-0.5">Teilen</span>
       </button>
 
       <button id="mobileBarReportBtn" type="button" class="btn-tactile flex flex-col items-center justify-center py-1.5 px-2 rounded-xl bg-[#F4F8FB] active:bg-[#E8F1F8] text-[#00325b] border border-slate-200/80 cursor-pointer">
@@ -1194,6 +1170,18 @@
           </div>
 
           <div id="presetDropdown" class="hidden absolute z-50 left-0 right-0 mt-1 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1">
+          </div>
+        </div>
+
+        <!-- Schnellwahl-Chips beim Hinzufügen (ideal für Smartphone ohne Tippen) -->
+        <div id="quickPresetChipsWrap" class="space-y-1.5">
+          <span class="text-[10.5px] font-semibold text-slate-400 block">Schnellwahl:</span>
+          <div class="flex flex-wrap gap-1.5">
+            <button type="button" data-quick-preset="Nettogehalt (Haupteinkommen)" class="btn-tactile px-2.5 py-1 rounded-lg bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-semibold text-[#00325b] cursor-pointer">Gehalt</button>
+            <button type="button" data-quick-preset="Lebensmittel & Haushalt" class="btn-tactile px-2.5 py-1 rounded-lg bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-semibold text-[#00325b] cursor-pointer">Lebensmittel</button>
+            <button type="button" data-quick-preset="Mobilität, Tanken & Pendeln" class="btn-tactile px-2.5 py-1 rounded-lg bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-semibold text-[#00325b] cursor-pointer">Tanken</button>
+            <button type="button" data-quick-preset="Privathaftpflichtversicherung" class="btn-tactile px-2.5 py-1 rounded-lg bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-semibold text-[#00325b] cursor-pointer">Haftpflicht</button>
+            <button type="button" data-quick-preset="Video-Streaming (VOD: Netflix, Prime, Disney+)" class="btn-tactile px-2.5 py-1 rounded-lg bg-[#F4F8FB] hover:bg-[#E8F1F8] border border-slate-200/90 text-[11px] font-semibold text-[#00325b] cursor-pointer">Streaming</button>
           </div>
         </div>
 
@@ -2398,6 +2386,8 @@
         popCheckChurchExit: true,
         sidebarExpanded: false,
         tvScaleMode: false,
+        mobileAnalysisTab: 'benchmark',
+        mobileSearchOpen: false,
         clientMode: false,
         canSwitchToAdvisor: false,
         currentClientName: '',
@@ -2452,14 +2442,19 @@
         const sideLbl = document.getElementById('sideTvScaleLabel');
         const sideBtn = document.getElementById('sideTvScaleBtn');
         if (sideLbl) {
-          sideLbl.textContent = state.tvScaleMode ? 'Großbild (3–4 m): Aktiv' : 'Großbild (3–4 m): Aus';
+          sideLbl.textContent = state.tvScaleMode ? 'Großbild (3–4 m): An' : 'Großbild (3–4 m): Aus';
         }
         if (sideBtn) {
           sideBtn.dataset.tooltip = state.tvScaleMode
-            ? '3–4 m Großbild-Modus: Aktiv (klicken für Normal)'
+            ? '3–4 m Großbild-Modus deaktivieren'
             : '3–4 m Großbild-Modus aktivieren';
-          sideBtn.classList.toggle('bg-[#d3d800]/55', Boolean(state.tvScaleMode));
-          sideBtn.classList.toggle('bg-[#F4F8FB]', !state.tvScaleMode);
+          sideBtn.className = state.tvScaleMode
+            ? 'side-item btn-tactile w-10 h-10 mx-auto rounded-xl bg-[#d3d800]/55 hover:bg-[#d3d800]/75 text-[#00325b] font-bold text-xs flex items-center justify-center gap-2.5 cursor-pointer'
+            : 'side-item btn-tactile w-10 h-10 mx-auto rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] font-bold text-xs flex items-center justify-center gap-2.5 cursor-pointer';
+          if (state.sidebarExpanded) {
+            sideBtn.classList.remove('w-10', 'mx-auto', 'justify-center');
+            sideBtn.classList.add('w-full', 'px-3.5', 'justify-start');
+          }
         }
       }
 
@@ -2469,7 +2464,6 @@
         const expandBtn = document.getElementById('expandSidebarBtn');
         const expandedHeader = document.getElementById('expandedSidebarHeader');
         const headerRow = document.getElementById('sidebarHeaderRow');
-        const scrollBody = document.getElementById('sidebarScrollBody');
         const sideCheckBadge = document.getElementById('sideCheckBadge');
         if (!aside) return;
 
@@ -2483,12 +2477,10 @@
           expandedHeader?.classList.remove('hidden');
           headerRow?.classList.remove('justify-center');
           headerRow?.classList.add('justify-between');
-          scrollBody?.classList.remove('px-0', 'overflow-x-visible');
-          scrollBody?.classList.add('px-2.5');
           aside.querySelectorAll('.sidebar-label').forEach((el) => el.classList.remove('hidden'));
           aside.querySelectorAll('.side-item:not(#expandSidebarBtn)').forEach((b) => {
             b.classList.remove('w-10', 'mx-auto', 'justify-center');
-            b.classList.add('w-full', 'px-3', 'justify-start');
+            b.classList.add('w-full', 'px-3.5', 'justify-start');
           });
           if (sideCheckBadge) {
             sideCheckBadge.classList.remove('absolute', '-top-1', '-right-1');
@@ -2501,11 +2493,9 @@
           expandedHeader?.classList.add('hidden');
           headerRow?.classList.remove('justify-between');
           headerRow?.classList.add('justify-center');
-          scrollBody?.classList.remove('px-2.5');
-          scrollBody?.classList.add('px-0', 'overflow-x-visible');
           aside.querySelectorAll('.sidebar-label').forEach((el) => el.classList.add('hidden'));
           aside.querySelectorAll('.side-item:not(#expandSidebarBtn)').forEach((b) => {
-            b.classList.remove('w-full', 'px-3', 'justify-start');
+            b.classList.remove('w-full', 'px-3.5', 'justify-start');
             b.classList.add('w-10', 'mx-auto', 'justify-center');
           });
           if (sideCheckBadge) {
@@ -2540,6 +2530,10 @@
         const sidePhaseGroup = document.getElementById('sidePhaseGroup');
         const sideClientGroup = document.getElementById('sideClientGroup');
         const sideScenarioFooter = document.getElementById('sideScenarioFooter');
+        const wealthSimSection = document.getElementById('wealthSimulatorSection');
+        const filterPillCheck = document.getElementById('filterPillCheck');
+        const headerMenuBtn = document.getElementById('headerMenuBtn');
+        const mobileBarShareLbl = document.getElementById('mobileBarShareLabel');
 
         if (!banner) return;
 
@@ -2561,6 +2555,10 @@
           menuSwitchToAdvisorBtn?.classList.toggle('hidden', !state.canSwitchToAdvisor);
           bannerSwitchToAdvisorBtn?.classList.toggle('hidden', !state.canSwitchToAdvisor);
           mobileToggleBtn?.classList.add('hidden');
+          headerMenuBtn?.classList.add('hidden');
+          if (mobileBarShareLbl) mobileBarShareLbl.textContent = 'Senden';
+          wealthSimSection?.classList.add('hidden');
+          filterPillCheck?.classList.add('hidden');
         } else {
           banner.classList.add('hidden');
           phaseSwitcher?.classList.remove('hidden');
@@ -2573,6 +2571,10 @@
           menuSwitchToAdvisorBtn?.classList.add('hidden');
           bannerSwitchToAdvisorBtn?.classList.add('hidden');
           mobileToggleBtn?.classList.remove('hidden');
+          headerMenuBtn?.classList.remove('hidden');
+          if (mobileBarShareLbl) mobileBarShareLbl.textContent = 'Teilen';
+          wealthSimSection?.classList.remove('hidden');
+          filterPillCheck?.classList.remove('hidden');
         }
         updateHeaderClientBadge();
       }
@@ -3181,7 +3183,7 @@
           urlObj.searchParams.set('d', encoded);
           window.history.replaceState(null, '', urlObj.toString());
         } catch (err) {
-          // Ignorieren
+          // Ignorieren falls Umgebung replaceState einschränkt
         }
       }
 
@@ -3299,13 +3301,13 @@
             }
           }
         } catch (err) {
-          // Ignorieren
+          // Ignorieren bei ungültiger URL
         }
         return false;
       }
 
       // =========================================================================
-      // 5. KERNBERECHNUNGEN & KENNZAHLEN
+      // 5. KERNBERECHNUNGEN & KENNZAHLEN (INKL. CHECK-SIMULATION)
       // =========================================================================
       function calculateMetrics() {
         let incomeMonthly = 0;
@@ -3426,33 +3428,38 @@
       }
 
       // =========================================================================
-      // 6. VORHER / NACHHER BILANZ-KOPF RENDERN (2. GESPRÄCH)
+      // 6. VORHER / NACHHER BILANZ-KOPF RENDERN (2. GESPRÄCH, MT. / JAHR)
       // =========================================================================
       function syncCheckSummaryDom(m) {
         const isYearly = state.checkPeriod === 'yearly';
         const mult = isYearly ? 12 : 1;
-        const unit = isYearly ? '/ Jahr' : '/ Mt.';
-        const altUnit = isYearly ? '/ Mt.' : '/ Jahr';
+        const unitLabel = isYearly ? '/ Jahr' : '/ Mt.';
 
-        const beforeSum = m.optimizeCandidates.reduce((s, x) => s + x.beforeMonthly, 0);
-        const afterSum = m.optimizeCandidates.reduce((s, x) => s + x.afterMonthly, 0);
+        const beforeSum = m.optimizeCandidates.reduce((s, x) => s + x.beforeMonthly, 0) * mult;
+        const afterSum = m.optimizeCandidates.reduce((s, x) => s + x.afterMonthly, 0) * mult;
         const monthlySaved = m.totalCheckSavingsMonthly;
-        const primarySaved = monthlySaved * mult;
-        const secondarySaved = isYearly ? monthlySaved : monthlySaved * 12;
+        const yearlySaved = monthlySaved * 12;
+        const primarySaved = isYearly ? yearlySaved : monthlySaved;
 
         const beforeLbl = document.getElementById('baBeforeLabel');
         const afterLbl = document.getElementById('baAfterLabel');
-        if (beforeLbl) beforeLbl.textContent = `Vorher ${unit}`;
-        if (afterLbl) afterLbl.textContent = `Nachher ${unit}`;
+        if (beforeLbl) beforeLbl.textContent = isYearly ? 'Vorher / Jahr' : 'Vorher / Mt.';
+        if (afterLbl) afterLbl.textContent = isYearly ? 'Nachher / Jahr' : 'Nachher / Mt.';
 
-        document.getElementById('baBeforeMonthly').textContent = `${formatEuro(beforeSum * mult)} ${unit}`;
+        document.getElementById('baBeforeMonthly').textContent = `${formatEuro(beforeSum)} ${unitLabel}`;
         document.getElementById('baCheckItemsCount').textContent = `${m.optimizeCandidates.length} Position${m.optimizeCandidates.length === 1 ? '' : 'en'} im Check`;
-        document.getElementById('baAfterMonthly').textContent = `${formatEuro(afterSum * mult)} ${unit}`;
+        document.getElementById('baAfterMonthly').textContent = `${formatEuro(afterSum)} ${unitLabel}`;
 
         const savEl = document.getElementById('baSavingsMonthly');
-        savEl.textContent = `${primarySaved >= 0 ? '+' : ''}${formatEuro(primarySaved)} ${unit}`;
+        savEl.textContent = `${primarySaved >= 0 ? '+' : ''}${formatEuro(primarySaved)} ${unitLabel}`;
         savEl.className = `text-lg sm:text-2xl font-extrabold mt-1 block ${primarySaved >= 0 ? 'text-[#146c62]' : 'text-red-600'}`;
-        document.getElementById('baSavingsYearly').textContent = `${secondarySaved >= 0 ? '+' : ''}${formatEuro(secondarySaved)} ${altUnit}`;
+
+        const subSavEl = document.getElementById('baSavingsYearly');
+        if (isYearly) {
+          subSavEl.textContent = `${monthlySaved >= 0 ? '+' : ''}${formatEuro(monthlySaved)} / Mt.`;
+        } else {
+          subSavEl.textContent = `${yearlySaved >= 0 ? '+' : ''}${formatEuro(yearlySaved)} / Jahr`;
+        }
 
         const simSeries = computeCompoundSeries(monthlySaved, state.simYears, state.simRate);
         const endWealth = simSeries.length ? simSeries[simSeries.length - 1].total : 0;
@@ -3462,7 +3469,7 @@
 
       function renderBeforeAfterSection(m) {
         const checkLen = m.optimizeCandidates.length;
-        ['headerCheckCountBadge', 'sideCheckBadge', 'mobileHeaderCheckBadge'].forEach((id) => {
+        ['headerCheckCountBadge', 'mobileHeaderCheckBadge', 'sideCheckBadge'].forEach((id) => {
           const el = document.getElementById(id);
           if (el) el.textContent = checkLen;
         });
@@ -3482,17 +3489,13 @@
       function renderDashboard() {
         const m = calculateMetrics();
 
+        // Verschlankte Hero Cards (klare Monatswerte ohne doppelte Jahres-/Prozent-Zahlen)
         document.getElementById('kpiIncome').textContent = formatEuro(m.incomeMonthly);
-        document.getElementById('kpiIncomeYearly').innerHTML = `Jahr: <strong class="text-[#00325b]">${formatEuroCompact(m.incomeMonthly * 12)}</strong>`;
-        document.getElementById('kpiIncomeSub').textContent = `${m.incomeCount} Quelle${m.incomeCount === 1 ? '' : 'n'}`;
+        document.getElementById('kpiIncomeSub').textContent = `${m.incomeCount} Einkommensquelle${m.incomeCount === 1 ? '' : 'n'}`;
 
         document.getElementById('kpiExpenses').textContent = formatEuro(m.consumptionExpensesMonthly);
-        const fixShareOfExp = m.consumptionExpensesMonthly > 0
-          ? Math.round((m.fixedMonthly / m.consumptionExpensesMonthly) * 100)
-          : 0;
-        document.getElementById('kpiExpensesFixShare').textContent = `Fix: ${fixShareOfExp}%`;
         const expRatio = m.incomeMonthly > 0 ? Math.round((m.consumptionExpensesMonthly / m.incomeMonthly) * 100) : 0;
-        document.getElementById('kpiExpensesSub').textContent = `${expRatio}% Netto`;
+        document.getElementById('kpiExpensesSub').textContent = `${expRatio} % vom Einkommen`;
 
         const deltaBadge = document.getElementById('kpiExpensesDeltaBadge');
         if (state.applyOptimizedToBalance && m.activeOptimizationDelta > 0.5) {
@@ -3502,25 +3505,26 @@
           deltaBadge.classList.add('hidden');
         }
 
+        // Cashflow
         const cfEl = document.getElementById('kpiCashflow');
         const cfSub = document.getElementById('kpiCashflowSub');
         const cfIcon = document.getElementById('kpiCashflowIconBox');
         const cfPrefix = m.cashflowMonthly >= 0 ? '+' : '';
         cfEl.textContent = `${cfPrefix}${formatEuro(m.cashflowMonthly)}`;
-        document.getElementById('kpiCashflowBadge').textContent = `${cfPrefix}${formatEuroCompact(m.cashflowMonthly * 12)} / Jahr`;
 
         if (m.cashflowMonthly >= 0) {
           cfEl.className = 'tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-[#269b8d] tracking-tight mt-2 sm:mt-3';
           cfSub.textContent = 'Frei verfügbar für Ziele';
-          cfSub.className = 'hidden sm:inline font-medium text-[#269b8d] truncate';
+          cfSub.className = 'font-medium text-[#269b8d] truncate block';
           cfIcon.className = 'w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-[#269b8d]/12 text-[#269b8d] flex items-center justify-center shrink-0';
         } else {
           cfEl.className = 'tv-hero-num text-lg sm:text-2xl lg:text-3xl font-extrabold text-red-600 tracking-tight mt-2 sm:mt-3';
           cfSub.textContent = 'Unterdeckung im Budget';
-          cfSub.className = 'hidden sm:inline font-medium text-red-600 truncate';
+          cfSub.className = 'font-medium text-red-600 truncate block';
           cfIcon.className = 'w-7 h-7 sm:w-9 sm:h-9 rounded-lg sm:rounded-xl bg-red-50 text-red-600 flex items-center justify-center shrink-0';
         }
 
+        // Sparpotenzial
         document.getElementById('kpiPotential').textContent = `${m.potentialRate.toFixed(1).replace('.', ',')}%`;
         document.getElementById('kpiPotentialMonthly').textContent = `(${formatEuroCompact(m.totalWealthPotential)})`;
         document.getElementById('kpiPotentialBar').style.width = `${Math.min(100, Math.max(0, m.potentialRate * 2.5))}%`;
@@ -3553,38 +3557,40 @@
         }
         document.getElementById('stickyPotential').textContent = `${formatEuroCompact(m.totalWealthPotential)} / Mt.`;
 
-        document.getElementById('benchFixedAmt').textContent = `${formatEuroCompact(m.fixedCoreMonthly)} / Mt.`;
+        // 50/30/20 Benchmark (Prozentwerte + Zielwerte ohne redundante Euro-Dopplung)
         document.getElementById('benchFixedPct').textContent = `${Math.round(m.fixedShare)} %`;
         document.getElementById('benchFixedBar').style.width = `${Math.min(100, m.fixedShare)}%`;
 
-        document.getElementById('benchVarAmt').textContent = `${formatEuroCompact(m.variableMonthly)} / Mt.`;
         document.getElementById('benchVarPct').textContent = `${Math.round(m.varShare)} %`;
         document.getElementById('benchVarBar').style.width = `${Math.min(100, m.varShare)}%`;
 
-        document.getElementById('benchSavAmt').textContent = `${formatEuroCompact(m.totalWealthPotential)} / Mt.`;
         document.getElementById('benchSavPct').textContent = `${Math.round(m.potentialRate)} %`;
         document.getElementById('benchSavBar').style.width = `${Math.min(100, m.potentialRate)}%`;
 
+        // Insights-Box nur einblenden, wenn echter Handlungsbedarf / Warnhinweis besteht
         const insightsBox = document.getElementById('insightsBox');
-        const notes = [];
+        const warnings = [];
         if (m.incomeMonthly <= 0) {
-          notes.push('Erfasse zunächst mindestens eine Einnahmequelle, um die Haushaltsquoten auszuwerten.');
+          warnings.push('Erfasse zunächst mindestens eine Einnahmequelle, um die Haushaltsquoten auszuwerten.');
         } else {
-          if (m.fixedShare > 52) {
-            notes.push(`<strong>Fixkosten-Quote (${Math.round(m.fixedShare)} %):</strong> Liegt über dem 50-%-Richtwert – hier lohnt sich ein Tarif- und Vertrags-Check.`);
-          } else {
-            notes.push(`<strong>Fixkosten-Quote (${Math.round(m.fixedShare)} %):</strong> Solide Struktur innerhalb des 50-%-Richtwerts.`);
+          if (m.cashflowMonthly < -0.5) {
+            warnings.push(`<strong>Budget-Unterdeckung (${formatEuro(m.cashflowMonthly)} / Mt.):</strong> Die laufenden Ausgaben und Sparraten übersteigen aktuell das Nettoeinkommen.`);
           }
-
-          if (m.taxSocialMonthly > 0.5) {
-            notes.push(`<strong>Steuern &amp; GKV-Zusatz (${formatEuro(m.taxSocialMonthly)} / Mt.):</strong> Direkter Wechsel- und Austrittshebel ohne Leistungsverzicht.`);
+          if (m.fixedShare > 55) {
+            warnings.push(`<strong>Erhöhte Fixkosten-Quote (${Math.round(m.fixedShare)} % statt ≤ 50 %):</strong> Ein Tarif- und Vertrags-Check schafft hier spürbaren Spielraum.`);
           }
-
-          if (m.optimizeCandidates.length > 0 && m.totalCheckSavingsMonthly > 0.5) {
-            notes.push(`<strong>Konditions-Check (${m.optimizeCandidates.length} Positionen):</strong> Mögliche Entlastung von <strong>+${formatEuro(m.totalCheckSavingsMonthly)} / Mt.</strong> (${formatEuroCompact(m.totalCheckSavingsMonthly * 12)} / Jahr).`);
+          if (m.varShare > 35) {
+            warnings.push(`<strong>Konsum- &amp; Lebenshaltungsquote (${Math.round(m.varShare)} % statt ≤ 30 %):</strong> Variable Ausgaben und Abos genau prüfen.`);
           }
         }
-        insightsBox.innerHTML = notes.map((n) => `<p class="text-slate-600 leading-relaxed flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-[#009ee3] mt-1.5 shrink-0"></span><span>${n}</span></p>`).join('');
+
+        if (warnings.length > 0) {
+          insightsBox.innerHTML = warnings.map((w) => `<p class="text-amber-950 leading-relaxed flex items-start gap-2"><span class="w-1.5 h-1.5 rounded-full bg-amber-500 mt-1.5 shrink-0"></span><span>${w}</span></p>`).join('');
+          insightsBox.classList.remove('hidden');
+        } else {
+          insightsBox.innerHTML = '';
+          insightsBox.classList.add('hidden');
+        }
 
         renderBeforeAfterSection(m);
         renderDonutChart(m);
@@ -3592,7 +3598,7 @@
       }
 
       // =========================================================================
-      // 8. D3 DONUT-CHART (MIT HOVER-INTERAKTION) & ZINSESZINS-SIMULATOR
+      // 8. D3 DONUT-CHART (MIT HOVER & 100%-BÜNDELUNG) & ZINSESZINS-SIMULATOR
       // =========================================================================
       function renderDonutChart(m) {
         const container = document.getElementById('donutChartContainer');
@@ -3604,9 +3610,9 @@
           resetBtn.classList.toggle('hidden', !state.filterCategoryId);
         }
 
-        const slices = [...m.categoryTotals].sort((a, b) => b.value - a.value);
+        const rawSlices = [...m.categoryTotals].sort((a, b) => b.value - a.value);
         if (m.cashflowMonthly > 0.5) {
-          slices.push({
+          rawSlices.push({
             id: '__cashflow__',
             label: 'Freier Cashflow',
             fullLabel: 'Freier Cashflow',
@@ -3614,6 +3620,24 @@
             type: 'cashflow',
             value: m.cashflowMonthly
           });
+        }
+
+        // Bündele kleinere Segmente ab Position 8 zu "Sonstiges", damit Legende immer 100 % abbildet
+        let slices = rawSlices;
+        if (rawSlices.length > 8) {
+          const top7 = rawSlices.slice(0, 7);
+          const restSum = rawSlices.slice(7).reduce((s, x) => s + x.value, 0);
+          slices = [
+            ...top7,
+            {
+              id: '__other__',
+              label: 'Sonstiges',
+              fullLabel: 'Sonstige Kategorien',
+              color: '#94a3b8',
+              type: 'other',
+              value: restSum
+            }
+          ];
         }
 
         const totalSum = slices.reduce((s, x) => s + x.value, 0);
@@ -3696,22 +3720,23 @@
           .attr('d', arc)
           .attr('fill', (d) => d.data.color)
           .attr('opacity', (d) => (state.filterCategoryId && d.data.id !== state.filterCategoryId ? 0.35 : 1))
-          .style('cursor', (d) => (d.data.id === '__cashflow__' ? 'default' : 'pointer'))
+          .style('cursor', (d) => (['__cashflow__', '__other__'].includes(d.data.id) ? 'default' : 'pointer'))
           .on('mouseenter', (event, d) => setHoveredSlice(d.data))
           .on('mouseleave', () => setHoveredSlice(null))
           .on('click', (event, d) => {
-            if (d.data.id === '__cashflow__') return;
+            if (['__cashflow__', '__other__'].includes(d.data.id)) return;
             state.filterCategoryId = state.filterCategoryId === d.data.id ? null : d.data.id;
             renderDashboard();
             renderTable();
           });
 
-        legendEl.innerHTML = slices.slice(0, 8).map((s) => {
+        legendEl.innerHTML = slices.map((s) => {
           const pct = Math.round((s.value / totalSum) * 100);
           const isSelected = state.filterCategoryId === s.id;
+          const isStatic = ['__cashflow__', '__other__'].includes(s.id);
           return `
             <button type="button" data-legend-cat="${s.id}"
-                    class="flex items-center justify-between gap-1.5 px-2 py-1 rounded-lg text-left transition-colors ${s.id === '__cashflow__' ? 'cursor-default' : 'hover:bg-[#F4F8FB] cursor-pointer'} ${isSelected ? 'bg-[#009ee3]/15 font-bold' : ''}">
+                    class="flex items-center justify-between gap-1.5 px-2 py-1 rounded-lg text-left transition-colors ${isStatic ? 'cursor-default' : 'hover:bg-[#F4F8FB] cursor-pointer'} ${isSelected ? 'bg-[#009ee3]/15 font-bold' : ''}">
               <span class="flex items-center gap-1.5 min-w-0">
                 <span class="w-2 h-2 rounded-full shrink-0" style="background:${s.color}"></span>
                 <span class="truncate text-[#00325b]">${escapeHtml(s.label)}</span>
@@ -3810,19 +3835,9 @@
       }
 
       // =========================================================================
-      // 9. EINHEITLICHE HAUSHALTS- & CHECKUP-TABELLE RENDERN
+      // 9. ENTSCHLACKTE HAUSHALTS- & CHECKUP-TABELLE (3-ZAHLEN-LOGIK)
       // =========================================================================
-      function formatSavingsBadgeHtml(entryId, diffPeriod, unit) {
-        if (diffPeriod > 0.005) {
-          return `<span data-row-savings="${entryId}" class="inline-flex items-center px-2.5 py-1 rounded-xl bg-[#269b8d]/15 border border-[#269b8d]/40 text-[#146c62] font-extrabold text-xs sm:text-[13px] whitespace-nowrap">+${formatEuro(diffPeriod)} ${unit}</span>`;
-        }
-        if (diffPeriod < -0.005) {
-          return `<span data-row-savings="${entryId}" class="inline-flex items-center px-2.5 py-1 rounded-xl bg-red-50 border border-red-200 text-red-600 font-bold text-xs whitespace-nowrap">-${formatEuro(Math.abs(diffPeriod))} ${unit}</span>`;
-        }
-        return `<span data-row-savings="${entryId}" class="inline-flex items-center px-2.5 py-1 rounded-xl bg-slate-100 text-slate-400 font-semibold text-xs whitespace-nowrap">0,00 €</span>`;
-      }
-
-      function buildCheckControlCellHtml(entry, isSecondPhase) {
+      function buildCheckCellsHtml(entry, isSecondPhase) {
         if (!isSecondPhase) return '';
         if (!entry.optimize) {
           return `
@@ -3833,83 +3848,85 @@
 
         const isYearly = state.checkPeriod === 'yearly';
         const mult = isYearly ? 12 : 1;
-        const unit = isYearly ? '/ Jahr' : '/ Mt.';
+        const unitShort = isYearly ? '/ Jahr' : '/ Mt.';
 
         const baseMonthly = getMonthlyAmount(entry);
         const afterMonthly = getOptimizedTargetMonthly(entry);
         const diffPeriod = (baseMonthly - afterMonthly) * mult;
+        const afterPeriod = afterMonthly * mult;
+
         const isGkvItem = entry.linkedKind === 'gkv';
         const isChurchItem = entry.linkedKind === 'church';
 
-        const savingsCellHtml = `
-          <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
-            ${formatSavingsBadgeHtml(entry.id, diffPeriod, unit)}
-          </td>
+        const savedBadgeHtml = `
+          <span data-row-savings="${entry.id}"
+                class="inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-extrabold whitespace-nowrap ${diffPeriod > 0.005 ? 'bg-[#269b8d]/14 text-[#146c62] border border-[#269b8d]/35' : diffPeriod < -0.005 ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-100 text-slate-400'}">
+            ${diffPeriod > 0.005 ? `+${formatEuro(diffPeriod)} ${unitShort}` : diffPeriod < -0.005 ? `-${formatEuro(Math.abs(diffPeriod))} ${unitShort}` : '0,00 €'}
+          </span>
         `;
 
+        let controlHtml = '';
         if (isGkvItem) {
           const selectedTargetGkv = getGkvById(entry.targetGkvId || 'bkk_firmus');
-          const displayGkv = `${selectedTargetGkv.name} (${selectedTargetGkv.zusatz.toFixed(2).replace('.', ',')} %)`;
-          return `
-            <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
-              <div class="ba-gkv-picker relative inline-block text-left w-60" data-ba-gkv-picker="${entry.id}">
-                <div class="relative flex items-center">
-                  <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                    <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+          const compactGkvLabel = `${selectedTargetGkv.name} (${selectedTargetGkv.zusatz.toFixed(2).replace('.', ',')} %)`;
+          controlHtml = `
+            <div class="ba-gkv-picker relative inline-block text-left w-56" data-ba-gkv-picker="${entry.id}">
+              <div class="relative flex items-center">
+                <svg class="w-3.5 h-3.5 text-slate-400 absolute left-2.5 pointer-events-none" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <circle cx="11" cy="11" r="8" /><line x1="21" y1="21" x2="16.65" y2="16.65" />
+                </svg>
+                <input type="text" autocomplete="off"
+                  data-ba-gkv-search="${entry.id}"
+                  value="${escapeHtml(compactGkvLabel)}"
+                  aria-label="Ziel-Krankenkasse suchen"
+                  placeholder="Kasse suchen..."
+                  class="ba-gkv-search-input w-full bg-[#F4F8FB] border border-[#009ee3]/50 rounded-lg pl-7 pr-6 py-1.5 text-xs font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+                <button type="button" tabindex="-1" data-ba-gkv-toggle="${entry.id}" aria-label="Krankenkassenliste öffnen"
+                  class="absolute right-1.5 text-slate-400 hover:text-[#00325b] cursor-pointer">
+                  <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                    <polyline points="6 9 12 15 18 9" />
                   </svg>
-                  <input type="text" autocomplete="off"
-                    data-ba-gkv-search="${entry.id}"
-                    value="${escapeHtml(displayGkv)}"
-                    aria-label="Ziel-Krankenkasse suchen"
-                    placeholder="Kasse suchen..."
-                    class="ba-gkv-search-input w-full bg-[#F4F8FB] border border-[#009ee3]/50 rounded-xl pl-7 pr-6 py-1.5 text-xs font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
-                  <button type="button" tabindex="-1" data-ba-gkv-toggle="${entry.id}" aria-label="Krankenkassenliste öffnen"
-                    class="absolute right-2 text-slate-400 hover:text-[#00325b] cursor-pointer">
-                    <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                      <polyline points="6 9 12 15 18 9" />
-                    </svg>
-                  </button>
-                </div>
-                <div data-ba-gkv-dropdown="${entry.id}" class="ba-gkv-dropdown hidden absolute right-0 z-40 mt-1 w-72 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1 text-left"></div>
+                </button>
               </div>
-            </td>
-            ${savingsCellHtml}
+              <div data-ba-gkv-dropdown="${entry.id}" class="ba-gkv-dropdown hidden absolute right-0 z-40 mt-1 w-72 max-h-56 overflow-y-auto bg-white border border-slate-200 rounded-xl shadow-xl py-1 text-left"></div>
+            </div>
           `;
-        }
-
-        if (isChurchItem) {
+        } else if (isChurchItem) {
           const isChurchExit = afterMonthly <= 0.005;
-          return `
-            <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
-              <div class="inline-flex items-center gap-1.5">
-                <span class="text-[11px] font-semibold text-slate-500">Austritt:</span>
-                <div role="group" aria-label="Kirchenaustritt simulieren"
-                     class="inline-flex bg-[#F4F8FB] p-0.5 rounded-xl border border-slate-200/90">
-                  <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="yes"
-                          class="btn-tactile px-2.5 py-1 rounded-lg text-xs font-extrabold cursor-pointer ${isChurchExit ? 'bg-[#00325b] text-[#d3d800] shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
-                    Ja
-                  </button>
-                  <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="no"
-                          class="btn-tactile px-2.5 py-1 rounded-lg text-xs font-bold cursor-pointer ${!isChurchExit ? 'bg-slate-600 text-white shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
-                    Nein
-                  </button>
-                </div>
+          controlHtml = `
+            <div class="inline-flex items-center gap-1.5">
+              <span class="text-[11px] font-semibold text-slate-500">Austritt:</span>
+              <div role="group" aria-label="Kirchenaustritt simulieren"
+                   class="inline-flex bg-[#F4F8FB] p-0.5 rounded-lg border border-slate-200/90">
+                <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="yes"
+                        class="btn-tactile px-2.5 py-0.5 rounded-md text-xs font-extrabold cursor-pointer ${isChurchExit ? 'bg-[#00325b] text-[#d3d800] shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
+                  Ja
+                </button>
+                <button type="button" data-ba-church-toggle="${entry.id}" data-church-exit="no"
+                        class="btn-tactile px-2.5 py-0.5 rounded-md text-xs font-bold cursor-pointer ${!isChurchExit ? 'bg-slate-600 text-white shadow-2xs' : 'text-[#00325b]/70 hover:text-[#00325b]'}">
+                  Nein
+                </button>
               </div>
-            </td>
-            ${savingsCellHtml}
+            </div>
+          `;
+        } else {
+          controlHtml = `
+            <div class="relative inline-flex items-center">
+              <input type="number" step="0.01" min="0" data-ba-id="${entry.id}" value="${afterPeriod.toFixed(2)}"
+                aria-label="Optimierter Wert für ${escapeHtml(entry.title)}"
+                class="ba-after-input w-24 text-right bg-[#F4F8FB] border border-[#009ee3]/50 rounded-lg pl-2 pr-5 py-1.5 text-xs font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
+              <span class="absolute right-2 text-[11px] font-semibold text-slate-400 pointer-events-none">€</span>
+            </div>
           `;
         }
 
         return `
           <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
-            <div class="relative inline-flex items-center">
-              <input type="number" step="0.01" min="0" data-ba-id="${entry.id}" value="${(afterMonthly * mult).toFixed(2)}"
-                aria-label="Optimierter Wert für ${escapeHtml(entry.title)}"
-                class="ba-after-input w-24 text-right bg-[#F4F8FB] border border-[#009ee3]/50 rounded-xl pl-2.5 pr-6 py-1.5 text-xs sm:text-sm font-bold text-[#00325b] focus:outline-none focus:ring-2 focus:ring-[#009ee3]/30 focus:border-[#009ee3]" />
-              <span class="absolute right-2.5 text-[11px] font-semibold text-slate-400 pointer-events-none">€</span>
-            </div>
+            ${controlHtml}
           </td>
-          ${savingsCellHtml}
+          <td class="no-print hidden sm:table-cell py-3 px-4 text-right whitespace-nowrap">
+            ${savedBadgeHtml}
+          </td>
         `;
       }
 
@@ -3919,91 +3936,94 @@
         const monthly = getEffectiveMonthlyAmount(entry);
         const isSecondPhase = state.conversationPhase === 'second';
         const isYearly = state.checkPeriod === 'yearly';
-        const mult = isSecondPhase && isYearly ? 12 : 1;
-        const unit = isYearly ? '/ Jahr' : '/ Mt.';
+        const mult = (isSecondPhase && isYearly) ? 12 : 1;
+        const unitShort = (isSecondPhase && isYearly) ? '/ Jahr' : '/ Mt.';
 
-        const isOptimizedActive = !isSecondPhase && state.applyOptimizedToBalance && entry.optimize && Math.abs(rawMonthly - monthly) > 0.01;
+        const isOptimizedActive = state.applyOptimizedToBalance && entry.optimize && Math.abs(rawMonthly - monthly) > 0.01;
         const isIncome = entry.type === 'income';
         const isSavings = entry.type === 'savings';
 
-        const afterCheckM = getOptimizedTargetMonthly(entry);
-        const checkDiffPeriod = (rawMonthly - afterCheckM) * mult;
+        const afterCheckPeriod = getOptimizedTargetMonthly(entry) * mult;
+        const checkDiffPeriod = (rawMonthly - getOptimizedTargetMonthly(entry)) * mult;
 
-        let specialSubText = '';
-        if (!isSecondPhase) {
-          if (entry.salaryMeta) {
-            const st = entry.salaryMeta.status || 'employee';
-            const statusLbl = st === 'civil' ? 'Beamte' : st === 'self' ? 'Selbstständig' : 'Brutto';
-            specialSubText = `${statusLbl} ${formatEuroCompact(entry.salaryMeta.grossMonthly)} • Auszahlung ${formatEuro(entry.salaryMeta.netPayout)}`;
-          } else if (entry.bavMeta) {
-            specialSubText = `Brutto-Sparbeitrag ${formatEuro(entry.bavMeta.totalGross)} (inkl. ${entry.bavMeta.agPct} % AG) • Nettoaufwand`;
-          } else if (entry.pkvMeta && entry.pkvMeta.subsidyEur > 0.01) {
-            specialSubText = `Tarif ${formatEuro(entry.pkvMeta.grossPkv)} − Zuschuss ${formatEuro(entry.pkvMeta.subsidyEur)}`;
-          }
+        // Turnus-Spalte im 1. Gespräch: "Monatlich" ausblenden, nur abweichende Rhythmen als Badge zeigen
+        let rhythmBadgeHtml = '';
+        if (!isSecondPhase && entry.freq > 1) {
+          rhythmBadgeHtml = `
+            <span class="inline-flex items-center px-2 py-0.5 rounded-md bg-[#F4F8FB] border border-slate-200/80 text-[11px] font-semibold text-slate-600">
+              ${FREQUENCY_LABELS[entry.freq]} (${formatEuroCompact(entry.amount)})
+            </span>
+          `;
         }
 
-        const freqInfo = !isSecondPhase && entry.freq > 1
-          ? `<span class="block text-[10.5px] text-slate-400">${formatEuro(entry.amount)} alle ${entry.freq} Mt.</span>`
-          : (specialSubText
-              ? `<span class="block text-[10.5px] text-slate-400">${specialSubText}</span>`
-              : '');
-
-        const desktopFlatCatHtml = !isGroupedChild
-          ? `<span class="hidden sm:inline-flex items-center gap-1.5 text-[10.5px] text-slate-400 mt-0.5">
-               <span class="w-1.5 h-1.5 rounded-full shrink-0" style="background:${meta.color}"></span>
-               <span>${escapeHtml(meta.label)}</span>
-             </span>`
-          : '';
-
-        const mobileSubParts = [];
-        if (!isGroupedChild) mobileSubParts.push(escapeHtml(meta.shortLabel));
-        if (isSecondPhase && entry.optimize) {
-          mobileSubParts.push(`Nachher: ${formatEuro(afterCheckM * mult)}`);
-          if (checkDiffPeriod > 0.005) {
-            mobileSubParts.push(`<span class="inline-block px-1.5 py-0.2 rounded-md bg-[#269b8d]/15 text-[#146c62] font-extrabold">+${formatEuro(checkDiffPeriod)} ${unit}</span>`);
+        // Verständliche Zusatzinfo unter dem Titel
+        let subLineHtml = '';
+        if (entry.salaryMeta) {
+          const st = entry.salaryMeta.status || 'employee';
+          if (st === 'employee' && (entry.salaryMeta.gkvId !== 'pkv_none' || entry.salaryMeta.church)) {
+            subLineHtml = `<span class="block text-[11px] text-slate-400 mt-0.5">Netto vor GKV-Zusatz &amp; Kirchensteuer • Auszahlung: ${formatEuro(entry.salaryMeta.netPayout)}</span>`;
+          } else {
+            const statusLbl = st === 'civil' ? 'Brutto-Besoldung' : st === 'self' ? 'Gewinn vor ESt' : 'Brutto';
+            subLineHtml = `<span class="block text-[11px] text-slate-400 mt-0.5">${statusLbl}: ${formatEuroCompact(entry.salaryMeta.grossMonthly)}</span>`;
           }
+        } else if (entry.bavMeta) {
+          subLineHtml = `<span class="block text-[11px] text-slate-400 mt-0.5">Brutto-Sparbeitrag ${formatEuro(entry.bavMeta.totalGross)} (inkl. ${entry.bavMeta.agPct} % AG) • Nettoaufwand</span>`;
+        } else if (entry.pkvMeta && entry.pkvMeta.subsidyEur > 0.01) {
+          subLineHtml = `<span class="block text-[11px] text-slate-400 mt-0.5">Tarif ${formatEuro(entry.pkvMeta.grossPkv)} − Zuschuss ${formatEuro(entry.pkvMeta.subsidyEur)}</span>`;
+        } else if (!isGroupedChild) {
+          subLineHtml = `<span class="hidden sm:inline-flex items-center gap-1.5 text-[10.5px] text-slate-400 mt-0.5">
+            <span class="w-1.5 h-1.5 rounded-full shrink-0" style="background:${meta.color}"></span>
+            <span>${escapeHtml(meta.label)}</span>
+          </span>`;
+        }
+
+        // Mobile Unterzeile (im 2. Gespräch mit klarem Ersparnis-Badge)
+        const mobileSubParts = [];
+        if (!isGroupedChild && !entry.salaryMeta && !entry.bavMeta) {
+          mobileSubParts.push(escapeHtml(meta.shortLabel));
+        }
+        if (isSecondPhase && entry.optimize) {
+          const badgeTxt = checkDiffPeriod > 0.005 ? `+${formatEuro(checkDiffPeriod)} ${unitShort}` : '';
+          mobileSubParts.push(`<span class="font-semibold text-slate-500">Nachher: ${formatEuro(afterCheckPeriod)}</span>${badgeTxt ? ` <span class="inline-flex items-center px-1.5 py-0.2 rounded-md bg-[#269b8d]/15 text-[#146c62] font-extrabold">${badgeTxt}</span>` : ''}`);
         } else if (entry.freq > 1) {
           mobileSubParts.push(`${FREQUENCY_LABELS[entry.freq]} (${formatEuroCompact(entry.amount)})`);
-        } else if (specialSubText) {
-          mobileSubParts.push(specialSubText);
         }
         const mobileSubHtml = mobileSubParts.length > 0
           ? `<span class="sm:hidden block text-[10.5px] text-slate-400 mt-0.5">${mobileSubParts.join(' • ')}</span>`
           : '';
 
-        const rhythmCellHtml = isSecondPhase
-          ? ''
-          : `<td class="py-3 px-4 hidden sm:table-cell text-xs text-slate-500">
-               <span>${FREQUENCY_LABELS[entry.freq] || 'Monatlich'}</span>
-               ${freqInfo}
-             </td>`;
+        // Im 2. Gespräch & in der Kunden-Ansicht keine redundanten ★ Check-Badges hinter jedem Titel
+        const showCheckBadge = entry.optimize && !isSecondPhase && !state.clientMode;
 
-        const mainValueColor = isSecondPhase
+        const mainValue = isSecondPhase ? (rawMonthly * mult) : monthly;
+        const mainColorClass = isSecondPhase
           ? 'text-slate-500 font-semibold'
           : (isIncome ? 'text-[#009ee3] font-bold' : isSavings ? 'text-[#1f8579] font-bold' : 'text-[#00325b] font-bold');
 
         return `
-          <td class="py-3.5 px-3 sm:px-4 ${isGroupedChild ? 'pl-6 sm:pl-8' : ''}">
+          <td class="py-3 px-3 sm:px-4 ${isGroupedChild ? 'pl-6 sm:pl-9' : ''}">
             <div class="flex items-center gap-1.5 sm:gap-2 flex-wrap">
               <span class="font-semibold text-[#00325b] leading-snug break-words">${escapeHtml(entry.title)}</span>
-              ${!isSecondPhase && entry.optimize ? `<span class="text-[9.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b] shrink-0">★ Check</span>` : ''}
+              ${showCheckBadge ? `<span class="text-[9.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full bg-[#d3d800]/55 text-[#00325b] shrink-0">★ Check</span>` : ''}
             </div>
-            ${desktopFlatCatHtml}
+            ${subLineHtml}
             ${mobileSubHtml}
           </td>
-          ${rhythmCellHtml}
-          <td class="py-3.5 px-3 sm:px-4 text-right whitespace-nowrap ${mainValueColor}">
+          <td class="py-3 px-4 hidden ${isSecondPhase ? '' : 'sm:table-cell'} text-xs text-slate-500">
+            ${rhythmBadgeHtml}
+          </td>
+          <td class="py-3 px-3 sm:px-4 text-right whitespace-nowrap ${mainColorClass}">
             <div class="inline-flex items-center justify-end gap-1.5">
               <div>
-                ${isOptimizedActive ? `<span class="block text-[10px] sm:text-[10.5px] font-normal text-slate-400 line-through">${formatEuro(rawMonthly)}</span>` : ''}
-                <span>${!isSecondPhase && isIncome ? '+' : ''}${formatEuro((isSecondPhase ? rawMonthly : monthly) * mult)}</span>
+                ${!isSecondPhase && isOptimizedActive ? `<span class="block text-[10px] sm:text-[10.5px] font-normal text-slate-400 line-through">${formatEuro(rawMonthly)}</span>` : ''}
+                <span>${!isSecondPhase && isIncome ? '+' : ''}${formatEuro(mainValue)}</span>
               </div>
               <svg class="sm:hidden w-3.5 h-3.5 text-slate-300 shrink-0" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                 <polyline points="9 18 15 12 9 6" />
               </svg>
             </div>
           </td>
-          ${buildCheckControlCellHtml(entry, isSecondPhase)}
+          ${buildCheckCellsHtml(entry, isSecondPhase)}
           <td class="no-print hidden sm:table-cell py-2.5 px-4 text-right whitespace-nowrap">
             <div class="inline-flex items-center justify-end gap-1">
               <button type="button" data-edit-id="${entry.id}" title="Position bearbeiten" class="btn-tactile p-1.5 rounded-lg text-slate-400 hover:text-[#00325b] hover:bg-slate-200/60 cursor-pointer">
@@ -4026,28 +4046,33 @@
         const emptyState = document.getElementById('emptyTableState');
         const isSecondPhase = state.conversationPhase === 'second';
         const isYearly = state.checkPeriod === 'yearly';
-        const unit = isYearly ? '/ Jahr' : '/ Mt.';
+
+        // Im 2. Gespräch die Typ-Filterleiste ausblenden, damit Fokus auf Check-Verträgen bleibt
+        const filterBar = document.getElementById('typeFilterBar');
+        if (filterBar) {
+          filterBar.classList.toggle('hidden', isSecondPhase);
+        }
 
         const thRhythm = document.getElementById('thRhythmHeader');
+        const thMonthly = document.getElementById('thMonthlyHeader');
         const thCheckAfter = document.getElementById('thCheckAfterHeader');
         const thCheckSavings = document.getElementById('thCheckSavingsHeader');
-        const thMonthly = document.getElementById('thMonthlyHeader');
 
         if (thRhythm) {
           thRhythm.classList.toggle('sm:table-cell', !isSecondPhase);
         }
+        if (thMonthly) {
+          thMonthly.textContent = isSecondPhase ? (isYearly ? 'Vorher / Jahr' : 'Vorher / Mt.') : 'Monatswert';
+        }
         if (thCheckAfter) {
           thCheckAfter.classList.toggle('hidden', !isSecondPhase);
           thCheckAfter.classList.toggle('sm:table-cell', isSecondPhase);
-          thCheckAfter.textContent = `Nachher ${unit}`;
+          thCheckAfter.textContent = isYearly ? 'Nachher / Jahr' : 'Nachher / Mt.';
         }
         if (thCheckSavings) {
           thCheckSavings.classList.toggle('hidden', !isSecondPhase);
           thCheckSavings.classList.toggle('sm:table-cell', isSecondPhase);
-          thCheckSavings.textContent = `Ersparnis ${unit}`;
-        }
-        if (thMonthly) {
-          thMonthly.textContent = isSecondPhase ? `Vorher ${unit}` : 'Monatswert';
+          thCheckSavings.textContent = isYearly ? 'Ersparnis / Jahr' : 'Ersparnis / Mt.';
         }
 
         const checkItems = state.entries.filter((e) => e.optimize);
@@ -4120,14 +4145,15 @@
             const isSavings = group.type === 'savings';
 
             const headerTr = document.createElement('tr');
+
             if (isSecondPhase) {
-              // Ruhiger, schlanker Abschnitts-Trenner im 2. Gespräch (ohne doppelte Teilsummen)
-              headerTr.className = 'bg-[#F4F8FB]/90 border-t border-slate-200/90 select-none';
+              // Im 2. Gespräch: Ruhiger Abschnitts-Trenner ohne doppelte Teilsummen
+              headerTr.className = 'bg-[#F4F8FB]/90 border-t border-slate-200/80 select-none';
               headerTr.innerHTML = `
-                <td colspan="5" class="py-2 px-3 sm:px-4">
+                <td colspan="6" class="py-2 px-3 sm:px-4">
                   <div class="flex items-center gap-2">
                     <span class="w-2 h-2 rounded-full shrink-0" style="background:${group.meta.color}"></span>
-                    <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-slate-500">${escapeHtml(group.meta.label)}</span>
+                    <span class="text-[11px] sm:text-xs font-extrabold uppercase tracking-wider text-[#00325b]/80">${escapeHtml(group.meta.label)}</span>
                   </div>
                 </td>
               `;
@@ -4144,12 +4170,11 @@
                     </span>
                     <span class="w-2 h-2 sm:w-2.5 sm:h-2.5 rounded-full shrink-0" style="background:${group.meta.color}"></span>
                     <span class="text-xs sm:text-[13px] font-extrabold text-[#00325b] tracking-tight leading-snug break-words">${escapeHtml(group.meta.label)}</span>
-                    <span class="text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 rounded-full bg-slate-200/70 text-[#00325b] shrink-0">${group.items.length}<span class="hidden sm:inline"> Position${group.items.length === 1 ? '' : 'en'}</span></span>
+                    <span class="text-[10px] font-semibold px-1.5 sm:px-2 py-0.5 rounded-full bg-slate-200/70 text-[#00325b] shrink-0">${group.items.length}</span>
                   </div>
                 </td>
                 <td class="hidden sm:table-cell py-2.5 px-4"></td>
                 <td class="py-2.5 px-3 sm:px-4 text-right whitespace-nowrap">
-                  <span class="hidden sm:block text-[10.5px] font-medium text-slate-400 leading-none mb-0.5">Teilsumme</span>
                   <span class="text-xs sm:text-sm font-extrabold ${isIncome ? 'text-[#009ee3]' : isSavings ? 'text-[#1f8579]' : 'text-[#00325b]'}">
                     ${isIncome ? '+' : ''}${formatEuro(group.activeSum)}
                   </span>
@@ -4647,6 +4672,11 @@
         const optCheckbox = document.getElementById('popOptimizeCheckbox');
         const checkAfterInput = document.getElementById('popCheckAfterInput');
         const checkGkvInput = document.getElementById('popCheckGkvInput');
+        const quickChipsWrap = document.getElementById('quickPresetChipsWrap');
+
+        if (quickChipsWrap) {
+          quickChipsWrap.classList.toggle('hidden', mode === 'edit');
+        }
 
         if (mode === 'edit' && entry) {
           titleEl.textContent = 'Position bearbeiten';
@@ -4849,14 +4879,14 @@
             appleLink.href = canvas.toDataURL('image/png');
           }
         } catch (err) {
-          // Ignorieren
+          // Ignorieren falls Canvas nicht verfügbar
         }
       }
 
       function init() {
         initAppIcons();
-        applyTvScaleUi();
         applySidebarExpandedUi();
+        applyTvScaleUi();
 
         const salStateSelect = document.getElementById('popSalState');
         if (salStateSelect) {
@@ -4913,7 +4943,7 @@
           openPopover({ mode: 'add' });
         });
 
-        // Seitenleiste als Overlay ein-/ausklappen & Großbild-Toggle
+        // Sidebar Overlay ein-/ausklappen & Großbild-Toggle
         function setSidebarExpanded(expanded) {
           state.sidebarExpanded = Boolean(expanded);
           applySidebarExpandedUi();
@@ -4933,45 +4963,55 @@
 
         document.getElementById('sideTvScaleBtn')?.addEventListener('click', toggleTvScale);
 
-        // Schnellfunktion: Aktuelles Blatt vollständig leeren (mit 2-Klick-Schutz)
+        // Schnellfunktion: Aktuelles Blatt vollständig leeren (mit Sicherheits-Rückfrage)
+        let clearConfirmArmed = false;
         let clearConfirmTimer = null;
-        let clearConfirmPending = false;
-        const sideClearBtn = document.getElementById('sideClearSheetBtn');
-        const sideClearLbl = document.getElementById('sideClearSheetLabel');
+        const clearSheetBtn = document.getElementById('sideClearSheetBtn');
+        const clearSheetLbl = document.getElementById('sideClearSheetLabel');
 
-        function resetClearSheetButton() {
-          clearConfirmPending = false;
-          if (clearConfirmTimer) clearTimeout(clearConfirmTimer);
-          if (sideClearBtn) {
-            sideClearBtn.classList.remove('bg-red-600', 'text-white', 'hover:bg-red-700');
-            sideClearBtn.classList.add('hover:bg-red-50', 'text-slate-500', 'hover:text-red-600');
-            sideClearBtn.dataset.tooltip = 'Aktuelles Blatt vollständig leeren';
+        function disarmClearSheet() {
+          clearConfirmArmed = false;
+          if (clearConfirmTimer) {
+            clearTimeout(clearConfirmTimer);
+            clearConfirmTimer = null;
           }
-          if (sideClearLbl) sideClearLbl.textContent = 'Blatt vollständig leeren';
+          if (clearSheetBtn) {
+            clearSheetBtn.dataset.tooltip = 'Aktuelles Blatt vollständig leeren';
+            clearSheetBtn.className = 'side-item btn-tactile w-10 h-10 mx-auto rounded-xl hover:bg-red-50 text-slate-500 hover:text-red-600 font-semibold text-xs flex items-center justify-center gap-2.5 cursor-pointer';
+            if (state.sidebarExpanded) {
+              clearSheetBtn.classList.remove('w-10', 'mx-auto', 'justify-center');
+              clearSheetBtn.classList.add('w-full', 'px-3.5', 'justify-start');
+            }
+          }
+          if (clearSheetLbl) clearSheetLbl.textContent = 'Blatt vollständig leeren';
         }
 
-        sideClearBtn?.addEventListener('click', () => {
-          if (!clearConfirmPending) {
-            clearConfirmPending = true;
-            sideClearBtn.classList.remove('hover:bg-red-50', 'text-slate-500', 'hover:text-red-600');
-            sideClearBtn.classList.add('bg-red-600', 'text-white', 'hover:bg-red-700');
-            sideClearBtn.dataset.tooltip = 'Nochmal klicken zum Leeren!';
-            if (sideClearLbl) sideClearLbl.textContent = 'Wirklich alles leeren?';
-            showToast('Sicherheitsabfrage: Klicke nochmal, um das gesamte Blatt zu leeren.');
-            clearConfirmTimer = setTimeout(resetClearSheetButton, 4000);
+        clearSheetBtn?.addEventListener('click', () => {
+          if (!clearConfirmArmed) {
+            clearConfirmArmed = true;
+            clearSheetBtn.dataset.tooltip = 'Nochmal klicken zum Leeren!';
+            clearSheetBtn.className = 'side-item btn-tactile w-10 h-10 mx-auto rounded-xl bg-red-600 text-white font-bold text-xs flex items-center justify-center gap-2.5 shadow-sm cursor-pointer';
+            if (state.sidebarExpanded) {
+              clearSheetBtn.classList.remove('w-10', 'mx-auto', 'justify-center');
+              clearSheetBtn.classList.add('w-full', 'px-3.5', 'justify-start');
+            }
+            if (clearSheetLbl) clearSheetLbl.textContent = 'Wirklich leeren? (Klick)';
+            showToast('Nochmal klicken, um das Blatt vollständig zu leeren.');
+            clearConfirmTimer = setTimeout(disarmClearSheet, 4000);
             return;
           }
-          resetClearSheetButton();
+
+          disarmClearSheet();
           state.entries = [];
           state.expandedGroups = {};
           state.filterCategoryId = null;
           state.applyOptimizedToBalance = false;
           const optToggle = document.getElementById('applyOptimizedToggle');
           if (optToggle) optToggle.checked = false;
-          const sel1 = document.getElementById('scenarioSelect');
-          const sel2 = document.getElementById('sideScenarioSelect');
-          if (sel1) sel1.value = 'empty';
-          if (sel2) sel2.value = 'empty';
+          const scenSel = document.getElementById('scenarioSelect');
+          const sideScenSel = document.getElementById('sideScenarioSelect');
+          if (scenSel) scenSel.value = 'empty';
+          if (sideScenSel) sideScenSel.value = 'empty';
           setSidebarExpanded(false);
           renderAll();
           showToast('Blatt vollständig geleert.');
@@ -5035,9 +5075,9 @@
 
           document.querySelectorAll('.side-phase-btn').forEach((btn) => {
             const active = btn.dataset.phase === phase;
-            const sizeCls = state.sidebarExpanded ? 'w-full px-3 justify-start' : 'w-10 mx-auto justify-center';
+            const sizeCls = state.sidebarExpanded ? 'w-full px-3.5 justify-start' : 'w-10 mx-auto justify-center';
             btn.className = active
-              ? `side-item side-phase-btn active btn-tactile ${sizeCls} h-10 rounded-xl bg-[#00325b] text-white font-bold text-xs flex items-center gap-2.5 shadow-2xs relative cursor-pointer`
+              ? `side-item side-phase-btn active btn-tactile ${sizeCls} h-10 rounded-xl bg-[#00325b] text-white font-bold text-xs flex items-center gap-2.5 relative shadow-2xs cursor-pointer`
               : `side-item side-phase-btn btn-tactile ${sizeCls} h-10 rounded-xl bg-[#F4F8FB] hover:bg-[#E8F1F8] text-[#00325b] font-bold text-xs flex items-center gap-2.5 relative cursor-pointer`;
           });
 
@@ -5061,6 +5101,26 @@
           setConversationPhase(state.conversationPhase === 'first' ? 'second' : 'first');
         });
 
+        // Mt. | Jahr Umschalter im Ergebnis-Check
+        document.getElementById('checkPeriodToggle')?.addEventListener('click', (e) => {
+          const btn = e.target.closest('.check-period-btn');
+          if (!btn) return;
+          const nextPeriod = btn.dataset.checkPeriod === 'yearly' ? 'yearly' : 'monthly';
+          if (state.checkPeriod === nextPeriod) return;
+          state.checkPeriod = nextPeriod;
+
+          document.querySelectorAll('.check-period-btn').forEach((b) => {
+            const active = b === btn;
+            b.className = active
+              ? 'check-period-btn active btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer'
+              : 'check-period-btn btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
+          });
+
+          syncCheckSummaryDom(calculateMetrics());
+          renderTable();
+        });
+
+        // Mobiles Menü öffnen / schließen
         const headerMenuPanel = document.getElementById('headerMenuPanel');
         const headerMenuBackdrop = document.getElementById('headerMenuBackdrop');
         const headerMenuBtn = document.getElementById('headerMenuBtn');
@@ -5086,6 +5146,7 @@
         document.getElementById('closeHeaderMenuBtn')?.addEventListener('click', closeHeaderMenu);
         headerMenuBackdrop?.addEventListener('click', closeHeaderMenu);
 
+        // Mobile Bottom Bar
         document.getElementById('mobileBarAddBtn')?.addEventListener('click', () => {
           openPopover({ mode: 'add' });
         });
@@ -5132,6 +5193,7 @@
         document.getElementById('menuSwitchToAdvisorBtn')?.addEventListener('click', switchBackToAdvisorView);
         document.getElementById('bannerSwitchToAdvisorBtn')?.addEventListener('click', switchBackToAdvisorView);
 
+        // Kundenakten Modal
         const clientModal = document.getElementById('clientRecordsModal');
         function renderClientRecordsList() {
           const listEl = document.getElementById('savedClientRecordsList');
@@ -5227,6 +5289,7 @@
           }
         });
 
+        // Kunden-Freigabe Modal
         const takeHomeModal = document.getElementById('clientTakeHomeModal');
 
         function updateTakeHomeShareLink() {
@@ -5300,23 +5363,9 @@
           );
         });
 
+        // Zweitgespräch Check-Steuerung
         document.getElementById('applyOptimizedToggle')?.addEventListener('change', (e) => {
           state.applyOptimizedToBalance = Boolean(e.target.checked);
-          renderAll();
-        });
-
-        document.getElementById('checkPeriodToggle')?.addEventListener('click', (e) => {
-          const btn = e.target.closest('.check-period-btn');
-          if (!btn) return;
-          const nextPeriod = btn.dataset.checkPeriod === 'yearly' ? 'yearly' : 'monthly';
-          if (state.checkPeriod === nextPeriod) return;
-          state.checkPeriod = nextPeriod;
-          document.querySelectorAll('.check-period-btn').forEach((b) => {
-            const active = b.dataset.checkPeriod === nextPeriod;
-            b.className = active
-              ? 'check-period-btn active btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer'
-              : 'check-period-btn btn-tactile px-2.5 py-1.5 rounded-[10px] text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
-          });
           renderAll();
         });
 
@@ -5345,6 +5394,7 @@
           showToast(`Sparrate auf ${formatEuroCompact(targetMonthly)}/Mt. (inkl. Check-Ersparnis) gesetzt.`);
         });
 
+        // Filter-, Such- und Sortier-Steuerung der Tabelle
         document.getElementById('typeFilterBar')?.addEventListener('click', (e) => {
           const pill = e.target.closest('.filter-pill');
           if (!pill) return;
@@ -5366,6 +5416,69 @@
           renderTable();
         });
 
+        // Smartphone: Suchfeld hinter Lupen-Icon ein-/ausblenden
+        const tableSearchWrap = document.getElementById('tableSearchWrap');
+        const mobileSearchToggleBtn = document.getElementById('mobileTableSearchToggle');
+        function setMobileSearchOpen(open) {
+          state.mobileSearchOpen = Boolean(open);
+          if (tableSearchWrap) {
+            tableSearchWrap.classList.toggle('hidden', !state.mobileSearchOpen);
+            tableSearchWrap.classList.toggle('flex', state.mobileSearchOpen);
+          }
+          if (mobileSearchToggleBtn) {
+            mobileSearchToggleBtn.classList.toggle('bg-[#00325b]', state.mobileSearchOpen);
+            mobileSearchToggleBtn.classList.toggle('text-white', state.mobileSearchOpen);
+            mobileSearchToggleBtn.classList.toggle('bg-[#F4F8FB]', !state.mobileSearchOpen);
+            mobileSearchToggleBtn.classList.toggle('text-[#00325b]', !state.mobileSearchOpen);
+          }
+          if (state.mobileSearchOpen) {
+            document.getElementById('tableSearchInput')?.focus();
+          }
+        }
+
+        mobileSearchToggleBtn?.addEventListener('click', () => {
+          setMobileSearchOpen(!state.mobileSearchOpen);
+        });
+        document.getElementById('clearMobileSearchBtn')?.addEventListener('click', () => {
+          const inp = document.getElementById('tableSearchInput');
+          if (inp && inp.value) {
+            inp.value = '';
+            state.searchQuery = '';
+            renderTable();
+          }
+          setMobileSearchOpen(false);
+        });
+
+        // Smartphone: Tab-Umschaltung zwischen 50/30/20 Struktur & Donut-Verteilung
+        document.getElementById('mobileAnalysisTabs')?.addEventListener('click', (e) => {
+          const btn = e.target.closest('.mobile-analysis-tab-btn');
+          if (!btn) return;
+          const tab = btn.dataset.analysisTab === 'donut' ? 'donut' : 'benchmark';
+          if (state.mobileAnalysisTab === tab) return;
+          state.mobileAnalysisTab = tab;
+
+          document.querySelectorAll('.mobile-analysis-tab-btn').forEach((b) => {
+            const active = b === btn;
+            b.className = active
+              ? 'mobile-analysis-tab-btn active btn-tactile py-2 px-3 rounded-xl text-xs font-bold bg-[#00325b] text-white shadow-2xs cursor-pointer'
+              : 'mobile-analysis-tab-btn btn-tactile py-2 px-3 rounded-xl text-xs font-bold text-[#00325b]/75 hover:text-[#00325b] cursor-pointer';
+          });
+
+          const benchCard = document.getElementById('benchmarkCard');
+          const donutCard = document.getElementById('donutCard');
+          if (tab === 'donut') {
+            benchCard?.classList.add('hidden', 'md:flex');
+            donutCard?.classList.remove('hidden', 'md:flex');
+            donutCard?.classList.add('flex');
+            renderDonutChart(calculateMetrics());
+          } else {
+            donutCard?.classList.add('hidden', 'md:flex');
+            donutCard?.classList.remove('flex');
+            benchCard?.classList.remove('hidden', 'md:flex');
+            benchCard?.classList.add('flex');
+          }
+        });
+
         document.getElementById('tableSortSelect')?.addEventListener('change', (e) => {
           state.sortBy = e.target.value;
           renderTable();
@@ -5385,7 +5498,7 @@
           const btn = e.target.closest('[data-legend-cat]');
           if (!btn) return;
           const catId = btn.dataset.legendCat;
-          if (!catId || catId === '__cashflow__') return;
+          if (!catId || ['__cashflow__', '__other__'].includes(catId)) return;
           state.filterCategoryId = state.filterCategoryId === catId ? null : catId;
           renderDashboard();
           renderTable();
@@ -5394,9 +5507,9 @@
         document.getElementById('scenarioSelect')?.addEventListener('change', (e) => {
           const val = e.target.value;
           if (val === 'custom') return;
+          closeHeaderMenu();
           const sideSel = document.getElementById('sideScenarioSelect');
           if (sideSel) sideSel.value = val;
-          closeHeaderMenu();
           if (val === 'empty') {
             state.entries = [];
           } else if (SCENARIOS[val]) {
@@ -5408,6 +5521,7 @@
           showToast('Vorlage geladen.');
         });
 
+        // Durchsuchbare Ziel-Krankenkassenliste in der Check-Tabelle
         function renderBaGkvDropdown(pickerEl, entry, queryText) {
           if (!pickerEl || !entry) return;
           const dropdown = pickerEl.querySelector('.ba-gkv-dropdown');
@@ -5431,8 +5545,8 @@
               const entry = state.entries.find((x) => x.id === id);
               const inp = picker.querySelector('.ba-gkv-search-input');
               if (entry && inp) {
-                const gkv = getGkvById(entry.targetGkvId || 'bkk_firmus');
-                inp.value = `${gkv.name} (${gkv.zusatz.toFixed(2).replace('.', ',')} %)`;
+                const targetGkv = getGkvById(entry.targetGkvId || 'bkk_firmus');
+                inp.value = `${targetGkv.name} (${targetGkv.zusatz.toFixed(2).replace('.', ',')} %)`;
               }
             }
           });
@@ -5458,10 +5572,10 @@
 
           const isYearly = state.checkPeriod === 'yearly';
           const mult = isYearly ? 12 : 1;
-          const unit = isYearly ? '/ Jahr' : '/ Mt.';
+          const unitShort = isYearly ? '/ Jahr' : '/ Mt.';
 
           const enteredVal = Math.max(0, parseFloat(input.value) || 0);
-          const monthlyVal = enteredVal / mult;
+          const monthlyVal = isYearly ? (enteredVal / 12) : enteredVal;
           entry.optimizedMonthly = monthlyVal;
 
           syncCheckSummaryDom(calculateMetrics());
@@ -5469,7 +5583,8 @@
           const diffPeriod = (getMonthlyAmount(entry) - monthlyVal) * mult;
           const rowBadge = document.querySelector(`[data-row-savings="${id}"]`);
           if (rowBadge) {
-            rowBadge.outerHTML = formatSavingsBadgeHtml(id, diffPeriod, unit);
+            rowBadge.textContent = diffPeriod > 0.005 ? `+${formatEuro(diffPeriod)} ${unitShort}` : diffPeriod < -0.005 ? `-${formatEuro(Math.abs(diffPeriod))} ${unitShort}` : '0,00 €';
+            rowBadge.className = `inline-flex items-center px-2.5 py-1 rounded-lg text-xs font-extrabold whitespace-nowrap ${diffPeriod > 0.005 ? 'bg-[#269b8d]/14 text-[#146c62] border border-[#269b8d]/35' : diffPeriod < -0.005 ? 'bg-red-50 text-red-600 border border-red-200' : 'bg-slate-100 text-slate-400'}`;
           }
 
           syncStateToUrlHash();
@@ -5626,11 +5741,7 @@
           }
         });
 
-        presetDropdown?.addEventListener('click', (e) => {
-          const btn = e.target.closest('[data-preset-idx]');
-          if (!btn) return;
-          const preset = PRESET_CATALOG[parseInt(btn.dataset.presetIdx, 10)];
-          if (!preset) return;
+        function applyPresetToPopover(preset) {
           setPopoverType(preset.type);
           populateCategorySelect(preset.type, preset.categoryId);
           popTitleInput.value = preset.title;
@@ -5646,8 +5757,24 @@
           toggleSalaryPanelVisibility();
           updatePopoverMonthlyPreview();
           closePresetDropdown();
+        }
+
+        presetDropdown?.addEventListener('click', (e) => {
+          const btn = e.target.closest('[data-preset-idx]');
+          if (!btn) return;
+          const preset = PRESET_CATALOG[parseInt(btn.dataset.presetIdx, 10)];
+          if (!preset) return;
+          applyPresetToPopover(preset);
         });
 
+        document.getElementById('quickPresetChipsWrap')?.addEventListener('click', (e) => {
+          const chip = e.target.closest('[data-quick-preset]');
+          if (!chip) return;
+          const preset = PRESET_CATALOG.find((p) => p.title === chip.dataset.quickPreset);
+          if (preset) applyPresetToPopover(preset);
+        });
+
+        // Berufsstatus & Einkommensrechner-Interaktionen im Popover
         document.querySelectorAll('.sal-status-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             state.salStatus = btn.dataset.salStatus;
@@ -5718,6 +5845,7 @@
           updateSalaryCalculatorUi();
         });
 
+        // bAV & PKV Rechner-Interaktionen im Popover
         document.querySelectorAll('.bav-mode-btn').forEach((btn) => {
           btn.addEventListener('click', () => {
             state.bavMode = btn.dataset.bavMode;
